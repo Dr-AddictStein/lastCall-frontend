@@ -11,7 +11,7 @@ function OurStory() {
           We want to share our love of dining out with you. It’s simple.
         </p>
       </div>
-      <div className="flex gap-5 flex-col lg:flex-row mt-6 justify-between">
+      <div className="flex gap-5 flex-col lg:flex-row mt-16 justify-between">
         <div className="lg:w-1/2">
           <h2 className="text-5xl font-bold mb-8 text-blue-900">
             Why we started
@@ -39,7 +39,7 @@ function OurStory() {
           <img src={Img1} alt="" srcset="" />
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row-reverse gap-5 mt-10 justify-between">
+      <div className="flex flex-col lg:flex-row-reverse gap-5 mt-16 justify-between">
         <div className="lg:w-1/2">
           <h2 className="text-5xl font-bold mb-8 text-blue-900">
             Our startup story
@@ -69,7 +69,7 @@ function OurStory() {
           <img src={Img1} alt="" srcset="" />
         </div>
       </div>
-      <div className="flex gap-5 flex-col lg:flex-row mt-6 justify-between">
+      <div className="flex gap-5 flex-col lg:flex-row mt-16 justify-between">
         <div className="lg:w-1/2">
           <h2 className="text-5xl font-bold mb-8 text-blue-900">
             What we stand for
@@ -96,6 +96,32 @@ function OurStory() {
           <img src={Img1} alt="" srcset="" />
         </div>
       </div>
+      <div className="flex gap-5 flex-col lg:flex-row-reverse mt-16 justify-between">
+        <div className="lg:w-1/2">
+          <h2 className="text-5xl font-bold mb-8 text-blue-900">Our vision</h2>
+          <p className="text-xl">
+            Our business model is unique in that it’s a win-win solution that
+            benefits both the restaurateur and customer (very rare, so we
+            hear!). With a compelling offer on the first table of the night,
+            we’re inspiring hundreds of thousands of people to broaden their
+            culinary landscapes by dining out more often. As a result, we’re
+            cultivating an open and collaborative platform that helps
+            restaurants leverage otherwise empty tables.
+            <br /> <br /> <br /> As our business has grown, we’ve harnessed the
+            energy of startup culture at its best. We’ve built a team of smart,
+            passionate foodies who thrive on making a difference for customers
+            and love what they do.
+            <br /> <br /> <br /> In our world, we practice integrity and empathy
+            to build partnerships that last a lifetime. While our Kiwi ingenuity
+            gives us the drive and desire to constantly improve and reimagine
+            the global dining experience.
+          </p>
+        </div>
+        <div>
+          <img src={Img1} alt="" srcset="" />
+        </div>
+      </div>
+    
     </div>
   );
 }
