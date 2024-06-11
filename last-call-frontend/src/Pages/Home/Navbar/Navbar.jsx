@@ -8,7 +8,7 @@ function Navbar() {
       <>
        
         <li>
-          <Link>FAQs</Link>
+          <Link to={'/faq'}>FAQs</Link>
         </li>
         <li>
           <Link>Our Story</Link>
