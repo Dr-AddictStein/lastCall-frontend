@@ -11,7 +11,7 @@ function Navbar() {
           <Link to={'/faq'}>FAQs</Link>
         </li>
         <li>
-          <Link>Our Story</Link>
+          <Link to={'/ourStory'}>Our Story</Link>
         </li>
         <li>
           <Link>Sign Up</Link>
