@@ -8,7 +8,7 @@ import { router } from './Routes/Routes.jsx';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <div className='mx-20 rounded-lg'>
+    <div className='mx-4 lg:mx-20 rounded-lg'>
       <RouterProvider router={router} />
     </div>
   </React.StrictMode>
