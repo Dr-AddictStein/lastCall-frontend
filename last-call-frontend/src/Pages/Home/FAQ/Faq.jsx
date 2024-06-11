@@ -40,7 +40,7 @@ function Faq() {
   };
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 mx-4">
       <h1 className="text-blue-900 font-semibold text-7xl text-center my-10">
         Frequently asked questions
       </h1>

@@ -4,7 +4,7 @@ import Img2 from "../../../assets/images/Our Story/group1.svg";
 // import Img3 from "../../../assets/images/Our Story/our-vision.svg";
 function OurStory() {
   return (
-    <div className="mb-10">
+    <div className="mb-10 mx-6">
       <div className="text-center my-8">
         <h3 className="text-5xl font-bold mb-4 text-blue-900">Our Story </h3>
         <p className="text-2xl">
