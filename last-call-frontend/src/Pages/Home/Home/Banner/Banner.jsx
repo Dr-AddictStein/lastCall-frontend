@@ -5,7 +5,7 @@ function Banner() {
   const today = new Date();
   console.log(today)
   return (
-    <div className='rounded'>
+    <div className="rounded">
       <div
         className="hero min-h-screen rounded-lg"
         style={{
@@ -22,13 +22,10 @@ function Banner() {
             <div className="grid grid-flow-cols-1 gap-2  lg:grid-cols-4 text-black mt-12">
               <div className="bg-white border-r  px-6 flex justify-center items-center">
                 <SlCalender />
-                <select
-                  name=""
-                  id=""
-                  className="py-6 px-4 lg:p-10 pl-0    text-black"
-                >
+                <select name="" id="" className=" px-4     text-black">
                   <option
                     className=""
+                    disabled
                     selected
                     value="
                   All dates"
@@ -39,24 +36,24 @@ function Banner() {
                     value="
                   All dates"
                   >
-                    All dates
+                    11th june ,2024
                   </option>
                   <option
                     value="
                   All dates"
                   >
-                    All dates
+                    11th june ,2024
                   </option>
                   <option
                     value="
                   All dates"
                   >
-                    All dates
+                    11th june ,2024
                   </option>
                 </select>
               </div>
               <div className="bg-white border-r pr-6 flex justify-center items-center">
-                <select name="" id="" className=" py-6 px-4 lg:p-10 ">
+                <select name="" id="" className="  px-4 lg:px-10 ">
                   <option
                     selected
                     value="
@@ -85,7 +82,7 @@ function Banner() {
                 </select>
               </div>
               <div className="bg-white border-r pr-6 flex justify-center items-center">
-                <select name="" id="" className="p-6 lg:p-10  text-black">
+                <select name="" id="" className="px-4 lg:px-10  text-black">
                   <option
                     selected
                     value="
@@ -108,7 +105,7 @@ function Banner() {
                 </select>
               </div>
               <div className="bg-white border-r pr-6 flex justify-center items-center">
-                <div className="py-10 flex justify-center mx-4">
+                <div className="py-4 flex justify-center mx-4">
                   <span className="bg-red-400 hover:bg-red-500 px-10 py-4 text-white font-bold ">
                     <Link>Find a table</Link>
                   </span>
