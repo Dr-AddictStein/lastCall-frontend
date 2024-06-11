@@ -1,6 +1,6 @@
 import Img1 from '../../../assets/images/Our Story/what-we-stand-for.svg';
-import Img2 from "../../../assets/images/Our Story/group1.svg";
-// import Img3 from "../../../assets/images/Our Story/our-vision.svg";
+import Img2 from "../../../assets/images/Our Story/blair.jpg";
+ import Img3 from "../../../assets/images/Our Story/ben.jpg";
 // import Img3 from "../../../assets/images/Our Story/our-vision.svg";
 function OurStory() {
   return (
@@ -121,7 +121,78 @@ function OurStory() {
           <img src={Img1} alt="" srcset="" />
         </div>
       </div>
-    
+      <div className="mt-10">
+        <h2 className="text-5xl font-bold mb-8 text-blue-900">
+          What people are saying
+        </h2>
+      </div>
+
+      {/* Our team */}
+      <div className="text-center mt-20">
+        <h2 className="text-5xl font-bold mb-8 text-blue-900">Our Team</h2>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 mx-24">
+        <div>
+          <img src={Img3} className="rounded" alt="" />
+          <h2 className="text-5xl font-bold mb-4 text-blue-900">Mat</h2>
+          <p>CEO and Founder</p>
+        </div>
+        <div>
+          <img src={Img2} className="rounded" alt="" />
+          <h2 className="text-5xl font-bold mb-4 text-blue-900">Jess</h2>
+          <p>Director</p>
+        </div>
+        <div>
+          <img src={Img3} className="rounded" alt="" />
+          <h2 className="text-5xl font-bold mb-4 text-blue-900">Blair</h2>
+          <p>Operations Manager</p>
+        </div>
+        <div>
+          <img src={Img3} className="rounded" alt="" />
+          <h2 className="text-5xl font-bold mb-4 text-blue-900">Mat</h2>
+          <p>CEO and Founder</p>
+        </div>
+        <div>
+          <img src={Img2} className="rounded" alt="" />
+          <h2 className="text-5xl font-bold mb-4 text-blue-900">Jess</h2>
+          <p>Director</p>
+        </div>
+        <div>
+          <img src={Img3} className="rounded" alt="" />
+          <h2 className="text-5xl font-bold mb-4 text-blue-900">Blair</h2>
+          <p>Operations Manager</p>
+        </div>
+        <div>
+          <img src={Img3} className="rounded" alt="" />
+          <h2 className="text-5xl font-bold mb-4 text-blue-900">Mat</h2>
+          <p>CEO and Founder</p>
+        </div>
+        <div>
+          <img src={Img2} className="rounded" alt="" />
+          <h2 className="text-5xl font-bold mb-4 text-blue-900">Jess</h2>
+          <p>Director</p>
+        </div>
+        <div>
+          <img src={Img3} className="rounded" alt="" />
+          <h2 className="text-5xl font-bold mb-4 text-blue-900">Blair</h2>
+          <p>Operations Manager</p>
+        </div>
+        <div>
+          <img src={Img3} className="rounded" alt="" />
+          <h2 className="text-5xl font-bold mb-4 text-blue-900">Mat</h2>
+          <p>CEO and Founder</p>
+        </div>
+        <div>
+          <img src={Img2} className="rounded" alt="" />
+          <h2 className="text-5xl font-bold mb-4 text-blue-900">Jess</h2>
+          <p>Director</p>
+        </div>
+        <div>
+          <img src={Img3} className="rounded" alt="" />
+          <h2 className="text-5xl font-bold mb-4 text-blue-900">Blair</h2>
+          <p>Operations Manager</p>
+        </div>
+      </div>
     </div>
   );
 }
