@@ -1,10 +1,12 @@
+import { CiSearch } from "react-icons/ci";
 import { Link, NavLink } from "react-router-dom";
+import lastCallImg from '../../../assets/images/Navbar/lastcall.png'
 
 function Navbar() {
   const Navlinks = (
     <>
       <>
-        
+       
         <li>
           <Link>FAQs</Link>
         </li>
@@ -52,11 +54,23 @@ function Navbar() {
           <a className="btn btn-ghost text-xl">Last Call</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 space-x-3">{Navlinks}</ul>
+          <ul className="menu menu-horizontal px-1 space-x-3">
+            <li className="mr-6">
+              <label className="input input-bordered flex items-center gap-2">
+                <input type="text" className="grow" placeholder="Search" />
+                <CiSearch />
+              </label>
+            </li>
+            
+            {Navlinks}
+          </ul>
         </div>
         <div className="navbar-end">
           <Link>
-            <button className="btn btn-outline bg-white text-black"> For Restaurent</button>
+            <button className="btn btn-outline bg-white text-black">
+              {" "}
+              For Restaurent
+            </button>
           </Link>
         </div>
       </div>
