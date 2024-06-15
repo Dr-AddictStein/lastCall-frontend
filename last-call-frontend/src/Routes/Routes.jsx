@@ -10,6 +10,7 @@ import Cities from "../Pages/Dashboard/Cities/Cities";
 import Users from "../Pages/Dashboard/Users/Users";
 import SignUp from "../Pages/Home/SignUp/SignUp";
 import ForRestaurants from "../Pages/Home/ForRestaurants/ForRestaurants";
+import FreeSignUp from "../Pages/Home/FreeSignUp/FreeSignUp";
 
 export const router = createBrowserRouter([
   {
@@ -29,13 +30,17 @@ export const router = createBrowserRouter([
         element: <OurStory></OurStory>,
       },
       {
-        path: '/signup',
-        element: <SignUp></SignUp>
+        path: "/signup",
+        element: <SignUp></SignUp>,
       },
       {
-        path: '/forrestaurants',
-        element: <ForRestaurants></ForRestaurants>
-      }
+        path: "/forrestaurants",
+        element: <ForRestaurants></ForRestaurants>,
+      },
+      {
+        path: "/freesignup",
+        element: <FreeSignUp></FreeSignUp>
+      },
     ],
   },
   // Dashboard pages routes
@@ -45,20 +50,20 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "restaurants",
-        element: <Restaurants></Restaurants>
+        element: <Restaurants></Restaurants>,
       },
       {
-        path: 'regions',
-        element: <Regions></Regions>
+        path: "regions",
+        element: <Regions></Regions>,
       },
       {
-        path: 'cities',
-        element: <Cities></Cities>
+        path: "cities",
+        element: <Cities></Cities>,
       },
       {
-        path: 'users',
-        element: <Users></Users>
-      }
+        path: "users",
+        element: <Users></Users>,
+      },
     ],
   },
 ]);
