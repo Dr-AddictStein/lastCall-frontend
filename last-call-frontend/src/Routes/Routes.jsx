@@ -8,6 +8,7 @@ import Restaurants from "../Pages/Dashboard/Restaurants/Restaurants";
 import Regions from "../Pages/Dashboard/Regions/Regions";
 import Cities from "../Pages/Dashboard/Cities/Cities";
 import Users from "../Pages/Dashboard/Users/Users";
+import SignUp from "../Pages/Home/SignUp/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,10 @@ export const router = createBrowserRouter([
       {
         path: "/ourStory",
         element: <OurStory></OurStory>,
-      },
+      }, {
+        path: '/signup',
+        element: <SignUp></SignUp>
+      }
     ],
   },
   // Dashboard pages routes
