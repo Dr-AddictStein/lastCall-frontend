@@ -9,8 +9,8 @@ function Footer() {
         {/* Services */}
         <nav>
           <div>
-            <h3 className="text-white text-3xl">Dinners</h3>
-            <p className="text-xl text-slate-300 my-4">
+            <h3 className="text-white text-xl">Dinners</h3>
+            <p className="text-lg text-slate-300 my-4">
               Join more than 1,400,000 diners who already &#x2764; First Table.
             </p>
             <button className=" bg-slate-600 p-4 text-white">Learn More</button>
@@ -20,8 +20,8 @@ function Footer() {
         {/* Company */}
         <nav>
           <div>
-            <h3 className="text-white text-3xl">Restaurateurs</h3>
-            <p className="text-xl text-slate-300 my-4">
+            <h3 className="text-white text-xl">Restaurateurs</h3>
+            <p className="text-lg text-slate-300 my-4">
               Join more than 1,400,000 diners who already &#x2764; First Table.
             </p>
             <button className=" bg-slate-600 p-4 text-white">Learn More</button>
@@ -31,8 +31,8 @@ function Footer() {
         {/* Legal */}
         <nav>
           <div>
-            <h3 className="text-white text-3xl">Follow us</h3>
-            <p className="text-xl text-slate-300 my-4">
+            <h3 className="text-white text-xl">Follow us</h3>
+            <p className="text-lg text-slate-300 my-4">
               Join more than 1,400,000 diners who already &#x2764; First Table.
             </p>
             <div className="flex justify-center  items-center gap-3">

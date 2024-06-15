@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet-async";
 
 
 function Dashboard() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(true);
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -42,7 +42,7 @@ function Dashboard() {
           </label>
           {/* Main content area */}
           <div
-            className={`content-area px-4 text-white bg-black min-h-screen w-full ${
+            className={`content-area px-4 text-white bg-[#1B2431] min-h-screen w-full ${
               drawerOpen ? "ml-80" : ""
             }`}
           >
@@ -62,7 +62,7 @@ function Dashboard() {
             {/* Close button */}
             <label className="flex justify-end">
               <ImCross
-                className="mb-4 text-red-600 cursor-pointer"
+                className="mb-4 text-white cursor-pointer"
                 onClick={toggleDrawer}
               />
             </label>

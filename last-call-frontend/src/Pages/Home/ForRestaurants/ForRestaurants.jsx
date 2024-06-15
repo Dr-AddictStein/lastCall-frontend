@@ -47,9 +47,11 @@ function ForRestaurants() {
               business.
             </p>
             <div className="mt-6">
-              <button className="bg-[#FF756B] p-4 text-white font-bold">
-                Sign Up for free
-              </button>
+            <Link to={'/freesignup'}>
+            <button className="bg-[#FF756B] p-4 text-white font-bold">
+              Sign up for free
+            </button>
+          </Link>
             </div>
           </div>
         </div>
