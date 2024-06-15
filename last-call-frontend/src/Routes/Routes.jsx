@@ -3,7 +3,7 @@ import Main from './../Layout/Main';
 import Home from "../Pages/Home/Home/Home";
 import Faq from "../Pages/Home/FAQ/Faq";
 import OurStory from "../Pages/Home/OurStory/OurStory";
-import Dashboard from "../Pages/Dashboard/Dashboard";
+import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
 import Restaurants from "../Pages/Dashboard/Restaurants/Restaurants";
 import Regions from "../Pages/Dashboard/Regions/Regions";
 import Cities from "../Pages/Dashboard/Cities/Cities";

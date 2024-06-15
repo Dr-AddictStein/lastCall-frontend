@@ -1,0 +1,31 @@
+.drawer-open .content-area {
+  margin-left: 17rem; /* Adjust this value to match the width of the drawer */
+  transition: margin-left 0.3s;
+}
+
+.drawer-closed .content-area {
+  margin-left: 0;
+  transition: margin-left 0.3s;
+}
+
+.drawer-side {
+  width: 20rem; /* Adjust this value to match the desired width of the drawer */
+}
+.active-link, .menu a:hover {
+  background-color: #ff6347; /* Tomato color for active link and hover */
+  color: white;
+  border-radius: 4px;
+  padding: 8px;
+  text-decoration: none;
+}
+
+.menu a {
+  padding: 8px;
+  border-radius: 4px;
+  color: white;
+  text-decoration: none;
+}
+
+.menu a:hover {
+  background-color: #ff6347; /* Same tomato color for hover */
+}
