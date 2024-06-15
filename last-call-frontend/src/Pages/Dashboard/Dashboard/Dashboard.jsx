@@ -6,6 +6,8 @@ import { IoIosRestaurant } from "react-icons/io";
 import { LuUsers } from "react-icons/lu";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Drawer from "react-modern-drawer";
+import { Helmet } from "react-helmet-async";
+
 
 function Dashboard() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -16,6 +18,9 @@ function Dashboard() {
 
   return (
     <div className="">
+      <Helmet>
+        <title>Dashboard</title>
+      </Helmet>
       <div className="drawer">
         {/* Drawer toggle input */}
         <input
@@ -41,7 +46,7 @@ function Dashboard() {
               drawerOpen ? "ml-80" : ""
             }`}
           >
-            <Outlet  />
+            <Outlet />
           </div>
         </div>
 

@@ -61,14 +61,16 @@ function Navbar() {
                 <CiSearch />
               </label>
             </li>
-            
+
             {Navlinks}
           </ul>
         </div>
         <div className="navbar-end">
-          <Link>
-            <button className="btn btn-outline bg-white text-black">
-              {" "}
+          <Link to={"/forrestaurants"}>
+            <button
+              
+              className="btn btn-outline bg-white text-black"
+            >
               For Restaurent
             </button>
           </Link>
