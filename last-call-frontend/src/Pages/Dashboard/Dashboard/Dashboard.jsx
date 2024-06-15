@@ -1,12 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
-import { FaCity, FaSubway } from "react-icons/fa";
+import { FaCity, FaSubway, FaArrowLeft } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import { IoIosRestaurant } from "react-icons/io";
 import { LuUsers } from "react-icons/lu";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import "./Dashboard.css";
-import { FaArrowLeftLong } from "react-icons/fa6";
+import Drawer from "react-modern-drawer";
 
 function Dashboard() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -16,8 +15,9 @@ function Dashboard() {
   };
 
   return (
-    <div className={`flex ${drawerOpen ? "drawer-open" : "drawer-closed"}`}>
+    <div className="">
       <div className="drawer">
+        {/* Drawer toggle input */}
         <input
           id="my-drawer"
           type="checkbox"
@@ -25,17 +25,28 @@ function Dashboard() {
           checked={drawerOpen}
           onChange={toggleDrawer}
         />
-        <div className="drawer-content flex gap-1 bg-[#3749a6]">
-          {/* Page content here */}
-          <label htmlFor="my-drawer" className="btn btn-ghost text-2xl text-black  drawer-button">
+        <div className="drawer-content flex gap-1 ">
+          {/* Hamburger menu icon */}
+          <label
+            htmlFor="my-drawer"
+            className={`ml-8 mt-4 text-4xl fixed text-white w-10 flex justify-start z-10 ${
+              drawerOpen ? "hidden" : ""
+            }`}
+          >
             <CiMenuBurger />
           </label>
-          <div className="content-area px-4 ml-3 text-white bg-black min-h-screen w-full">
-            <Outlet />
+          {/* Main content area */}
+          <div
+            className={`content-area px-4 text-white bg-black min-h-screen w-full ${
+              drawerOpen ? "ml-80" : ""
+            }`}
+          >
+            <Outlet  />
           </div>
         </div>
 
-        <div className="drawer-side ">
+        {/* Side drawer */}
+        <div className="drawer-side">
           <label
             htmlFor="my-drawer"
             aria-label="close sidebar"
@@ -43,50 +54,39 @@ function Dashboard() {
           ></label>
 
           <ul className="menu p-4 w-80 min-h-full bg-[#3749a6] text-white text-xl">
+            {/* Close button */}
             <label className="flex justify-end">
               <ImCross
                 className="mb-4 text-red-600 cursor-pointer"
                 onClick={toggleDrawer}
               />
             </label>
-            {/* Sidebar content here */}
+            {/* Sidebar navigation items */}
             <li>
-              <NavLink
-                to="/dashboard/regions"
-                className={({ isActive }) => (isActive ? "active-link" : "")}
-              >
+              <NavLink to="/dashboard/regions" className="">
                 <FaSubway className="text-xl" /> Regions
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/dashboard/cities"
-                className={({ isActive }) => (isActive ? "active-link" : "")}
-              >
+              <NavLink to="/dashboard/cities" className="">
                 <FaCity className="text-xl" /> Cities
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/dashboard/restaurants"
-                className={({ isActive }) => (isActive ? "active-link" : "")}
-              >
+              <NavLink to="/dashboard/restaurants" className="">
                 <IoIosRestaurant className="text-xl" /> Restaurants
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/dashboard/users"
-                className={({ isActive }) => (isActive ? "active-link" : "")}
-              >
+              <NavLink to="/dashboard/users" className="">
                 <LuUsers className="text-xl" /> Users
               </NavLink>
             </li>
+            {/* Divider and back to home link */}
             <div className="divider"></div>
             <li>
               <Link to={"/"}>
-                {" "}
-                <FaArrowLeftLong />
+                <FaArrowLeft className="text-xl" />
                 Back to home
               </Link>
             </li>

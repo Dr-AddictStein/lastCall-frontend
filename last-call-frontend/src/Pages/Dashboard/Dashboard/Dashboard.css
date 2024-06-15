@@ -1,5 +1,5 @@
 .drawer-open .content-area {
-  margin-left: 17rem; /* Adjust this value to match the width of the drawer */
+   /* Adjust this value to match the width of the drawer */
   transition: margin-left 0.3s;
 }
 
@@ -9,7 +9,7 @@
 }
 
 .drawer-side {
-  width: 20rem; /* Adjust this value to match the desired width of the drawer */
+  /* width: 20rem;  */
 }
 .active-link, .menu a:hover {
   background-color: #ff6347; /* Tomato color for active link and hover */
@@ -20,10 +20,11 @@
 }
 
 .menu a {
-  padding: 8px;
-  border-radius: 4px;
+  /* padding: 8px; */
+  /* border-radius: 4px;
   /* color: white; */
-  text-decoration: none;
+  /* text-decoration: none; */ */
+
 }
 
 .menu a:hover {
