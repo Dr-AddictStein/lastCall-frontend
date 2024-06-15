@@ -10,7 +10,7 @@ function SignUp() {
     <div className="flex flex-col lg:flex-row ml-4">
       <div className="lg:w-1/2 my-6">
         <p className="text-blue-900 mb-4 font-bold mt-8">
-          <Link className="flex gap-3 items-center">
+          <Link to={'/'} className="flex gap-3 items-center">
             <FaArrowLeft /> Back to home
           </Link>
         </p>

@@ -1,21 +1,25 @@
-import { Outlet } from "react-router-dom"
-import Navbar from "../Pages/Home/Navbar/Navbar"
-import Footer from "../Pages/Home/Footer/Footer"
-import SignUp from "../Pages/Home/SignUp/SignUp"
+
+import { Outlet, useLocation } from "react-router-dom";
+import Navbar from "../Pages/Home/Navbar/Navbar";
+import Footer from "../Pages/Home/Footer/Footer";
 
 
 function Main() {
-  if (SignUp) {
-    return <SignUp></SignUp>;
-  }
-  else 
-  return (
-    <>
-     
-          <Navbar></Navbar>
-      <Outlet></Outlet>
-      <Footer></Footer>
-    </>
-  )
+  const location = useLocation();
+
+  const noHeaderFooter =
+    location.pathname.includes("login") || location.pathname.includes("signup");
+  
+    return (
+      <>
+        {noHeaderFooter || <Navbar />}
+
+        <Outlet />
+
+        {noHeaderFooter || <Footer />}
+      </>
+    );
+  
 }
-export default Main
+
+export default Main;
