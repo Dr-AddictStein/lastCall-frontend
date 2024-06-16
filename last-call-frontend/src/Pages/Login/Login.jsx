@@ -35,7 +35,7 @@ function Login() {
                    <input
                      type="text"
                      className="input input-bordered  w-full  "
-                     placeholder="Enter email to sign up"
+                     placeholder="Enter email to Login"
                    />
                    <button className="btn   ml-2" type="submit">
                      Next

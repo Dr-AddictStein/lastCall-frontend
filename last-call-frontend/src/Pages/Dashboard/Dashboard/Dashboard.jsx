@@ -8,7 +8,6 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import Drawer from "react-modern-drawer";
 import { Helmet } from "react-helmet-async";
 
-
 function Dashboard() {
   const [drawerOpen, setDrawerOpen] = useState(true);
 
@@ -32,19 +31,17 @@ function Dashboard() {
         />
         <div className="drawer-content flex gap-1 ">
           {/* Hamburger menu icon */}
-          <label
+          {/* <label
             htmlFor="my-drawer"
             className={`ml-8 mt-4 text-4xl fixed text-white w-10 flex justify-start z-10 ${
               drawerOpen ? "hidden" : ""
             }`}
           >
             <CiMenuBurger />
-          </label>
+          </label> */}
           {/* Main content area */}
           <div
-            className={`content-area px-4 text-white bg-[#1B2431] min-h-screen w-full ${
-              drawerOpen ? "ml-80" : ""
-            }`}
+            className={`content-area px-4 text-white bg-[#1B2431] min-h-screen w-full `}
           >
             <Outlet />
           </div>
@@ -58,7 +55,7 @@ function Dashboard() {
             className="drawer-overlay"
           ></label>
 
-          <ul className="menu p-4 w-80 min-h-full bg-[#3749a6] text-white text-xl">
+          <ul className="menu p-4 w-80 min-h-full bg-[#3749a6] text-white text-xl ">
             {/* Close button */}
             <label className="flex justify-end">
               <ImCross
@@ -68,35 +65,92 @@ function Dashboard() {
             </label>
             {/* Sidebar navigation items */}
             <li>
-              <NavLink to="/dashboard/regions" className="">
-                <FaSubway className="text-xl" /> Regions
+              <NavLink
+                to="/dashboard/regions"
+                className=" w-full"
+              >
+                <FaSubway className="text-xl mr-2" /> Regions
               </NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard/cities" className="">
-                <FaCity className="text-xl" /> Cities
+              <NavLink
+                to="/dashboard/cities"
+                className=" w-full"
+              >
+                <FaCity className="text-xl mr-2" /> Cities
               </NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard/restaurants" className="">
-                <IoIosRestaurant className="text-xl" /> Restaurants
+              <NavLink
+                to="/dashboard/restaurants"
+                className=" w-full"
+              >
+                <IoIosRestaurant className="text-xl mr-2" /> Restaurants
               </NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard/users" className="">
-                <LuUsers className="text-xl" /> Users
+              <NavLink
+                to="/dashboard/users"
+                className=" w-full"
+              >
+                <LuUsers className="text-xl mr-2" /> Users
               </NavLink>
             </li>
             {/* Divider and back to home link */}
             <div className="divider"></div>
             <li>
-              <Link to={"/"}>
-                <FaArrowLeft className="text-xl" />
+              <Link to={"/"} className=" w-full">
+                <FaArrowLeft className="text-xl mr-2" />
                 Back to home
               </Link>
             </li>
           </ul>
         </div>
+        {!drawerOpen && (
+          <div>
+            <ul className="menu p-2 text-center space-y-3  min-h-full bg-[#3749a6] text-white text-xl ">
+              <label
+                htmlFor="my-drawer"
+                className={` text-4xl  text-white  text-center pl-2 mb-3 `}
+              >
+                <CiMenuBurger />
+              </label>
+
+              <li>
+                <NavLink
+                  to="/dashboard/regions"
+                  className="flex justify-center text-center w-full"
+                >
+                  <FaSubway className="text-xl mr-2" />
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/cities"
+                  className="flex justify-center text-center w-full"
+                >
+                  <FaCity className="text-xl mr-2" />
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/restaurants"
+                  className="flex justify-center text-center w-full"
+                >
+                  <IoIosRestaurant className="text-xl mr-2" />
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/users"
+                  className="flex justify-center text-center w-full"
+                >
+                  <LuUsers className="text-xl mr-2" />
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
