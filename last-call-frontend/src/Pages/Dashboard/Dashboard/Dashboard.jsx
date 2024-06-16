@@ -55,7 +55,7 @@ function Dashboard() {
             className="drawer-overlay"
           ></label>
 
-          <ul className="menu p-4 w-80 min-h-full bg-[#3749a6] text-white text-xl ">
+          <ul className="menu p-4 w-80 min-h-full bg-[#3749a6] text-white text-xl px-16 space-y-3 ">
             {/* Close button */}
             <label className="flex justify-end">
               <ImCross
