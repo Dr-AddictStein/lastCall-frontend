@@ -1,6 +1,6 @@
 import { CiSearch } from "react-icons/ci";
 import { Link, NavLink } from "react-router-dom";
-import lastCallImg from '../../../assets/images/Navbar/lastcall.png'
+import lastCallImg from '../../assets/images/Navbar/lastcall.png'
 
 function Navbar() {
   const Navlinks = (
@@ -24,7 +24,7 @@ function Navbar() {
   );
 
   return (
-    <div>
+    <div className="lg:px-20 px-4">
       <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">

@@ -8,9 +8,11 @@ import Restaurants from "../Pages/Dashboard/Restaurants/Restaurants";
 import Regions from "../Pages/Dashboard/Regions/Regions";
 import Cities from "../Pages/Dashboard/Cities/Cities";
 import Users from "../Pages/Dashboard/Users/Users";
-import SignUp from "../Pages/Home/SignUp/SignUp";
+
 import ForRestaurants from "../Pages/Home/ForRestaurants/ForRestaurants";
 import FreeSignUp from "../Pages/Home/FreeSignUp/FreeSignUp";
+import SignUp from "../Pages/SignUp/SignUp";
+import Login from "../Pages/Login/Login";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp></SignUp>,
+      },
+      {
+        path: '/login',
+        element: <Login></Login>
       },
       {
         path: "/forrestaurants",

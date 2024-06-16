@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
-import bannerImg from '../../../../assets/images/Banner/banner.jpg'
+import bannerImg from '../../../assets/images/Banner/banner.jpg'
 import { SlCalender } from 'react-icons/sl';
 function Banner() {
   const today = new Date();
   console.log(today)
   return (
-    <div className="rounded">
+    <div className="">
       <div
-        className="hero min-h-screen rounded-lg"
+        className="hero min-h-screen"
         style={{
           backgroundImage: ` url(${bannerImg})`,
         }}
