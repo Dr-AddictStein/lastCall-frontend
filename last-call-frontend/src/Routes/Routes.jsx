@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
         element: <Login></Login>
       },
       {
-        path: "/forrestaurants",
+        path: "/restaurants",
         element: <ForRestaurants></ForRestaurants>,
       },
       {
