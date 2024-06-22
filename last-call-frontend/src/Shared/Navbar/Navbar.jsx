@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router-dom";
-import lastCallImg from '../../assets/images/Navbar/logo.png'
+import lastCallImg from "../../assets/images/Navbar/logo.png";
 
 function Navbar() {
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [suggestions, setSuggestions] = useState([
+    "Apple",
+    "Banana",
+    "Cherry",
+    "Date",
+    "Elderberry",
+  ]);
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleScroll = () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
     if (scrollTop > lastScrollTop) {
-      // Scrolling down
       setIsScrollingUp(false);
     } else {
-      // Scrolling up
       setIsScrollingUp(true);
     }
 
@@ -28,6 +36,17 @@ function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [lastScrollTop]);
+
+  const handleInputChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    setDropdownVisible(value.length > 0);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchTerm(suggestion);
+    setDropdownVisible(false);
+  };
 
   const Navlinks = (
     <>
@@ -50,7 +69,7 @@ function Navbar() {
           isScrollingUp ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="navbar text-white w-full ">
+        <div className="navbar text-white w-full">
           <div className="navbar-start">
             <div className="dropdown">
               <div
@@ -80,12 +99,58 @@ function Navbar() {
                 {Navlinks}
               </ul>
             </div>
-            {/* <a className="btn btn-ghost text-xl">Last Call</a> */}
-           <a href="" className="btn"> Lastcall</a>
-            <label className="input input-bordered flex items-center gap-2 ml-3">
-              <input type="text" className="" placeholder="Search" />
-              <CiSearch />
-            </label>
+            <a href="" className="btn">
+              Lastcall
+            </a>
+            <div className="relative">
+              <label
+                className={`flex items-center gap-2 ml-3 text-white rounded-full p-3 ${
+                  isFocused ? "bg-white text-black" : "bg-transparent"
+                }`}
+              >
+                <CiSearch
+                  className={`${isFocused ? "text-black" : "text-white"}`}
+                />
+                <input
+                  type="text"
+                  className={`border-none outline-none bg-transparent rounded-full ${
+                    isFocused
+                      ? "placeholder-black text-black"
+                      : "placeholder-white text-white"
+                  }`}
+                  placeholder="Search"
+                  value={searchTerm}
+                  onChange={handleInputChange}
+                  onFocus={() => {
+                    setIsFocused(true);
+                    setDropdownVisible(searchTerm.length > 0);
+                  }}
+                  onBlur={() => {
+                    setIsFocused(false);
+                    setTimeout(() => setDropdownVisible(false), 100);
+                  }}
+                />
+              </label>
+              {dropdownVisible && (
+                <ul className="absolute top-full left-0 w-full bg-white text-black border border-gray-200 mt-1 z-10 rounded-md">
+                  {suggestions
+                    .filter((suggestion) =>
+                      suggestion
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase())
+                    )
+                    .map((suggestion) => (
+                      <li
+                        key={suggestion}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                        onMouseDown={() => handleSuggestionClick(suggestion)}
+                      >
+                        {suggestion}
+                      </li>
+                    ))}
+                </ul>
+              )}
+            </div>
           </div>
           <div className="navbar-center">
             <div className="dropdown">
@@ -122,7 +187,7 @@ function Navbar() {
               </li>
             </ul>
             <Link to={"/restaurants"}>
-              <button className="btn btn-outline bg-white text-black">
+              <button className="btn btn-outline rounded-full bg-white text-black">
                 For Restaurent
               </button>
             </Link>
