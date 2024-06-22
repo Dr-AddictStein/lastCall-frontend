@@ -3,6 +3,7 @@ import OfferSection from "../OfferSection/OfferSection"
 import PopularDestination from "../PopularDestination/PopularDestination"
 import PopularHotels from "../PopularHotels/PopularHotels"
 import Banner from "../Banner/Banner"
+import Community from "../Community/Community"
 
 function Home() {
   return (
@@ -13,6 +14,7 @@ function Home() {
       <Banner></Banner>
       <PopularDestination></PopularDestination>
       <PopularHotels></PopularHotels>
+      <Community></Community>
       <OfferSection></OfferSection>
     </div>
   )

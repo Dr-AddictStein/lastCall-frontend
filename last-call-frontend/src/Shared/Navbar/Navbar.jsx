@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import lastCallImg from '../../assets/images/Navbar/logo.png'
 
 function Navbar() {
   const [isScrollingUp, setIsScrollingUp] = useState(true);
@@ -79,7 +80,8 @@ function Navbar() {
                 {Navlinks}
               </ul>
             </div>
-            <a className="btn btn-ghost text-xl">Last Call</a>
+            {/* <a className="btn btn-ghost text-xl">Last Call</a> */}
+           <a href="" className="btn"> Lastcall</a>
             <label className="input input-bordered flex items-center gap-2 ml-3">
               <input type="text" className="" placeholder="Search" />
               <CiSearch />

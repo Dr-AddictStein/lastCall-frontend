@@ -59,12 +59,12 @@ function Footer() {
               </Link>
             </li>
             <li>
-              <Link to="/our-story" className="link link-hover">
+              <Link to="/ourstory" className="link link-hover">
                 Our story
               </Link>
             </li>
             <li>
-              <Link to="/faqs" className="link link-hover">
+              <Link to="/faq" className="link link-hover">
                 FAQs
               </Link>
             </li>

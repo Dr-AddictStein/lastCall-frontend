@@ -40,15 +40,15 @@ function Faq() {
   };
 
   return (
-    <div className="mb-8 mx-4">
-      <h1 className="text-blue-900 font-semibold text-7xl text-center my-10">
+    <div className="mb-8 mx-4 px-16">
+      <h1 className="text-blue-900 font-semibold text-7xl text-center my-12 mt-20">
         Frequently asked questions
       </h1>
       <div className="join join-vertical w-full">
         {questions.map((question, index) => (
           <div
             key={index}
-            className={`collapse collapse-arrow join-item border-b border-base-300 py-6 ${
+            className={`collapse collapse-arrow join-item text-center border-base-300 py-4 ${
               openIndexes.includes(index) ? "collapse-open" : ""
             }`}
           >
