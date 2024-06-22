@@ -12,11 +12,11 @@ function Home() {
         <title>Home</title>
       </Helmet>
       <Banner></Banner>
+      <OfferSection></OfferSection>
       <PopularDestination></PopularDestination>
       <PopularHotels></PopularHotels>
       <Community></Community>
-      <OfferSection></OfferSection>
     </div>
-  )
+  );
 }
 export default Home
