@@ -184,10 +184,7 @@ function Banner() {
                   </li>
                   <li className="hover:bg-gray-200 p-3">
                     <Link>Breakfast</Link>
-                  </li>
-               
-                  
-                 
+                  </li>         
                 </ul>
               </div>
               <div className="bg-white border-r flex justify-center items-center rounded">
