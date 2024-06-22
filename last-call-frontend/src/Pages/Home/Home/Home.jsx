@@ -4,6 +4,7 @@ import PopularDestination from "../PopularDestination/PopularDestination"
 import PopularHotels from "../PopularHotels/PopularHotels"
 import Banner from "../Banner/Banner"
 import Community from "../Community/Community"
+import SocialMedia from "../SocialMedia/SocialMedia"
 
 function Home() {
   return (
@@ -16,6 +17,7 @@ function Home() {
       <PopularDestination></PopularDestination>
       <PopularHotels></PopularHotels>
       <Community></Community>
+      <SocialMedia></SocialMedia>
     </div>
   );
 }

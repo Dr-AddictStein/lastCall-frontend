@@ -1,9 +1,14 @@
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+} from "react-icons/fa";
+import bgImg from "../../../assets/images/Community/ellips.svg";
 import { Link } from "react-router-dom";
-import bgImg from '../../../assets/images/Community/ellips.svg'
-
-function Community() {
+function SocialMedia() {
   return (
-    <div className="flex justify-between items-center flex-col lg:flex-row mt-4 mb-20 px-4 lg:px-28 py-10">
+    <div className="flex justify-between items-center flex-col lg:flex-row-reverse mt-4 mb-20 px-4 lg:px-28 py-10">
       <div
         className="flex justify-center gap-9 items-center"
         style={{
@@ -13,7 +18,7 @@ function Community() {
           padding: "80px", // Adjust padding as needed
         }}
       >
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex  flex-col justify-center items-center">
           <svg
             width="28px"
             height="48"
@@ -33,22 +38,36 @@ function Community() {
         </div>
         <div>
           <h2 className="text-5xl text-blue-900 mb-4">
-            Join our community <br />
-            of food lovers!
+            Contact With Us <br />
+            to order your food
           </h2>
           <p>
-            Sign up now to save money by dining early and <br /> discover fine
-            dining destinations and casual-chic <br /> eateries with 50% off the
-            food bill.
+            Contact with us now to save money by dining early and <br />{" "}
+            discover fine dining destinations and casual-chic <br /> eateries
+            with 50% off the food bill.
           </p>
         </div>
       </div>
-      <div className="text-center">
-        <Link to={"/signup"}>
-          <button className="px-14 bg-orange-600 text-white py-3">
-            Sign Up
-          </button>
-        </Link>
+      <div className="text-center lg:pl-20">
+        <div className="flex justify-center gap-8">
+          {/* Facebook */}
+          <a href="#social-media-link">
+            <FaFacebookF className="w-10 h-10 text-blue-600" />
+          </a>
+          {/* Twitter */}
+          <a href="#social-media-link">
+            <FaTwitter className="w-10 h-10 text-blue-400" />
+          </a>
+          {/* Instagram */}
+          <a href="#social-media-link">
+            <FaInstagram className="w-10 h-10 text-pink-500" />
+          </a>
+          {/* LinkedIn */}
+          <a href="#social-media-link">
+            <FaLinkedinIn className="w-10 h-10 text-blue-800" />
+          </a>
+              </div>
+              <hr className="my-5" />
         <p>
           Or visit our &nbsp;
           <Link className="text-orange-600" to={"/faq"}>
@@ -59,4 +78,4 @@ function Community() {
     </div>
   );
 }
-export default Community;
+export default SocialMedia;
