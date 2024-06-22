@@ -47,11 +47,11 @@ function ForRestaurants() {
               business.
             </p>
             <div className="mt-6">
-            <Link to={'/freesignup'}>
-            <button className="bg-[#FF756B] p-4 text-white font-bold">
-              Sign up for free
-            </button>
-          </Link>
+              <Link to={"/freesignup"}>
+                <button className="bg-[#FF756B] p-4 text-white font-bold">
+                  Sign up for free
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -104,24 +104,32 @@ function ForRestaurants() {
             We’ll send you more information on our story, how First Table works
             and the benefits to your restaurant.
           </p>
-          <Link to={'/freesignup'}>
+          <Link to={"/freesignup"}>
             <button className="bg-[#FF756B] p-4 text-white font-bold">
               Sign up for free
             </button>
           </Link>
         </div>
       </div>
-      <div className="divider mt-12 w-3/4"></div>
+      <div className="divider mx-auto mt-12 w-3/4"></div>
       <div>
-        <h2 className="text-orange-300 text-center text-5xl my-6">
+        <h2 className="text-orange-300 text-center text-5xl  mb-28 mt-10">
           Unique ways First Table grows your restaurant
         </h2>
         {itemsHeading.map((heading, index) => (
-          <div key={index} className="mx-40 my-6">
+          <div
+            key={index}
+            className={`mx-40 my-6 flex gap-12 justify-between mb-32 ${
+              index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+            }`}
+          >
             {/* Display the heading with chain numbering */}
-            <h1 className="text-4xl text-blue-900">{heading}</h1>
-            {/* Display the corresponding description */}
-            <p className="text-xl my-6">{itemsDesk[index]}</p>
+            <div>
+              <h1 className="text-4xl text-blue-900">{heading}</h1>
+              {/* Display the corresponding description */}
+              <p className="text-xl my-6">{itemsDesk[index]}</p>
+            </div>
+            <img src={bannerImg} alt="" className="w-[400px] rounded" />
           </div>
         ))}
       </div>
