@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
-import { Link } from "react-router-dom";
-import lastCallImg from "../../assets/images/Navbar/logo.png";
+import { Link, useLocation } from "react-router-dom";
+import lastCallImg from "../../assets/images/Navbar/lastcall.png";
 
 function Navbar() {
   const [isScrollingUp, setIsScrollingUp] = useState(true);
@@ -62,14 +62,28 @@ function Navbar() {
     </>
   );
 
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  const isNewCastlePage = location.pathname === "/newCastle";
+
   return (
     <div className="relative">
       <div
-        className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
+        className={`${
+          isHomePage
+            ? "fixed"
+            : isNewCastlePage
+            ? "sticky text-black"
+            : "sticky"
+        } top-0 left-0 right-0 z-50 transition-transform duration-300 ${
           isScrollingUp ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="navbar text-white w-full">
+        <div
+          className={`navbar w-full ${
+            isNewCastlePage ? "text-black" : "text-white"
+          }`}
+        >
           <div className="navbar-start">
             <div className="dropdown">
               <div
@@ -99,22 +113,34 @@ function Navbar() {
                 {Navlinks}
               </ul>
             </div>
-            <a href="" className="btn">
-              Lastcall
-            </a>
+            <Link to="/">
+              {/* <img src={lastCallImg} alt="Last Call Logo" className="h-16" /> */}
+              <p className="text-3xl cursor-pointer">
+                {" "}
+                <span className="font-bold">Last</span> <span>Call</span>
+              </p>
+            </Link>
             <div className="relative">
               <label
-                className={`flex items-center gap-2 ml-3 text-white rounded-full p-3 ${
+                className={`flex items-center gap-2 ml-3 rounded-full p-3 ${
                   isFocused ? "bg-white text-black" : "bg-transparent"
                 }`}
               >
                 <CiSearch
-                  className={`${isFocused ? "text-black" : "text-white"}`}
+                  className={`${
+                    isFocused
+                      ? "text-black"
+                      : isNewCastlePage
+                      ? "text-black"
+                      : "text-white"
+                  }`}
                 />
                 <input
                   type="text"
                   className={`border-none outline-none bg-transparent rounded-full ${
                     isFocused
+                      ? "placeholder-black text-black"
+                      : isNewCastlePage
                       ? "placeholder-black text-black"
                       : "placeholder-white text-white"
                   }`}
@@ -157,7 +183,7 @@ function Navbar() {
               <div
                 tabIndex={0}
                 role="select"
-                className="select bg-transparent flex items-center text-white m-1"
+                className="select bg-transparent flex items-center m-1"
               >
                 Cities
               </div>
@@ -180,15 +206,15 @@ function Navbar() {
           <div className="navbar-end hidden lg:flex">
             <ul className="menu menu-horizontal px-1 space-x-3">
               <li>
-                <Link to={"/signup"}>Sign Up</Link>
+                <Link to="/signup">Sign Up</Link>
               </li>
               <li>
-                <Link to={"/login"}>Login</Link>
+                <Link to="/login">Login</Link>
               </li>
             </ul>
-            <Link to={"/restaurants"}>
+            <Link to="/restaurants">
               <button className="btn btn-outline rounded-full bg-white text-black">
-                For Restaurent
+                For Restaurant
               </button>
             </Link>
           </div>

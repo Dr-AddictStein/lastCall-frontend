@@ -7,9 +7,11 @@ function Banner() {
   return (
     <div className="">
       <div
-        className="hero min-h-screen"
+        className="hero"
         style={{
           backgroundImage: ` url(${bannerImg})`,
+          height: '60vh',
+          backgroundRepeat: 'no-repeat'
         }}
       >
         <div className=" bg-opacity-60"></div>
