@@ -1,0 +1,30 @@
+/* custom.css */
+@media screen and (max-width: 1000px) {
+  .custom-screen {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .custom-gap{
+    gap: 30%;
+  }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1300px) {
+  .custom-screen {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+  .custom-gap{
+    gap: 50%;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .custom-screen {
+    padding-left: 128px;
+    padding-right: 128px;
+  }
+  .custom-gap{
+    gap: 90%;
+  }
+}
