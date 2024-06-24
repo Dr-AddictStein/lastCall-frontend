@@ -14,6 +14,7 @@ import FreeSignUp from "../Pages/Home/FreeSignUp/FreeSignUp";
 import SignUp from "../Pages/SignUp/SignUp";
 import Login from "../Pages/Login/Login";
 import NewCastle from "../Pages/NewCastle/NewCastle";
+import FoodDetails from "../Pages/FoodDetails/FoodDetails";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
       {
         path: "/newCastle",
         element: <NewCastle></NewCastle>
+      },
+      {
+        path: 'foodDetails',
+        element: <FoodDetails />
       }
     ],
   },
