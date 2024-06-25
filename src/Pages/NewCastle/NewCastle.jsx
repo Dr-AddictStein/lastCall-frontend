@@ -54,8 +54,21 @@ function NewCastle() {
                 Book the first table at Newcastle restaurants and get 50% off
                 the food bill for two, three, or four people!
               </p>
-              <button className="btn bg-orange-600 border-none rounded-full text-white mt-6">
-                Learn More
+
+              <button
+                className={`btn mx-auto border-none rounded-full text-white mt-6 flex items-center py-1 justify-center btn-transition ${
+                  isHover ? "btn-hovered" : "btn-not-hovered"
+                }`}
+                onMouseEnter={() => setIsHover(true)}
+                onMouseLeave={() => setIsHover(false)}
+              >
+                {isHover ? (
+                  <span className="flex items-center gap-2">
+                    Learn More <FaArrowRight />
+                  </span>
+                ) : (
+                  <FaArrowRight />
+                )}
               </button>
             </div>
           </div>
