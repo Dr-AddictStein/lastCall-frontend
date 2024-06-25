@@ -50,7 +50,7 @@ function NewCastle() {
           <div className="relative lg:w-1/2">
             <div className="absolute right-0 lg:right-auto  lg:-top-36 transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-200 rounded-lg shadow-lg"></div>
             <div className="absolute right-0 lg:right-auto  lg:-top-36 transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-50 rotate-3 rounded-lg shadow-lg"></div>
-            <div className="absolute right-0 lg:right-auto  lg:-top-36 transform -translate-x-1/2 lg:translate-x-0 w-96 z-10 px-6 pt-10 text-center rounded-lg">
+            <div className="absolute right-0 lg:right-auto  lg:-top-44 transform -translate-x-1/2 lg:translate-x-0 w-96 z-10 px-6 pt-10 text-center rounded-lg">
               <h2 className="text-blue-950 text-4xl mb-4 font-bold">
                 Early bird dining
               </h2>
