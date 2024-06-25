@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 
 function PopularHotels() {
   return (
-    <div className="mt-4 mb-20 px-4 lg:px-20 ">
+    <div className="mx-auto mt-4 mb-20 px-4 md:px-20 lg:px-40 ">
       <div>
         <p className="text-2xl font-bold my-4">Hotels loved by guests</p>
       </div>
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:grid-cols-5">
         {[...Array(5)].map((_, index) => (
           <div key={index} className="card bg-base-100 shadow-xl group">
-            <figure className="px-4 pt-10 relative overflow-hidden">
+            <figure className="px-2 pt-10 relative overflow-hidden">
               <img
                 src={img1}
                 alt="Shoes"

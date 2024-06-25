@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function OfferSection() {
   return (
-    <div className=" flex flex-col lg:flex-row justify-between px-4 lg:px-24 gap-10 my-20 ">
+    <div className=" mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-4 md:px-20 lg:px-40 gap-10 mb-20 mt-10 ">
       <div className="flex flex-col items-center justify-center">
         <p className="text-7xl text-blue-900 ">
           <FaMapLocation />

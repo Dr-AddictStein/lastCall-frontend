@@ -66,8 +66,8 @@ function Faq() {
   };
 
   return (
-    <div className="mb-8 mx-4 px-16">
-      <h1 className="text-blue-900 font-semibold text-7xl text-center my-12 mt-20">
+    <div className="mx-auto mb-8  px-4 lg:px-36">
+      <h1 className="px-4 text-blue-900 font-semibold text-4xl lg:text-7xl text-center my-12 mt-20">
         Frequently asked questions
       </h1>
       <div className="join join-vertical w-full">

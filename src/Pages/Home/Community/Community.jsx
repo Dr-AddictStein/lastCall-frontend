@@ -3,14 +3,14 @@ import bgImg from '../../../assets/images/Community/ellips.svg'
 
 function Community() {
   return (
-    <div className="flex justify-between items-center flex-col lg:flex-row mt-4 mb-20 px-4 lg:px-28 py-10">
+    <div className="flex justify-between items-center flex-col md:flex-row lg:flex-row mt-4 mb-20 px-4 md:px-20 lg:px-40 py-10">
       <div
         className="flex justify-center gap-9 items-center"
         style={{
           backgroundImage: `url(${bgImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          padding: "80px", // Adjust padding as needed
+        
         }}
       >
         <div className="flex flex-col justify-center items-center">
@@ -32,7 +32,7 @@ function Community() {
           <div className="bg-[#d6bb96] w-[1px]  h-[260px]"></div>
         </div>
         <div>
-          <h2 className="text-5xl text-blue-900 mb-4">
+          <h2 className="text-3xl lg:text-5xl text-blue-900 mb-4">
             Join our community <br />
             of food lovers!
           </h2>
@@ -45,7 +45,7 @@ function Community() {
       </div>
       <div className="text-center">
         <Link to={"/signup"}>
-          <button className="px-14 bg-orange-600 text-white py-3">
+          <button className="px-4 lg:px-14 bg-orange-600 text-white py-3">
             Sign Up
           </button>
         </Link>

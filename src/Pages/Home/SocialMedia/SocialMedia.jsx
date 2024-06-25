@@ -8,19 +8,19 @@ import bgImg from "../../../assets/images/Community/ellips.svg";
 import { Link } from "react-router-dom";
 function SocialMedia() {
   return (
-    <div className="flex justify-between items-center flex-col lg:flex-row-reverse mt-4 mb-20 px-4 lg:px-28 py-10">
+    <div className="flex justify-between items-center flex-col md:flex-row-reverse lg:flex-row-reverse mt-4 mb-20 px-4 md:px-20 lg:px-40 py-10">
       <div
         className="flex justify-center gap-9 items-center"
         style={{
           backgroundImage: `url(${bgImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          padding: "80px", // Adjust padding as needed
+        // Adjust padding as needed
         }}
       >
         <div className="flex  flex-col justify-center items-center">
           <svg
-            width="28px"
+            width="18px"
             height="48"
             fill="#d6bb96"
             xmlns="http://www.w3.org/2000/svg"
@@ -37,12 +37,12 @@ function SocialMedia() {
           <div className="bg-[#d6bb96] w-[1px]  h-[260px]"></div>
         </div>
         <div>
-          <h2 className="text-5xl text-blue-900 mb-4">
+          <h2 className="text-3xl lg:text-5xl text-blue-900 mb-4">
             Contact With Us <br />
             to order your food
           </h2>
           <p>
-            Contact with us now to save money by dining early and <br />{" "}
+            Contact with us now to save money by dining early and <br />
             discover fine dining destinations and casual-chic <br /> eateries
             with 50% off the food bill.
           </p>
