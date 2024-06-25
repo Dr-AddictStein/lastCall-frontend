@@ -7,7 +7,7 @@ const FoodDetails = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [selected, setSelected] = useState('false');
-    const [activeTab2, setActiveTab2] = useState('false');
+    const [activeTab2, setActiveTab2] = useState(0);
 
     const slides = [
         {

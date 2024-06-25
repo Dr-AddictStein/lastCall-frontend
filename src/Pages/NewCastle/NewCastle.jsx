@@ -57,7 +57,7 @@ function NewCastle() {
                 the food bill for two, three, or four people!
               </p>
 
-              <div className="">
+              <Link to="/faq">
                 <button
                   onMouseEnter={() => setIsHover(true)}
                   onMouseLeave={() => setIsHover(false)}
@@ -72,7 +72,7 @@ function NewCastle() {
                   </p>
                   <FaArrowRight className="" />
                 </button>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -210,7 +210,7 @@ function NewCastle() {
                 </span>
                 0 reviews
               </p>
-              <div className="flex text-center overflow-x-auto lg:overflow-hidden ">
+              <div className="flex text-center flex-wrap ">
                 <div className="px-2 lg:px-3 py-2 bg-slate-400 border-r">
                   <p className="my-2">Sun</p>
                   <hr />
@@ -295,7 +295,7 @@ function NewCastle() {
                 </span>
                 0 reviews
               </p>
-              <div className="flex text-center overflow-x-auto lg:overflow-hidden ">
+              <div className="flex text-center flex-wrap ">
                 <div className="px-2 lg:px-3 py-2 bg-slate-400 border-r">
                   <p className="my-2">Sun</p>
                   <hr />
