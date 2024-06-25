@@ -83,7 +83,7 @@ function Faq() {
               checked={openIndexes.includes(index)}
               onChange={() => toggleIndex(index)}
             />
-            <div className="collapse-title text-4xl text-blue-900 font-medium">
+            <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium">
               {question}
             </div>
             <div className="collapse-content">

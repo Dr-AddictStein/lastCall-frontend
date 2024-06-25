@@ -13,11 +13,13 @@ function Home() {
         <title>Home</title>
       </Helmet>
       <Banner></Banner>
-      <OfferSection></OfferSection>
-      <PopularDestination></PopularDestination>
-      <PopularHotels></PopularHotels>
-      <Community></Community>
-      <SocialMedia></SocialMedia>
+      <div className="max-w-screen-2xl mx-auto">
+        <OfferSection></OfferSection>
+        <PopularDestination></PopularDestination>
+        <PopularHotels></PopularHotels>
+        <Community></Community>
+        <SocialMedia></SocialMedia>
+      </div>
     </div>
   );
 }
