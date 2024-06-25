@@ -13,21 +13,20 @@ function NewCastle() {
   const [isHover, setIsHover] = useState(false);
 
   return (
-    <div className="mb-20 w-full">
+    <div className="mb-20  ">
       <div
-        className="w-full h-[70vh] object-contain bg-cover"
+        className="hero  h-full bg-center bg-cover object-cover bg-no-repeat lg:h-[70vh]"
         style={{
           backgroundImage: ` url(${bannerImg})`,
-          backgroundRepeat: "no-repeat",
         }}
       >
         <div className=" bg-opacity-95"></div>
-        <div className=" hero text-neutral-content">
+        <div className=" hero-content  text-neutral-content">
           <div className="block lg:hidden mt-16 text-white">
             <Link to={"/newCastle"}>
               <p className="cursor-pointer">NewCastle</p>
             </Link>
-            <h2 className="text-5xl font-bold mt-10 mb-5">
+            <h2 className="text-3xl lg:text-5xl font-bold mt-10 mb-5">
               Newcastle Restaurants
             </h2>
             <p className="mb-5">Dine early, save money</p>
@@ -35,7 +34,7 @@ function NewCastle() {
         </div>
       </div>
       {/* Vejal */}
-      <div className="lg:relative hidden lg:block text-white px-32">
+      <div className="lg:relative hidden lg:block text-white max-w-screen-2xl mx-auto lg:px-32">
         <div className="relative lg:absolute flex flex-col lg:flex-row items-center lg:justify-between -top-96 text-5xl text-red-600 custom-gap">
           <div className="lg:w-1/2 text-white">
             <Link to={"/newCastle"}>
@@ -64,7 +63,13 @@ function NewCastle() {
                   onMouseLeave={() => setIsHover(false)}
                   className={`btn-transition relative bg-[#ff675c] hover:bg-[#ff675c] w-[50px] hover:w-[130px] overflow-hidden btn mx-auto border-none rounded-full text-white mt-6 flex gap-6 items-center py-1 justify-end`}
                 >
-                  <p className={`absolute btn-transition left-3 whitespace-nowrap ${isHover ? 'opacity-100' : 'opacity-0'}`}>Learn More</p>
+                  <p
+                    className={`absolute btn-transition left-3 whitespace-nowrap ${
+                      isHover ? "opacity-100" : "opacity-0"
+                    }`}
+                  >
+                    Learn More
+                  </p>
                   <FaArrowRight className="" />
                 </button>
               </div>
@@ -75,8 +80,8 @@ function NewCastle() {
 
       {/* DropDown section */}
       <div className="lg:relative flex justify-center">
-        <div className=" lg:absolute grid   grid-cols-1 items-center justify-center rounded   lg:grid-cols-4 text-black lg:-bottom-8 w-full max-w-screen-lg mx-auto gap-4 ">
-          <div className="dropdown bg-white shadow-lg  py-4 rounded min-w-full lg:w-60">
+        <div className=" lg:absolute grid   grid-cols-1 items-center justify-center rounded   lg:grid-cols-4 text-black lg:-bottom-8 w-full max-w-screen-lg mx-auto gap-4  ">
+          <div className="dropdown bg-white shadow-lg  py-4 rounded w-full lg:w-60 md:px-10">
             <div
               tabIndex={0}
               role="button"
@@ -108,7 +113,7 @@ function NewCastle() {
               </li>
             </ul>
           </div>
-          <div className="dropdown bg-white shadow-lg  py-4 rounded w-full lg:w-60 ">
+          <div className="dropdown bg-white shadow-lg  py-4 rounded w-full lg:w-60 md:px-10">
             <div
               tabIndex={0}
               role="button"
@@ -128,7 +133,7 @@ function NewCastle() {
               </li>
             </ul>
           </div>
-          <div className="dropdown bg-white shadow-lg  py-4 rounded w-full lg:w-60 ">
+          <div className="dropdown bg-white shadow-lg  py-4 rounded w-full lg:w-60 md:px-10 ">
             <div
               tabIndex={0}
               role="button"
@@ -148,7 +153,7 @@ function NewCastle() {
               </li>
             </ul>
           </div>
-          <div className="dropdown bg-white shadow-lg  py-4 rounded w-full lg:w-60 ">
+          <div className="dropdown bg-white shadow-lg  py-4 rounded w-full lg:w-60 md:px-10">
             <div
               tabIndex={0}
               role="button"
@@ -175,13 +180,17 @@ function NewCastle() {
         </div>
       </div>
       {/* Banner End */}
-      <div className="flex mt-20 justify-between   custom-screen ">
+      {/* Calender section */}
+      <div className="flex flex-col lg:flex-row mt-20 justify-between custom-screen max-w-screen-2xl mx-auto">
         <div className="mr-3">
           <div className="flex flex-col md:flex-row lg:flex-row gap-8 my-5">
-            <img src={bannerImg} alt="" className=" w-full md:w-64 lg:w-60 " />
+            <img src={bannerImg} alt="" className=" w-60 md:w-64 lg:w-60 " />
             <div>
               <h2>
-                <span className="text-3xl">Ape</span> &nbsp;
+                <Link>
+                  <span className="text-3xl">Ape</span>
+                </Link>
+                &nbsp;
                 <span className="bg-orange-500 px-2 py-1 text-white">NEW</span>
               </h2>
               <p className=" flex my-3 text-xl">
@@ -201,7 +210,7 @@ function NewCastle() {
                 </span>
                 0 reviews
               </p>
-              <div className="flex text-center">
+              <div className="flex text-center overflow-x-auto lg:overflow-hidden ">
                 <div className="px-2 lg:px-3 py-2 bg-slate-400 border-r">
                   <p className="my-2">Sun</p>
                   <hr />
@@ -260,6 +269,90 @@ function NewCastle() {
 
           <hr />
           <div className="flex flex-col md:flex-row lg:flex-row gap-8 my-5">
+            <img src={bannerImg} alt="" className=" w-60 md:w-64 lg:w-60 " />
+            <div>
+              <h2>
+                <Link>
+                  <span className="text-3xl">Ape</span>
+                </Link>
+                &nbsp;
+                <span className="bg-orange-500 px-2 py-1 text-white">NEW</span>
+              </h2>
+              <p className=" flex my-3 text-xl">
+                <span className="flex items-center gap-2">
+                  <CiLocationOn />
+                  <a href=""> Newcastle CBD &nbsp;</a>
+                </span>
+                |<span> &nbsp; Japanese, Asian</span>
+              </p>
+              <p className="flex gap-2 items-center text-2xl">
+                <span className="flex  ">
+                  <CiStar className="text-slate-500" />
+                  <CiStar className="text-slate-500" />
+                  <CiStar className="text-slate-500" />
+                  <CiStar className="text-slate-500" />
+                  <CiStar className="text-slate-500" />
+                </span>
+                0 reviews
+              </p>
+              <div className="flex text-center overflow-x-auto lg:overflow-hidden ">
+                <div className="px-2 lg:px-3 py-2 bg-slate-400 border-r">
+                  <p className="my-2">Sun</p>
+                  <hr />
+                  <p className="my-3">23 June</p>
+                </div>
+                <div className="px-2 lg:px-3 py-2 bg-slate-400 border-r">
+                  <p className="my-2">Mon</p>
+                  <hr />
+                  <p className="my-3">24 June</p>
+                </div>
+                <div className="px-2 lg:px-3 py-2 bg-slate-400 border-r">
+                  <p className="my-2">Tue</p>
+                  <hr />
+                  <p className="my-3">25 June</p>
+                </div>
+                <div className=" relative px-2 lg:px-3 py-2 bg-blue-900 hover:bg-blue-950 text-white border-r">
+                  <p className="my-2">Wed</p>
+                  <hr />
+                  <p className="mt-3">26 June</p>
+                  <p className="mb-3">1:30PM</p>
+                  <span className=" absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
+                    50% off
+                  </span>
+                </div>
+
+                <div className="relative px-2 lg:px-3 py-2 bg-blue-900 hover:bg-blue-950 text-white border-r">
+                  <p className="my-2">Thu</p>
+                  <hr />
+                  <p className="mt-3">27 June</p>
+                  <p className="mb-3">1:30PM</p>
+                  <span className=" absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
+                    50% off
+                  </span>
+                </div>
+                <div className=" relative px-2 lg:px-3 py-2 bg-blue-900 hover:bg-blue-950 text-white border-r">
+                  <p className="my-2">Fri</p>
+                  <hr />
+                  <p className="mt-3">28 June</p>
+                  <p className="mb-3">1:30PM</p>
+                  <span className=" absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
+                    50% off
+                  </span>
+                </div>
+                <div className=" relative px-2 lg:px-3 py-2 bg-blue-900 hover:bg-blue-950 text-white">
+                  <p className="my-2">Sat</p>
+                  <hr />
+                  <p className="mt-3">29 June</p>
+                  <p className="mb-3">1:30PM</p>
+                  <span className=" absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
+                    50% off
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* <div className="flex flex-col md:flex-row lg:flex-row gap-8 my-5">
             <img src={bannerImg} alt="" className=" w-full md:w-64 lg:w-60 " />
             <div>
               <h2>
@@ -338,88 +431,7 @@ function NewCastle() {
                 </div>
               </div>
             </div>
-          </div>
-          <hr />
-          <div className="flex flex-col md:flex-row lg:flex-row gap-8 my-5">
-            <img src={bannerImg} alt="" className=" w-full md:w-64 lg:w-60 " />
-            <div>
-              <h2>
-                <span className="text-3xl">Ape</span> &nbsp;
-                <span className="bg-orange-500 px-2 py-1 text-white">NEW</span>
-              </h2>
-              <p className=" flex my-3 text-xl">
-                <span className="flex items-center gap-2">
-                  <CiLocationOn />
-                  <a href=""> Newcastle CBD &nbsp;</a>
-                </span>
-                |<span> &nbsp; Japanese, Asian</span>
-              </p>
-              <p className="flex gap-2 items-center text-2xl">
-                <span className="flex  ">
-                  <CiStar className="text-slate-500" />
-                  <CiStar className="text-slate-500" />
-                  <CiStar className="text-slate-500" />
-                  <CiStar className="text-slate-500" />
-                  <CiStar className="text-slate-500" />
-                </span>
-                0 reviews
-              </p>
-              <div className="flex text-center">
-                <div className="px-2 lg:px-3 py-2 bg-slate-400 border-r">
-                  <p className="my-2">Sun</p>
-                  <hr />
-                  <p className="my-3">23 June</p>
-                </div>
-                <div className="px-2 lg:px-3 py-2 bg-slate-400 border-r">
-                  <p className="my-2">Mon</p>
-                  <hr />
-                  <p className="my-3">24 June</p>
-                </div>
-                <div className="px-2 lg:px-3 py-2 bg-slate-400 border-r">
-                  <p className="my-2">Tue</p>
-                  <hr />
-                  <p className="my-3">25 June</p>
-                </div>
-                <div className=" relative px-2 lg:px-3 py-2 bg-blue-900 hover:bg-blue-950 text-white border-r">
-                  <p className="my-2">Wed</p>
-                  <hr />
-                  <p className="mt-3">26 June</p>
-                  <p className="mb-3">1:30PM</p>
-                  <span className=" absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
-                    50% off
-                  </span>
-                </div>
-
-                <div className="relative px-2 lg:px-3 py-2 bg-blue-900 hover:bg-blue-950 text-white border-r">
-                  <p className="my-2">Thu</p>
-                  <hr />
-                  <p className="mt-3">27 June</p>
-                  <p className="mb-3">1:30PM</p>
-                  <span className=" absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
-                    50% off
-                  </span>
-                </div>
-                <div className=" relative px-2 lg:px-3 py-2 bg-blue-900 hover:bg-blue-950 text-white border-r">
-                  <p className="my-2">Fri</p>
-                  <hr />
-                  <p className="mt-3">28 June</p>
-                  <p className="mb-3">1:30PM</p>
-                  <span className=" absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
-                    50% off
-                  </span>
-                </div>
-                <div className=" relative px-2 lg:px-3 py-2 bg-blue-900 hover:bg-blue-950 text-white">
-                  <p className="my-2">Sat</p>
-                  <hr />
-                  <p className="mt-3">29 June</p>
-                  <p className="mb-3">1:30PM</p>
-                  <span className=" absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
-                    50% off
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+          </div> */}
         </div>
         {/* Aside section */}
         <div className="hidden md:hidden lg:block border-l pl-10">
@@ -457,13 +469,13 @@ function NewCastle() {
         </div>
       </div>
       {/* Last section */}
-      <div className="px-4 lg:px-32">
-        <h2 className="text-5xl text-blue-950 mt-32 mb-6 font-bold">
+      <div className="px-4 lg:px-32 max-w-screen-2xl mx-auto">
+        <h2 className="text-3xl lg:text-5xl text-blue-950 mt-32 mb-6 font-bold">
           You might also like
         </h2>
         <a href="">
-          <div className="flex gap-6">
-            <img src={bannerImg} alt="" className="w-32 h-32" />
+          <div className="flex flex-col md:flex-row lg:flex-row gap-6">
+            <img src={bannerImg} alt="" className="lg:w-32 h-32" />
             <div>
               <a href="" className="text-2xl mt-3 mb-8 font-bold">
                 NewCastle Dinner Deals
