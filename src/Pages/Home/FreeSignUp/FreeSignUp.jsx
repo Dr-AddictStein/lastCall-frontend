@@ -13,9 +13,29 @@ function FreeSignUp() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    // Add your submission logic here
+    try {
+      const response = await fetch("http://localhost:4000/api/restaurant/createRestaurant", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      console.log(result);
+
+      if (response.ok) {
+        alert("Restaurant registered successfully!");
+      } else {
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Error submitting form. Please try again.");
+    }
   };
 
   return (
@@ -39,7 +59,7 @@ function FreeSignUp() {
             <div className="flex flex-col lg:flex-row lg:w-1/2 gap-3">
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text text-blue-950">First Name</span>
+                  <span className="label-text text-blue-950">First Name <span className="text-red-500">*</span></span>
                 </label>
                 <input
                   {...register("firstName", {
@@ -78,7 +98,7 @@ function FreeSignUp() {
             <div className=" lg:w-1/2">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-blue-950">Email</span>
+                  <span className="label-text text-blue-950">Email <span className="text-red-500">*</span></span>
                 </label>
                 <input
                   {...register("email", {
@@ -110,7 +130,7 @@ function FreeSignUp() {
                   </span>
                 )}
               </div>
-              <div className="form-control">
+              {/* <div className="form-control">
                 <label className="label">
                   <span className="label-text text-blue-950">Country</span>
                 </label>
@@ -131,10 +151,10 @@ function FreeSignUp() {
                 {errors.country && (
                   <span className="text-red-500">{errors.country.message}</span>
                 )}
-              </div>
+              </div> */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-blue-950">Region AU</span>
+                  <span className="label-text text-blue-950">Region AU <span className="text-red-500">*</span></span>
                 </label>
                 <select
                   className="select select-bordered"
@@ -158,7 +178,7 @@ function FreeSignUp() {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-blue-950">City</span>
+                  <span className="label-text text-blue-950">City <span className="text-red-500">*</span></span>
                 </label>
                 <input
                   {...register("city", {
@@ -174,20 +194,19 @@ function FreeSignUp() {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-blue-950">
-                    First Table can now bring full-price paying customers to
-                    your venue
-                  </span>
+                  <span className="label-text text-blue-950">Restaurant Name <span className="text-red-500">*</span></span>
                 </label>
                 <input
-                  {...register("checkbox", {
+                  {...register("restaurantName", {
                     required: "Please complete this required field",
                   })}
-                  type="checkbox"
+                  type="text"
+                  placeholder="Restaurant Name"
+                  className="input input-bordered"
                 />
-                {errors.checkbox && (
+                {errors.restaurantName && (
                   <span className="text-red-500">
-                    {errors.checkbox.message}
+                    {errors.restaurantName.message}
                   </span>
                 )}
               </div>
@@ -208,92 +227,6 @@ function FreeSignUp() {
                 {errors.websiteUrl && (
                   <span className="text-red-500">
                     {errors.websiteUrl.message}
-                  </span>
-                )}
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-blue-950">
-                    First Table Times
-                  </span>
-                </label>
-                <input
-                  {...register("firstTableTimes", {
-                    required: "Please complete this required field",
-                  })}
-                  type="text"
-                  placeholder="First Table Times"
-                  className="input input-bordered"
-                />
-                {errors.firstTableTimes && (
-                  <span className="text-red-500">
-                    {errors.firstTableTimes.message}
-                  </span>
-                )}
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-blue-950">
-                    Restaurant Website URL
-                  </span>
-                </label>
-                <input
-                  {...register("websiteUrl", {
-                    required: "Please complete this required field",
-                  })}
-                  type="text"
-                  placeholder="Url"
-                  className="input input-bordered"
-                />
-                {errors.websiteUrl && (
-                  <span className="text-red-500">
-                    {errors.websiteUrl.message}
-                  </span>
-                )}
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-blue-950">
-                    Which email should we send reservations to?
-                  </span>
-                </label>
-                <input
-                  {...register("reservationEmail", {
-                    required: "Please complete this required field",
-                  })}
-                  type="text"
-                  placeholder="Email"
-                  className="input input-bordered"
-                />
-                {errors.reservationEmail && (
-                  <span className="text-red-500">
-                    {errors.reservationEmail.message}
-                  </span>
-                )}
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-blue-950">
-                    Booking platform
-                  </span>
-                </label>
-                <select
-                  className="select select-bordered"
-                  defaultValue="default"
-                  {...register("regionAu", {
-                    required: "Please complete this required field",
-                  })}
-                >
-                  <option disabled value="default">
-                    Booking platform
-                  </option>
-                  <option value="Bangladesh">A</option>
-                  <option value="India">B</option>
-                  <option value="Nepal">C</option>
-                </select>
-                {errors.regionAu && (
-                  <span className="text-red-500">
-                    {errors.regionAu.message}
                   </span>
                 )}
               </div>
@@ -352,10 +285,10 @@ function FreeSignUp() {
             Restaurants using Last Call to win customers
           </h2>
           <div className="flex gap-10 justify-center my-8">
-            <img src={bg1} className="w-64" alt="" srcset="" />
-            <img src={bg2} className="w-64" alt="" srcset="" />
-            <img src={bg3} className="w-64" alt="" srcset="" />
-            <img src={bg4} className="w-64" alt="" srcset="" />
+            <img src={bg1} className="w-64" alt="" srcSet="" />
+            <img src={bg2} className="w-64" alt="" srcSet="" />
+            <img src={bg3} className="w-64" alt="" srcSet="" />
+            <img src={bg4} className="w-64" alt="" srcSet="" />
           </div>
         </div>
       </div>

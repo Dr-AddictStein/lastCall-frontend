@@ -67,25 +67,22 @@ function Navbar() {
 
   const location = useLocation();
   const isHomePage = location.pathname === "/" || location.pathname === '/restaurants';
-  const isNewCastlePage = location.pathname === "/newCastle" || location.pathname=== '/faq';
+  const isNewCastlePage = location.pathname === "/newcastle" || location.pathname === '/faq';
 
   return (
     <div className="relative">
       <div
-        className={`${
-          isHomePage
+        className={`${isHomePage
             ? "fixed"
-            : isNewCastlePage 
-            ? "sticky text-black"
-            : "sticky"
-        } top-0 left-0 right-0 z-50 transition-transform duration-300 ${
-          isScrollingUp ? "translate-y-0" : "-translate-y-full"
-        }`}
+            : isNewCastlePage
+              ? "sticky text-black"
+              : "sticky"
+          } top-0 left-0 right-0 z-50 transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "-translate-y-full"
+          }`}
       >
         <div
-          className={`navbar w-full ${
-            isNewCastlePage ? "text-black" : "text-white"
-          }`}
+          className={`navbar w-full ${isNewCastlePage ? "text-black" : "text-white"
+            }`}
         >
           <div className="navbar-start">
             <div className="dropdown">
@@ -125,28 +122,25 @@ function Navbar() {
             </Link>
             <div className="relative">
               <label
-                className={`flex items-center gap-2 ml-3 rounded-full p-3 ${
-                  isFocused ? "bg-white text-black" : "bg-transparent"
-                }`}
+                className={`flex items-center gap-2 ml-3 rounded-full p-3 ${isFocused ? "bg-white text-black" : "bg-transparent"
+                  }`}
               >
                 <CiSearch
-                  className={`${
-                    isFocused
+                  className={`${isFocused
                       ? "text-black"
                       : isNewCastlePage
-                      ? "text-black"
-                      : "text-white"
-                  }`}
+                        ? "text-black"
+                        : "text-white"
+                    }`}
                 />
                 <input
                   type="text"
-                  className={`border-none outline-none bg-transparent rounded-full ${
-                    isFocused
+                  className={`border-none outline-none bg-transparent rounded-full ${isFocused
                       ? "placeholder-black text-black"
                       : isNewCastlePage
-                      ? "placeholder-black text-black"
-                      : "placeholder-white text-white"
-                  }`}
+                        ? "placeholder-black text-black"
+                        : "placeholder-white text-white"
+                    }`}
                   placeholder="Search"
                   value={searchTerm}
                   onChange={handleInputChange}
