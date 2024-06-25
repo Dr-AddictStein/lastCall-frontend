@@ -8,8 +8,10 @@ import { IoLocation } from "react-icons/io5";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { LuUtensilsCrossed } from "react-icons/lu";
 import { useState } from "react";
+
 function NewCastle() {
   const [isHover, setIsHover] = useState(false);
+
   return (
     <div className="mb-20  ">
       <div
@@ -32,7 +34,7 @@ function NewCastle() {
         </div>
       </div>
       {/* Vejal */}
-      <div className="lg:relative hidden lg:block text-white px-32">
+      <div className="lg:relative hidden lg:block text-white max-w-screen-2xl mx-auto lg:px-32">
         <div className="relative lg:absolute flex flex-col lg:flex-row items-center lg:justify-between -top-96 text-5xl text-red-600 custom-gap">
           <div className="lg:w-1/2 text-white">
             <Link to={"/newCastle"}>
@@ -55,21 +57,22 @@ function NewCastle() {
                 the food bill for two, three, or four people!
               </p>
 
-              <button
-                className={`btn mx-auto border-none rounded-full text-white mt-6 flex items-center py-1 justify-center btn-transition ${
-                  isHover ? "btn-hovered" : "btn-not-hovered"
-                }`}
-                onMouseEnter={() => setIsHover(true)}
-                onMouseLeave={() => setIsHover(false)}
-              >
-                {isHover ? (
-                  <span className="flex items-center gap-2">
-                    Learn More <FaArrowRight />
-                  </span>
-                ) : (
-                  <FaArrowRight />
-                )}
-              </button>
+              <div className="">
+                <button
+                  onMouseEnter={() => setIsHover(true)}
+                  onMouseLeave={() => setIsHover(false)}
+                  className={`btn-transition relative bg-[#ff675c] hover:bg-[#ff675c] w-[50px] hover:w-[130px] overflow-hidden btn mx-auto border-none rounded-full text-white mt-6 flex gap-6 items-center py-1 justify-end`}
+                >
+                  <p
+                    className={`absolute btn-transition left-3 whitespace-nowrap ${
+                      isHover ? "opacity-100" : "opacity-0"
+                    }`}
+                  >
+                    Learn More
+                  </p>
+                  <FaArrowRight className="" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -185,7 +188,6 @@ function NewCastle() {
             <div>
               <h2>
                 <Link>
-                  
                   <span className="text-3xl">Ape</span>
                 </Link>
                 &nbsp;
@@ -266,11 +268,14 @@ function NewCastle() {
           </div>
 
           <hr />
-          {/* <div className="flex flex-col md:flex-row lg:flex-row gap-8 my-5">
-            <img src={bannerImg} alt="" className=" w-full md:w-64 lg:w-60 " />
+          <div className="flex flex-col md:flex-row lg:flex-row gap-8 my-5">
+            <img src={bannerImg} alt="" className=" w-60 md:w-64 lg:w-60 " />
             <div>
               <h2>
-                <span className="text-3xl">Ape</span> &nbsp;
+                <Link>
+                  <span className="text-3xl">Ape</span>
+                </Link>
+                &nbsp;
                 <span className="bg-orange-500 px-2 py-1 text-white">NEW</span>
               </h2>
               <p className=" flex my-3 text-xl">
@@ -290,7 +295,7 @@ function NewCastle() {
                 </span>
                 0 reviews
               </p>
-              <div className="flex text-center">
+              <div className="flex text-center overflow-x-auto lg:overflow-hidden ">
                 <div className="px-2 lg:px-3 py-2 bg-slate-400 border-r">
                   <p className="my-2">Sun</p>
                   <hr />
@@ -345,8 +350,8 @@ function NewCastle() {
                 </div>
               </div>
             </div>
-          </div> */}
-          <hr />
+          </div>
+
           {/* <div className="flex flex-col md:flex-row lg:flex-row gap-8 my-5">
             <img src={bannerImg} alt="" className=" w-full md:w-64 lg:w-60 " />
             <div>
