@@ -38,7 +38,8 @@
     padding-left: 16px;
     padding-right: 16px;
   }
-  .custom-gap{
+
+  .custom-gap {
     gap: 30%;
   }
 }
@@ -48,7 +49,8 @@
     padding-left: 28px;
     padding-right: 28px;
   }
-  .custom-gap{
+
+  .custom-gap {
     gap: 50%;
   }
 }
@@ -58,7 +60,12 @@
     padding-left: 128px;
     padding-right: 128px;
   }
-  .custom-gap{
+
+  .custom-gap {
     gap: 90%;
   }
+}
+
+.btn-transition {
+  transition: 0.5s ease-in-out, 0.5s ease-in-out;
 }
