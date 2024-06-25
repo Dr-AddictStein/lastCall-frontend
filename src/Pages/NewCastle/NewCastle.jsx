@@ -13,17 +13,16 @@ function NewCastle() {
   const [isHover, setIsHover] = useState(false);
 
   return (
-    <div className="mb-20 ">
+    <div className="mb-20 w-full">
       <div
-        className=" px-20"
+        className="w-full h-[70vh] object-contain bg-cover"
         style={{
           backgroundImage: ` url(${bannerImg})`,
-          height: "70vh",
           backgroundRepeat: "no-repeat",
         }}
       >
         <div className=" bg-opacity-95"></div>
-        <div className=" hero  text-neutral-content">
+        <div className=" hero text-neutral-content">
           <div className="block lg:hidden mt-16 text-white">
             <Link to={"/newCastle"}>
               <p className="cursor-pointer">NewCastle</p>
