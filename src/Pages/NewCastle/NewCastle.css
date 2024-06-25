@@ -1,4 +1,38 @@
 /* custom.css */
+/* customStyles.css */
+.btn-transition {
+  transition: background-color 2s ease-in-out; /* Transition duration of 2 seconds */
+}
+
+.btn-hovered {
+  background-color: #dd6b20; /* Equivalent to bg-orange-700 in Tailwind */
+}
+
+.btn-not-hovered {
+  background-color: #f97316; /* Equivalent to bg-orange-600 in Tailwind */
+}
+
+.btn-icon {
+  transition: transform 2s ease-in-out; /* Transition for the icon */
+}
+
+.btn-icon-hovered {
+  transform: translateX(5px); /* Move icon slightly to the right on hover */
+}
+
+.btn-text-transition {
+  transition: opacity 2s ease-in-out;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+
 @media screen and (max-width: 1000px) {
   .custom-screen {
     padding-left: 16px;
