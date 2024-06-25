@@ -78,30 +78,42 @@ function Restaurants() {
         <table className="table">
           <thead>
             <tr className="text-white hover:text-black hover:bg-white">
-              <th>#</th>
+              <th>Sl. No.</th>
               <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
+              <th>Owner</th>
+              <th>Owner Mail</th>
+              <th>Owner Phone</th>
+              <th>Region</th>
+              <th>City</th>
             </tr>
           </thead>
           <tbody>
             <tr className="hover:text-black hover:bg-white">
               <th>1</th>
               <td>Cy Ganderton</td>
+              <td>Blue</td>
+              <td>Cy Ganderton</td>
               <td>Quality Control Specialist</td>
               <td>Blue</td>
+              <td>Quality Control Specialist</td>
             </tr>
             <tr className="hover:text-black hover:bg-white">
               <th>2</th>
               <td>Hart Hagerty</td>
+              <td>Purple</td>
+              <td>Hart Hagerty</td>
               <td>Desktop Support Technician</td>
               <td>Purple</td>
+              <td>Desktop Support Technician</td>
             </tr>
             <tr className="hover:text-black hover:bg-white">
               <th>3</th>
               <td>Brice Swyre</td>
+              <td>Red</td>
+              <td>Brice Swyre</td>
               <td>Tax Accountant</td>
               <td>Red</td>
+              <td>Tax Accountant</td>
             </tr>
           </tbody>
         </table>

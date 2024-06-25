@@ -4,10 +4,10 @@ import Home from "../Pages/Home/Home/Home";
 import Faq from "../Pages/Home/FAQ/Faq";
 import OurStory from "../Pages/Home/OurStory/OurStory";
 import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
-import Restaurants from "../Pages/Dashboard/Restaurants/Restaurants";
-import Regions from "../Pages/Dashboard/Regions/Regions";
-import Cities from "../Pages/Dashboard/Cities/Cities";
-import Users from "../Pages/Dashboard/Users/Users";
+import Restaurants from "../Pages/AdminDashboard/Restaurants/Restaurants";
+import Regions from "../Pages/AdminDashboard/Regions/Regions";
+import Cities from "../Pages/AdminDashboard/Cities/Cities";
+import Users from "../Pages/AdminDashboard/Users/Users";
 
 import ForRestaurants from "../Pages/Home/ForRestaurants/ForRestaurants";
 import FreeSignUp from "../Pages/Home/FreeSignUp/FreeSignUp";
@@ -61,23 +61,29 @@ export const router = createBrowserRouter([
   },
   // Dashboard pages routes
   {
-    path: "/dashboard",
+    path: "/dashboard/restaurant",
+    element: <Dashboard></Dashboard>,
+  },
+  
+  //admin dashboard
+  {
+    path: "/dashboard/admin",
     element: <Dashboard></Dashboard>,
     children: [
       {
-        path: "restaurants",
+        path: "/dashboard/admin/restaurants",
         element: <Restaurants></Restaurants>,
       },
       {
-        path: "regions",
+        path: "/dashboard/admin/regions",
         element: <Regions></Regions>,
       },
       {
-        path: "cities",
+        path: "/dashboard/admin/cities",
         element: <Cities></Cities>,
       },
       {
-        path: "users",
+        path: "/dashboard/admin/users",
         element: <Users></Users>,
       },
     ],

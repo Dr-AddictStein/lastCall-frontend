@@ -1,13 +1,16 @@
 import { useForm } from "react-hook-form";
+import { FaRegEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
-function Regions() {
-   const { register, handleSubmit } = useForm();
+function Cities() {
+  const { register, handleSubmit } = useForm();
 
-   const onSubmit = (data) => {
-     console.log(data);
-   };
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   return (
     <div>
+
       <div className="mt-1 ">
         <div className="text-right">
           {/* Button to open the modal */}
@@ -15,7 +18,7 @@ function Regions() {
             className="btn bg-orange-400"
             onClick={() => document.getElementById("my_modal_").showModal()}
           >
-            Add Region
+            Add City
           </button>
 
           {/* Modal dialog for adding a restaurant */}
@@ -26,7 +29,7 @@ function Regions() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">Region Name</span>
+                      <span className="label-text">City Name</span>
                     </label>
                     <input
                       {...register("name", { required: true })}
@@ -76,10 +79,10 @@ function Regions() {
             {/* head */}
             <thead>
               <tr className="text-white hover:text-black hover:bg-white">
-                <th>#</th>
+                <th>Sl. No.</th>
                 <th>Name</th>
-                <th>Job</th>
-                <th>Favorite Color</th>
+                <th>Region</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -88,21 +91,30 @@ function Regions() {
                 <th>1</th>
                 <td>Cy Ganderton</td>
                 <td>Quality Control Specialist</td>
-                <td>Blue</td>
+                <td className="flex gap-2">
+                  <RiDeleteBin6Line className="border border-white p-1 text-2xl rounded-md" />
+                  <FaRegEdit className="border border-white p-1 text-2xl rounded-md" />
+                </td>
               </tr>
               {/* row 2 */}
               <tr className="hover:text-black hover:bg-white">
                 <th>2</th>
                 <td>Hart Hagerty</td>
                 <td>Desktop Support Technician</td>
-                <td>Purple</td>
+                <td className="flex gap-2">
+                  <RiDeleteBin6Line className="border border-white p-1 text-2xl rounded-md" />
+                  <FaRegEdit className="border border-white p-1 text-2xl rounded-md" />
+                </td>
               </tr>
               {/* row 3 */}
               <tr className="hover:text-black hover:bg-white">
                 <th>3</th>
                 <td>Brice Swyre</td>
                 <td>Tax Accountant</td>
-                <td>Red</td>
+                <td className="flex gap-2">
+                  <RiDeleteBin6Line className="border border-white p-1 text-2xl rounded-md" />
+                  <FaRegEdit className="border border-white p-1 text-2xl rounded-md" />
+                </td>
               </tr>
             </tbody>
           </table>
@@ -111,4 +123,4 @@ function Regions() {
     </div>
   );
 }
-export default Regions
+export default Cities

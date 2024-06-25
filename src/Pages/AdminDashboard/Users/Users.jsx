@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
+import { FaRegEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 function Users() {
-    const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
 
-    const onSubmit = (data) => {
-      console.log(data);
-    };
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   return (
     <div>
       {" "}
@@ -77,10 +79,12 @@ function Users() {
             {/* head */}
             <thead>
               <tr className="text-white hover:text-black hover:bg-white">
-                <th>#</th>
+                <th>Sl. No.</th>
                 <th>Name</th>
-                <th>Job</th>
-                <th>Favorite Color</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -89,21 +93,36 @@ function Users() {
                 <th>1</th>
                 <td>Cy Ganderton</td>
                 <td>Quality Control Specialist</td>
-                <td>Blue</td>
+                <td>Cy Ganderton</td>
+                <td>Cy Ganderton</td>
+                <td className="flex gap-2">
+                  <RiDeleteBin6Line className="border border-white p-1 text-2xl rounded-md" />
+                  <FaRegEdit className="border border-white p-1 text-2xl rounded-md" />
+                </td>
               </tr>
               {/* row 2 */}
               <tr className="hover:text-black hover:bg-white">
                 <th>2</th>
                 <td>Hart Hagerty</td>
+                <td>Hart Hagerty</td>
                 <td>Desktop Support Technician</td>
-                <td>Purple</td>
+                <td>Hart Hagerty</td>
+                <td className="flex gap-2">
+                  <RiDeleteBin6Line className="border border-white p-1 text-2xl rounded-md" />
+                  <FaRegEdit className="border border-white p-1 text-2xl rounded-md" />
+                </td>
               </tr>
               {/* row 3 */}
               <tr className="hover:text-black hover:bg-white">
                 <th>3</th>
                 <td>Brice Swyre</td>
                 <td>Tax Accountant</td>
-                <td>Red</td>
+                <td>Tax Accountant</td>
+                <td>Brice Swyre</td>
+                <td className="flex gap-2">
+                  <RiDeleteBin6Line className="border border-white p-1 text-2xl rounded-md" />
+                  <FaRegEdit className="border border-white p-1 text-2xl rounded-md" />
+                </td>
               </tr>
             </tbody>
           </table>
