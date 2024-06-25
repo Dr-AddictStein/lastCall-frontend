@@ -2,12 +2,16 @@ import { Link } from "react-router-dom";
 import bannerImg from "../../assets/images/Banner/banner.jpg";
 import { SlCalender } from "react-icons/sl";
 import { CiLocationOn, CiStar } from "react-icons/ci";
-import { FaMap } from "react-icons/fa";
+import { FaArrowRight, FaMap } from "react-icons/fa";
 import "./NewCastle.css";
 import { IoLocation } from "react-icons/io5";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { LuUtensilsCrossed } from "react-icons/lu";
+import { useState } from "react";
+
 function NewCastle() {
+  const [isHover, setIsHover] = useState(false);
+
   return (
     <div className="mb-20 ">
       <div
@@ -55,21 +59,16 @@ function NewCastle() {
                 the food bill for two, three, or four people!
               </p>
 
-              <button
-                className={`btn mx-auto border-none rounded-full text-white mt-6 flex items-center py-1 justify-center btn-transition ${
-                  isHover ? "btn-hovered" : "btn-not-hovered"
-                }`}
-                onMouseEnter={() => setIsHover(true)}
-                onMouseLeave={() => setIsHover(false)}
-              >
-                {isHover ? (
-                  <span className="flex items-center gap-2">
-                    Learn More <FaArrowRight />
-                  </span>
-                ) : (
-                  <FaArrowRight />
-                )}
-              </button>
+              <div className="">
+                <button
+                  onMouseEnter={() => setIsHover(true)}
+                  onMouseLeave={() => setIsHover(false)}
+                  className={`btn-transition relative bg-[#ff675c] hover:bg-[#ff675c] w-[50px] hover:w-[130px] overflow-hidden btn mx-auto border-none rounded-full text-white mt-6 flex gap-6 items-center py-1 justify-end`}
+                >
+                  <p className={`absolute btn-transition left-3 whitespace-nowrap ${isHover ? 'opacity-100' : 'opacity-0'}`}>Learn More</p>
+                  <FaArrowRight className="" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
