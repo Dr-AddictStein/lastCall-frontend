@@ -59,12 +59,15 @@ function Navbar() {
       <li>
         <Link to={""}>Cities</Link>
       </li>
+      <li>
+        <Link to={"/restaurants"}>For Restaurants</Link>
+      </li>
     </>
   );
 
   const location = useLocation();
-  const isHomePage = location.pathname === "/";
-  const isNewCastlePage = location.pathname === "/newCastle";
+  const isHomePage = location.pathname === "/" || location.pathname === '/restaurants';
+  const isNewCastlePage = location.pathname === "/newCastle" || location.pathname=== '/faq';
 
   return (
     <div className="relative">
@@ -72,7 +75,7 @@ function Navbar() {
         className={`${
           isHomePage
             ? "fixed"
-            : isNewCastlePage
+            : isNewCastlePage 
             ? "sticky text-black"
             : "sticky"
         } top-0 left-0 right-0 z-50 transition-transform duration-300 ${
@@ -115,7 +118,7 @@ function Navbar() {
             </div>
             <Link to="/">
               {/* <img src={lastCallImg} alt="Last Call Logo" className="h-16" /> */}
-              <p className="text-3xl cursor-pointer">
+              <p className="flex  gap-1 lg:text-3xl cursor-pointer">
                 {" "}
                 <span className="font-bold">Last</span> <span>Call</span>
               </p>
@@ -178,7 +181,7 @@ function Navbar() {
               )}
             </div>
           </div>
-          <div className="navbar-center">
+          <div className="navbar-center hidden lg:block">
             <div className="dropdown">
               <div
                 tabIndex={0}
@@ -212,7 +215,7 @@ function Navbar() {
                 <Link to="/login">Login</Link>
               </li>
             </ul>
-            <Link to="/restaurants">
+            <Link to="/restaurants" className="hidden lg:block">
               <button className="btn btn-outline rounded-full bg-white text-black">
                 For Restaurant
               </button>

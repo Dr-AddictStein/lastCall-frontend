@@ -10,14 +10,14 @@ function PopularDestination() {
   ];
 
   return (
-    <div className="my-10 lg:px-20 px-4">
+    <div className="my-10 md:px-20 lg:px-40 px-4">
       <div>
         <p className="my-6 text-2xl font-bold">Popular Destinations</p>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 ">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
           {destinations.map((destination) => (
             <div
               key={destination.id}
-              className="relative   lg:w-60 custom-width-popularDestination group overflow-hidden rounded-lg mx-auto"
+              className="relative    group overflow-hidden rounded-lg mx-auto"
             >
               <div className="relative w-full h-full">
                 <img

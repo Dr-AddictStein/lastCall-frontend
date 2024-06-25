@@ -7,53 +7,21 @@ function Banner() {
   return (
     <div className="">
       <div
-        className="hero"
+        className="hero h-full lg:h-[60vh]"
         style={{
           backgroundImage: ` url(${bannerImg})`,
-          height: '60vh',
-          backgroundRepeat: 'no-repeat'
+
+          backgroundRepeat: "no-repeat",
         }}
       >
         <div className=" bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="">
-            <p className="mb-5 font-bold text-5xl">
+            <p className="mb-5 font-bold text-3xl mt-10 lg:text-5xl">
               Book your stay with Tripster
             </p>
             <p>1,480,086 rooms around the world are waiting for you!</p>
             <div className="grid grid-flow-cols-1 items-center rounded gap-2  lg:grid-cols-4 text-black mt-12">
-              {/* <div className="bg-white border-r  px-6 flex justify-center items-center">
-                <SlCalender />
-                <select name="" id="" className=" px-4     text-black">
-                  <option
-                    className=""
-                    disabled
-                    selected
-                    value="
-                  All dates"
-                  >
-                    All dates
-                  </option>
-                  <option
-                    value="
-                  All dates"
-                  >
-                    11th june ,2024
-                  </option>
-                  <option
-                    value="
-                  All dates"
-                  >
-                    11th june ,2024
-                  </option>
-                  <option
-                    value="
-                  All dates"
-                  >
-                    11th june ,2024
-                  </option>
-                </select>
-              </div> */}
               <div className="dropdown bg-white border-r py-4 rounded lg:w-60">
                 <div
                   tabIndex={0}
@@ -186,7 +154,7 @@ function Banner() {
                   </li>
                   <li className="hover:bg-gray-200 p-3">
                     <Link>Breakfast</Link>
-                  </li>         
+                  </li>
                 </ul>
               </div>
               <div className="bg-white border-r flex justify-center items-center rounded">
