@@ -1,13 +1,47 @@
-import React from "react";
-import { useForm } from "react-hook-form"; 
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 function Restaurants() {
-  const { register, handleSubmit } = useForm(); 
+  const { register, handleSubmit, reset } = useForm();
+  const [restaurants, setRestaurants] = useState([]);
 
-  
-  const onSubmit = (data) => {
-    console.log(data);
-    
+  useEffect(() => {
+    fetchRestaurants();
+  }, []);
+
+  const fetchRestaurants = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/api/restaurant/");
+      if (!response.ok) {
+        throw new Error("Failed to fetch restaurants");
+      }
+      const data = await response.json();
+      setRestaurants(data);
+    } catch (error) {
+      console.error("Error fetching restaurants:", error);
+    }
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch("http://localhost:4000/api/restaurant/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to add restaurant");
+      }
+      alert("Restaurant added successfully!");
+      fetchRestaurants();
+      reset(); // Reset form fields
+      document.getElementById("my_modal_").close(); // Close modal
+    } catch (error) {
+      console.error("Error adding restaurant:", error);
+      alert("Error adding restaurant. Please try again.");
+    }
   };
 
   return (
@@ -25,7 +59,7 @@ function Restaurants() {
         <dialog id="my_modal_" className="modal">
           <div className="modal-box">
             {/* Form starts here */}
-            <div className="card-body">
+            <div className="card-body text-black">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-control">
                   <label className="label">
@@ -42,12 +76,77 @@ function Restaurants() {
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Location</span>
+                    <span className="label-text">Owner First Name</span>
                   </label>
                   <input
-                    {...register("location", { required: true })}
+                    {...register("ownerfirstname", { required: true })}
                     type="text"
-                    placeholder="Location"
+                    placeholder="Owner First Name"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Owner Last Name</span>
+                  </label>
+                  <input
+                    {...register("ownerlastname", { required: true })}
+                    type="text"
+                    placeholder="Owner Last Name"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Owner Email</span>
+                  </label>
+                  <input
+                    {...register("email", { required: true })}
+                    type="email"
+                    placeholder="Owner Email"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Owner Phone</span>
+                  </label>
+                  <input
+                    {...register("phone", { required: true })}
+                    type="text"
+                    placeholder="Owner Phone"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Region</span>
+                  </label>
+                  <input
+                    {...register("region", { required: true })}
+                    type="text"
+                    placeholder="Region"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">City</span>
+                  </label>
+                  <input
+                    {...register("city", { required: true })}
+                    type="text"
+                    placeholder="City"
                     className="input input-bordered"
                     required
                   />
@@ -55,7 +154,7 @@ function Restaurants() {
 
                 <div className="flex gap-4 mt-6">
                   <button className="btn px-4 btn-primary" type="submit">
-                   Submit
+                    Submit
                   </button>
 
                   <button
@@ -88,33 +187,17 @@ function Restaurants() {
             </tr>
           </thead>
           <tbody>
-            <tr className="hover:text-black hover:bg-white">
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Blue</td>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-              <td>Quality Control Specialist</td>
-            </tr>
-            <tr className="hover:text-black hover:bg-white">
-              <th>2</th>
-              <td>Hart Hagerty</td>
-              <td>Purple</td>
-              <td>Hart Hagerty</td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
-              <td>Desktop Support Technician</td>
-            </tr>
-            <tr className="hover:text-black hover:bg-white">
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Red</td>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-              <td>Tax Accountant</td>
-            </tr>
+            {restaurants.map((restaurant, index) => (
+              <tr key={restaurant._id} className="hover:text-black hover:bg-white">
+                <td>{index + 1}</td>
+                <td>{restaurant.name}</td>
+                <td>{`${restaurant.ownerfirstname} ${restaurant.ownerlastname}`}</td>
+                <td>{restaurant.email}</td>
+                <td>{restaurant.phone}</td>
+                <td>{restaurant.region}</td>
+                <td>{restaurant.city}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
