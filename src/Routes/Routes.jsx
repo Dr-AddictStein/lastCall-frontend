@@ -16,6 +16,9 @@ import Login from "../Pages/Login/Login";
 import NewCastle from "../Pages/NewCastle/NewCastle";
 import FoodDetails from "../Pages/FoodDetails/FoodDetails";
 import AdminDashboard from "../Pages/AdminDashboard/AdminDashboard";
+import Profile from "../Pages/Profile/Profile";
+import MyBookings from "../Pages/Profile/MyBookings/MyBookings";
+import UpdateProfile from "../Pages/Profile/UpdateProfile/UpdateProfile";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +56,20 @@ export const router = createBrowserRouter([
       {
         path: "/newCastle",
         element: <NewCastle></NewCastle>
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+        children: [
+          {
+            path: "/profile/mybookings",
+            element: <MyBookings />,
+          },
+          {
+            path: "/profile/update",
+            element: <UpdateProfile />
+          }
+        ],
       },
       {
         path: 'foodDetails',
