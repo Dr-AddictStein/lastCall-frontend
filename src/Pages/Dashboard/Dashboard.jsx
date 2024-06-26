@@ -66,31 +66,31 @@ function Dashboard() {
             {/* Sidebar navigation items */}
             <li>
               <NavLink
-                to=""
+                to="/dashboard/restaurant/editRestaurant"
                 className=" w-full"
               >
-                <FaSubway className="text-xl mr-2" /> Regions
+                <FaSubway className="text-xl mr-2" /> Edit Restaurant
               </NavLink>
             </li>
             <li>
               <NavLink
-                to=""
+                to="/dashboard/restaurant/viewReservations"
                 className=" w-full"
               >
-                <FaCity className="text-xl mr-2" /> Cities
+                <FaCity className="text-xl mr-2" /> View Reservations
               </NavLink>
             </li>
             <li>
               <NavLink
-                to=""
+                to="/dashboard/restaurant/addTable"
                 className=" w-full"
               >
-                <IoIosRestaurant className="text-xl mr-2" /> Restaurants
+                <IoIosRestaurant className="text-xl mr-2" /> Add Table
               </NavLink>
             </li>
             <li>
               <NavLink
-                to=""
+                to="/dashboard/restaurant/viewEmployees"
                 className=" w-full"
               >
                 <LuUsers className="text-xl mr-2" /> Users
@@ -118,7 +118,7 @@ function Dashboard() {
 
               <li>
                 <NavLink
-                  to=""
+                  to="/dashboard/restaurant/editRestaurant"
                   className="flex justify-center text-center w-full"
                 >
                   <FaSubway className="text-xl mr-2" />
@@ -126,7 +126,7 @@ function Dashboard() {
               </li>
               <li>
                 <NavLink
-                  to=""
+                  to="/dashboard/restaurant/viewReservations"
                   className="flex justify-center text-center w-full"
                 >
                   <FaCity className="text-xl mr-2" />
@@ -134,7 +134,7 @@ function Dashboard() {
               </li>
               <li>
                 <NavLink
-                  to=""
+                  to="/dashboard/restaurant/addTable"
                   className="flex justify-center text-center w-full"
                 >
                   <IoIosRestaurant className="text-xl mr-2" />
@@ -142,7 +142,7 @@ function Dashboard() {
               </li>
               <li>
                 <NavLink
-                  to=""
+                  to="/dashboard/restaurant/viewEmployees"
                   className="flex justify-center text-center w-full"
                 >
                   <LuUsers className="text-xl mr-2" />
