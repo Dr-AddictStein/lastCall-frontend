@@ -15,6 +15,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import Login from "../Pages/Login/Login";
 import NewCastle from "../Pages/NewCastle/NewCastle";
 import FoodDetails from "../Pages/FoodDetails/FoodDetails";
+import AdminDashboard from "../Pages/AdminDashboard/AdminDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -68,7 +69,7 @@ export const router = createBrowserRouter([
   //admin dashboard
   {
     path: "/dashboard/admin",
-    element: <Dashboard></Dashboard>,
+    element: <AdminDashboard></AdminDashboard>,
     children: [
       {
         path: "/dashboard/admin/restaurants",

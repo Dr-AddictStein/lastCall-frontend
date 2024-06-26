@@ -5,8 +5,10 @@ import bg1 from '../../../assets/images/SignUp/bg1.png';
 import bg2 from "../../../assets/images/SignUp/bg2.png";
 import bg3 from "../../../assets/images/SignUp/bg3.jpg";
 import bg4 from "../../../assets/images/SignUp/bg4.png";
+import { useNavigate } from "react-router-dom";
 
 function FreeSignUp() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -16,7 +18,7 @@ function FreeSignUp() {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const response = await fetch("http://localhost:4000/api/restaurant/createRestaurant", {
+      const response = await fetch("http://localhost:4000/api/restaurant/notifyadmin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -25,10 +27,11 @@ function FreeSignUp() {
       });
 
       const result = await response.json();
-      console.log(result);
+      console.log("Done",result);
 
       if (response.ok) {
         alert("Restaurant registered successfully!");
+        navigate('/')
       } else {
         alert(`Error: ${result.message}`);
       }
