@@ -92,8 +92,30 @@ function Cities() {
                 <td>Cy Ganderton</td>
                 <td>Quality Control Specialist</td>
                 <td className="flex gap-2">
-                  <RiDeleteBin6Line className="border border-white p-1 text-2xl rounded-md" />
-                  <FaRegEdit className="border border-white p-1 text-2xl rounded-md" />
+                  <RiDeleteBin6Line className="border cursor-pointer border-white p-1 text-2xl rounded-md" />
+                  <FaRegEdit className="border cursor-pointer border-white p-1 text-2xl rounded-md" onClick={() => document.getElementById('my_modal_3').showModal()} />
+                  <dialog id="my_modal_3" className="modal">
+                    <div className="modal-box">
+                      <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+                      <h3 className="font-bold text-lg text-center">Update City</h3>
+                      <form action="">
+                        <div className="py-2">
+                          <p>Name</p>
+                          <input type="text" name="name" className="border border-black w-full" />
+                        </div>
+                        <div className="py-2">
+                          <p>Regions</p>
+                          <input type="text" name="region" className="border border-black w-full" />
+                        </div>
+                        <div className="text-right pt-2">
+                          <button className="bg-[#265582] text-white rounded-md p-2">Update</button>
+                        </div>
+                      </form>
+                    </div>
+                  </dialog>
                 </td>
               </tr>
               {/* row 2 */}
