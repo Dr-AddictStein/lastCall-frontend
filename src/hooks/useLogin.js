@@ -20,14 +20,14 @@ export const useLogin=()=>{
         const json=await response.json();
 
         if(!response.ok){
-            console.log("AOAOAO",json.error)
+            console.log("AOAOAO",json.error);
             return json.error;
             setError(json.error);
         }
         if(response.ok){
             localStorage.setItem('user',JSON.stringify(json));
 
-            dispatch({type:'LOGIN',payload:json})
+            dispatch({type:'LOGIN',payload:json});
             navigate(`/appointments/${json.user._id}`);
 
         }
