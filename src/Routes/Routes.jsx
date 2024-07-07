@@ -3,7 +3,7 @@ import Main from './../Layout/Main';
 import Home from "../Pages/Home/Home/Home";
 import Faq from "../Pages/Home/FAQ/Faq";
 import OurStory from "../Pages/Home/OurStory/OurStory";
-import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
+import Dashboard from "../Pages/Dashboard/Dashboard";
 import Restaurants from "../Pages/AdminDashboard/Restaurants/Restaurants";
 import Regions from "../Pages/AdminDashboard/Regions/Regions";
 import Cities from "../Pages/AdminDashboard/Cities/Cities";
@@ -19,6 +19,10 @@ import AdminDashboard from "../Pages/AdminDashboard/AdminDashboard";
 import Profile from "../Pages/Profile/Profile";
 import MyBookings from "../Pages/Profile/MyBookings/MyBookings";
 import UpdateProfile from "../Pages/Profile/UpdateProfile/UpdateProfile";
+import EditRestaurant from "../Pages/Dashboard/EditRestaurant/EditRestaurant";
+import ViewReservations from "../Pages/Dashboard/ViewReservations/ViewReservations";
+import AddTable from "../Pages/Dashboard/AddTable/AddTable";
+import ViewEmployees from "../Pages/Dashboard/ViewEmployees/ViewEmployees";
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +85,24 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard/restaurant",
     element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: "/dashboard/restaurant/editRestaurant",
+        element: <EditRestaurant />
+      },
+      {
+        path: "/dashboard/restaurant/viewReservations",
+        element: <ViewReservations />
+      },
+      {
+        path: "/dashboard/restaurant/addTable",
+        element: <AddTable />
+      },
+      {
+        path: "/dashboard/restaurant/viewEmployees",
+        element: <ViewEmployees />
+      },
+    ]
   },
   
   //admin dashboard
