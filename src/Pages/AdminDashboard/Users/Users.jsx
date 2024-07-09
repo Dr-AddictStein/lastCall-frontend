@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Users() {
-  const { register, handleSubmit, setValue } = useForm();
   const [users, setUsers] = useState([]);
-  const [editUser, setEditUser] = useState(null);
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    role: "restaurant-owner",
+    phone: ""
+  });
+  const [editUserId, setEditUserId] = useState(null);
 
   useEffect(() => {
     fetchUsers();
@@ -17,7 +25,6 @@ function Users() {
       const response = await fetch("http://localhost:4000/api/user/", {
         method: "GET",
       });
-
       if (response.ok) {
         const result = await response.json();
         setUsers(result);
@@ -29,35 +36,49 @@ function Users() {
     }
   };
 
-  const onSubmit = async (data) => {
-    const toSend = {
-      firstname: data.firstname,
-      lastname: data.lastname,
-      email: data.email,
-      password: data.password,
-      role: "restaurant-owner",
-    };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (editUserId) {
+      await updateUser(editUserId, formData);
+    } else {
+      await createUser(formData);
+    }
+    setFormData({
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+      role: "restaurant-owner",
+      phone: ""
+    });
+    setEditUserId(null);
+  };
+
+  const createUser = async (data) => {
     try {
       const response = await fetch("http://localhost:4000/api/user/createuser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(toSend),
+        body: JSON.stringify(data),
       });
-
       if (response.ok) {
-        alert("Restaurant Owner Account registered successfully!");
+        toast.success("Restaurant Owner Account registered successfully!");
         fetchUsers();
-        document.getElementById("my_modal_").close();
+        document.getElementById("user_modal").close();
       } else {
         const result = await response.json();
-        alert(`Error: ${result.message}`);
+        toast.error(`Error: ${result.message}`);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Error submitting form. Please try again.");
+      toast.error("Error submitting form. Please try again.");
     }
   };
 
@@ -66,131 +87,163 @@ function Users() {
       const response = await fetch(`http://localhost:4000/api/user/${userId}`, {
         method: "DELETE",
       });
-
       if (response.ok) {
-        alert("User deleted successfully!");
+        toast.success("User deleted successfully!");
         fetchUsers();
       } else {
         const result = await response.json();
-        alert(`Error: ${result.message}`);
+        toast.error(`Error: ${result.message}`);
       }
     } catch (error) {
       console.error("Error deleting user:", error);
-      alert("Error deleting user. Please try again.");
+      toast.error("Error deleting user. Please try again.");
     }
   };
 
   const handleEdit = (user) => {
-    setEditUser(user);
-    setValue("firstname", user.firstname);
-    setValue("lastname", user.lastname);
-    setValue("email", user.email);
-    setValue("role", user.role);
-    // Assuming 'phone' is a field in your user object
-    setValue("phone", user.phone); 
-    document.getElementById("edit_modal").showModal();
+    setEditUserId(user._id);
+    setFormData({
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      password: "",
+      role: user.role,
+      phone: user.phone || ""
+    });
+    document.getElementById("user_modal").showModal();
   };
 
-  const handleUpdate = async (data) => {
+  const updateUser = async (userId, data) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/user/${editUser._id}`, {
-        method: "PUT",
+      const response = await fetch(`http://localhost:4000/api/user/${userId}`, {
+        method: "PATCH",  // Changed to PATCH
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-
       if (response.ok) {
-        alert("User updated successfully!");
+        toast.success("User updated successfully!");
         fetchUsers();
-        document.getElementById("edit_modal").close();
+        document.getElementById("user_modal").close();
       } else {
         const result = await response.json();
-        alert(`Error: ${result.message}`);
+        toast.error(`Error: ${result.message}`);
       }
     } catch (error) {
       console.error("Error updating user:", error);
-      alert("Error updating user. Please try again.");
+      toast.error("Error updating user. Please try again.");
     }
   };
 
   return (
     <div>
-      {/* Add User Modal */}
+      <ToastContainer />
       <div className="text-right">
-        <button className="btn bg-orange-400" onClick={() => document.getElementById("my_modal_").showModal()}>
+        <button
+          className="btn bg-orange-400"
+          onClick={() => {
+            setEditUserId(null);
+            setFormData({
+              firstname: "",
+              lastname: "",
+              email: "",
+              password: "",
+              role: "restaurant-owner",
+              phone: ""
+            });
+            document.getElementById("user_modal").showModal();
+          }}
+        >
           Add User
         </button>
       </div>
 
-      <dialog id="my_modal_" className="modal">
+      <dialog id="user_modal" className="modal">
         <div className="modal-box">
-          <div className="card-body">
-            <form onSubmit={handleSubmit(onSubmit)} className="text-black">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">First Name</span>
-                </label>
-                <input
-                  {...register("firstname", { required: true })}
-                  type="text"
-                  placeholder="First Name"
-                  className="input input-bordered"
-                  required
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Last Name</span>
-                </label>
-                <input
-                  {...register("lastname", { required: true })}
-                  type="text"
-                  placeholder="Last Name"
-                  className="input input-bordered"
-                  required
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  {...register("email", { required: true })}
-                  type="text"
-                  placeholder="Email"
-                  className="input input-bordered"
-                  required
-                />
-              </div>
+          <form onSubmit={handleSubmit} className="text-black">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">First Name</span>
+              </label>
+              <input
+                type="text"
+                name="firstname"
+                value={formData.firstname}
+                onChange={handleInputChange}
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Last Name</span>
+              </label>
+              <input
+                type="text"
+                name="lastname"
+                value={formData.lastname}
+                onChange={handleInputChange}
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="input input-bordered"
+                required
+              />
+            </div>
+            {!editUserId && (
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  {...register("password", { required: true })}
                   type="password"
-                  placeholder="Password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
                   className="input input-bordered"
                   required
                 />
               </div>
-
-              <div className="flex gap-4 mt-6">
-                <button className="btn px-4 btn-primary" type="submit">
-                  Submit
-                </button>
-                <button className="btn bg-red-600 text-white" type="button" onClick={() => document.getElementById("my_modal_").close()}>
-                  Close
-                </button>
-              </div>
-            </form>
-          </div>
+            )}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Phone</span>
+              </label>
+              <input
+                type="text"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="input input-bordered"
+              />
+            </div>
+            <div className="flex gap-4 mt-6">
+              <button className="btn px-4 btn-primary" type="submit">
+                {editUserId ? "Update" : "Submit"}
+              </button>
+              <button
+                className="btn bg-red-600 text-white"
+                type="button"
+                onClick={() => document.getElementById("user_modal").close()}
+              >
+                Close
+              </button>
+            </div>
+          </form>
         </div>
       </dialog>
 
-      {/* Users Table */}
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
@@ -218,7 +271,10 @@ function Users() {
                   />
                   <FaRegEdit
                     className="border cursor-pointer border-white p-1 text-2xl rounded-md"
-                    onClick={() => handleEdit(user)}
+                    onClick={() => {
+                      handleEdit(user);
+                      document.getElementById("user_modal").showModal();
+                    }}
                   />
                 </td>
               </tr>
@@ -226,55 +282,8 @@ function Users() {
           </tbody>
         </table>
       </div>
-
-      {/* Edit User Modal */}
-      <dialog id="edit_modal" className="modal">
-        <div className="modal-box">
-          <form onSubmit={handleSubmit(handleUpdate)} className="text-black">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" type="button" onClick={() => document.getElementById("edit_modal").close()}>✕</button>
-            <h3 className="font-bold text-lg text-center">Update User</h3>
-            <div className="py-2">
-              <label className="label">
-                <span className="label-text">First Name</span>
-              </label>
-              <input {...register("firstname")} type="text" name="firstname" className="border border-black w-full text-black" />
-            </div>
-            <div className="py-2">
-              <label className="label">
-                <span className="label-text">Last Name</span>
-              </label>
-              <input {...register("lastname")} type="text" name="lastname" className="border border-black w-full text-black" />
-            </div>
-            <div className="py-2">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input {...register("email")} type="text" name="email" className="border border-black w-full text-black" />
-            </div>
-            <div className="py-2">
-              <label className="label">
-                <span className="label-text">Role</span>
-              </label>
-              <input {...register("role")} type="text" name="role" className="border border-black w-full text-black" />
-            </div>
-            <div className="py-2">
-              <label className="label">
-                <span className="label-text">Phone</span>
-              </label>
-              <input {...register("phone")} type="text" name="phone" className="border border-black w-full text-black" />
-            </div>
-            <div className="text-right pt-2">
-              <button className="bg-[#265582] text-white rounded-md p-2" type="submit">
-                Update
-              </button>
-              <button className="btn bg-red-600 text-white" type="button" onClick={() => document.getElementById("edit_modal").close()}>
-                Close
-              </button>
-            </div>
-          </form>
-        </div>
-      </dialog>
     </div>
   );
 }
+
 export default Users;
