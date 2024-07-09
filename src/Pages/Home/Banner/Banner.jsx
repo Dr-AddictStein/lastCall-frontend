@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import bannerImg from '../../../assets/images/Banner/banner.jpg'
+import bannerImg from '../../../assets/images/Banner/banner.webp'
 import { SlCalender } from 'react-icons/sl';
 function Banner() {
   const today = new Date();
@@ -7,18 +7,18 @@ function Banner() {
   return (
     <div className="">
       <div
-        className="hero h-full lg:h-[60vh]"
+        className="hero h-full lg:h-[60vh] bg-cover  relative"
         style={{
           backgroundImage: ` url(${bannerImg})`,
 
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className=" bg-opacity-60"></div>
+        <div className=" absolute inset-0 bg-black bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="">
             <p className="mb-5 font-bold text-3xl mt-10 lg:text-5xl">
-              Book your stay with Tripster
+              Dining deals from dawn to dusk
             </p>
             <p>1,480,086 rooms around the world are waiting for you!</p>
             <div className="grid grid-flow-cols-1 items-center rounded gap-2  lg:grid-cols-4 text-black mt-12">

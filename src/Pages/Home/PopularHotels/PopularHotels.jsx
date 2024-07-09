@@ -1,6 +1,6 @@
 import React from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import img1 from "../../../assets/images/Banner/melbourne2.jpg";
+import img1 from "../../../assets/images/Banner/banner.webp";
 import { Link } from "react-router-dom";
 
 function PopularHotels() {

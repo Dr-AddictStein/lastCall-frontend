@@ -14,28 +14,26 @@ function OfferSection() {
 
         <h2 className="my-5 font-bold text-2xl">Find a restaurant</h2>
         <p className="text-center text-xl">
-          Find a new restaurant to try from over 1,800 <br /> restaurants
-          globally
+          Discover your newest restaurant to try out
         </p>
       </div>
       <div className="flex flex-col items-center justify-center">
         <p className="text-7xl text-blue-900 text-center">
           <PiCalendarStarFill />
         </p>
-        <h2 className="my-5 font-bold text-2xl">Select your date and time</h2>
+        <h2 className="my-5 font-bold text-2xl">Choose your date and time</h2>
         <p className="text-center text-xl">
-          Get in quick to score the ‘first table’ of <br /> breakfast, lunch or
-          dinner
+          Grab the ‘last call’ or ‘first call’ of breakfast, lunch, or dinner
         </p>
       </div>
       <div className="flex flex-col items-center justify-center">
         <p className="text-7xl text-blue-900 text-center">
           <BiSolidOffer />
         </p>
-        <h2 className="my-5 font-bold text-2xl">Book a First Table</h2>
+        <h2 className="my-5 font-bold text-2xl">Book a table</h2>
         <p className="text-center text-xl">
-          Book a First Table for $10 and get 50% off the <br /> food bill for
-          two, three or four people
+          Make a reservation for $10 to receive 50% off the food bill for two,
+          three, or four people
         </p>
       </div>
     </div>

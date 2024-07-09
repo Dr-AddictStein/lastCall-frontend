@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import bannerImg from "../../assets/images/Banner/banner.jpg";
+import bannerImg from "../../assets/images/Banner/banner.webp";
 import { SlCalender } from "react-icons/sl";
 import { CiLocationOn, CiStar } from "react-icons/ci";
 import { FaArrowRight, FaMap } from "react-icons/fa";

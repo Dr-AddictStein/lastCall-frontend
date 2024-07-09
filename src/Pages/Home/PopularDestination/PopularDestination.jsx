@@ -1,4 +1,4 @@
-import canbera from "../../../assets/images/Banner/Brisbane.jpg";
+import canbera from "../../../assets/images/Banner/banner.webp";
 import './PopularDestination.css'
 
 function PopularDestination() {

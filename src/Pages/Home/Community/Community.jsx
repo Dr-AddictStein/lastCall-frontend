@@ -10,7 +10,6 @@ function Community() {
           backgroundImage: `url(${bgImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-        
         }}
       >
         <div className="flex flex-col justify-center items-center">
@@ -33,19 +32,17 @@ function Community() {
         </div>
         <div>
           <h2 className="text-3xl lg:text-5xl text-blue-900 mb-4">
-            Join our community <br />
-            of food lovers!
+            Become part of our <br /> foodie family
           </h2>
           <p>
-            Sign up now to save money by dining early and <br /> discover fine
-            dining destinations and casual-chic <br /> eateries with 50% off the
-            food bill.
+            Sign up now to save money and explore fine dining establishments or <br/>
+            casual eateries with 50% off the food bill
           </p>
         </div>
       </div>
       <div className="text-center">
         <Link to={"/signup"}>
-          <button className="px-4 lg:px-14 bg-orange-600 text-white py-3">
+          <button className="px-4  lg:px-10 bg-orange-600 text-white py-3">
             Sign Up
           </button>
         </Link>

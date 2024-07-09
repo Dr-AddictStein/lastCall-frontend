@@ -15,7 +15,7 @@ function SocialMedia() {
           backgroundImage: `url(${bgImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-        // Adjust padding as needed
+          // Adjust padding as needed
         }}
       >
         <div className="flex  flex-col justify-center items-center">
@@ -38,13 +38,11 @@ function SocialMedia() {
         </div>
         <div>
           <h2 className="text-3xl lg:text-5xl text-blue-900 mb-4">
-            Contact With Us <br />
-            to order your food
+            Follow along on <br /> the gastronomic journey
           </h2>
           <p>
-            Contact with us now to save money by dining early and <br />
-            discover fine dining destinations and casual-chic <br /> eateries
-            with 50% off the food bill.
+            Connect with us on our social media to watch new restaurants get
+            announced and snag more deals
           </p>
         </div>
       </div>
@@ -66,8 +64,8 @@ function SocialMedia() {
           <a href="#social-media-link">
             <FaLinkedinIn className="w-10 h-10 text-blue-800" />
           </a>
-              </div>
-              <hr className="my-5" />
+        </div>
+        <hr className="my-5" />
         <p>
           Or visit our &nbsp;
           <Link className="text-orange-600" to={"/faq"}>

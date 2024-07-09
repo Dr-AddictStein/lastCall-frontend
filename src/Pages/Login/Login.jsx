@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import bgImg from "../../assets/images/SignUp/bg01.jpg";
-import SignUpImg from '../../assets/images/Login/signin.svg'
+import bgImg from "../../assets/images/Login/login.jpg";
+import SignUpImg from '../../assets/images/Login/login-logo.png'
 import { FaApple, FaArrowLeft, FaFacebook } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
@@ -89,21 +89,26 @@ function Login() {
                   }}
                 />
               </div>
-              <button className="btn signup-btn btn-google bg-slate-700 text-white" onClick={handleSubmit}>
+              <button
+                className="btn signup-btn btn-google bg-slate-700 text-white"
+                onClick={handleSubmit}
+              >
                 Log In
               </button>
 
               <hr className="my-6 w-full max-w-xs" />
 
               <p className="mb-3">
-                <button className="btn signup-btn btn-google" onClick={handleGoogleLogin}>
+                <button
+                  className="btn signup-btn btn-google"
+                  onClick={handleGoogleLogin}
+                >
                   <FcGoogle className="text-xl mr-2" /> Continue with Google
                 </button>
               </p>
               <p className="mb-3">
                 <button className="btn signup-btn btn-facebook">
-                  <FaFacebook className="text-xl mr-2" /> Continue with
-                  Facebook
+                  <FaFacebook className="text-xl mr-2" /> Continue with Facebook
                 </button>
               </p>
               <p className="mb-3">
@@ -121,10 +126,11 @@ function Login() {
             backgroundPosition: "center",
             minHeight: "100vh",
           }}
-          className="md:w-1/2 lg:w-1/2 pl-"
+          className="md:w-1/2 lg:w-1/2 hero  items-start"
         >
           {/* Content with background image */}
-          <div className="lg:mx-20 mx-4 pt-10 text-white">
+          <div className="hero-overlay bg-opacity-60"></div>
+          <div className="lg:mx-20 mx-4 pt-20 text-white ">
             <div className="flex  gap-6 items-center justify-start">
               <svg
                 width="1em"
@@ -146,12 +152,11 @@ function Login() {
             </div>
 
             <h2 className="text-3xl lg:text-6xl   mb-8 mt-8 font-bold">
-              There’s never <br /> been a better <br /> time to tuck in
+              You made it just in time for Last Call
             </h2>
             <p>
-              Book a First Table at our partner restaurants and get 50% off
-              the food bill for two to four people. Talk about the early bird
-              catches the worm!
+              Here to make sure your latest dining experience will be one to
+              remember
             </p>
             <p className="mt-7">
               © First Table Limited 2024 <a href="">Privacy and Terms</a>
