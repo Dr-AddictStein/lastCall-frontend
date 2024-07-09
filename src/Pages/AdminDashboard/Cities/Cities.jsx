@@ -1,148 +1,238 @@
-import { useForm } from "react-hook-form";
+import React, { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Cities() {
-  const { register, handleSubmit } = useForm();
+  const [cities, setCities] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const [formData, setFormData] = useState({
+    name: "",
+    regionId: ""
+  });
+  const [editCityId, setEditCityId] = useState(null);
 
-  const onSubmit = (data) => {
-    console.log(data);
+  useEffect(() => {
+    fetchCities();
+    fetchRegions();
+  }, []);
+
+  const fetchCities = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/api/city/");
+      if (!response.ok) {
+        throw new Error("Failed to fetch cities");
+      }
+      const data = await response.json();
+      setCities(data);
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+    }
   };
+
+  const fetchRegions = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/api/region/");
+      if (!response.ok) {
+        throw new Error("Failed to fetch regions");
+      }
+      const data = await response.json();
+      setRegions(data);
+    } catch (error) {
+      console.error("Error fetching regions:", error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (editCityId) {
+      await updateCity(editCityId, formData);
+    } else {
+      await createCity(formData);
+    }
+    setFormData({
+      name: "",
+      regionId: ""
+    });
+    setEditCityId(null);
+  };
+
+  const createCity = async (data) => {
+    try {
+      const response = await fetch("http://localhost:4000/api/city/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to add city");
+      }
+      toast.success("City added successfully!");
+      fetchCities();
+      document.getElementById("city_modal").close();
+    } catch (error) {
+      console.error("Error adding city:", error);
+      toast.error("Error adding city. Please try again.");
+    }
+  };
+
+  const updateCity = async (cityId, data) => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/city/${cityId}`, {
+        method: "PATCH", // Assuming PATCH for updates
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update city");
+      }
+      toast.success("City updated successfully!");
+      fetchCities();
+      document.getElementById("city_modal").close();
+    } catch (error) {
+      console.error("Error updating city:", error);
+      toast.error("Error updating city. Please try again.");
+    }
+  };
+
+  const handleEdit = (city) => {
+    setEditCityId(city._id);
+    setFormData({
+      name: city.name,
+      regionId: city.regionId
+    });
+    document.getElementById("city_modal").showModal();
+  };
+
+  const handleDelete = async (cityId) => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/city/${cityId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete city");
+      }
+      toast.success("City deleted successfully!");
+      fetchCities();
+    } catch (error) {
+      console.error("Error deleting city:", error);
+      toast.error("Error deleting city. Please try again.");
+    }
+  };
+
   return (
-    <div>
+    <div className="mt-1">
+      <ToastContainer />
+      <div className="text-right">
+        <button
+          className="btn bg-orange-400"
+          onClick={() => {
+            setEditCityId(null);
+            setFormData({
+              name: "",
+              regionId: ""
+            });
+            document.getElementById("city_modal").showModal();
+          }}
+        >
+          Add City
+        </button>
 
-      <div className="mt-1 ">
-        <div className="text-right">
-          {/* Button to open the modal */}
-          <button
-            className="btn bg-orange-400"
-            onClick={() => document.getElementById("my_modal_").showModal()}
-          >
-            Add City
-          </button>
-
-          {/* Modal dialog for adding a restaurant */}
-          <dialog id="my_modal_" className="modal">
-            <div className="modal-box">
-              {/* Form starts here */}
-              <div className="card-body">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text">City Name</span>
-                    </label>
-                    <input
-                      {...register("name", { required: true })}
-                      type="text"
-                      placeholder="Restaurant Name"
-                      className="input input-bordered"
-                      required
-                    />
-                  </div>
-
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text">Location</span>
-                    </label>
-                    <input
-                      {...register("location", { required: true })}
-                      type="text"
-                      placeholder="Location"
-                      className="input input-bordered"
-                      required
-                    />
-                  </div>
-
-                  <div className="flex gap-4 mt-6">
-                    <button className="btn px-4 btn-primary" type="submit">
-                      Submit
-                    </button>
-
-                    <button
-                      className="btn bg-red-600 text-white"
-                      type="button"
-                      onClick={() =>
-                        document.getElementById("my_modal_").close()
-                      }
-                    >
-                      Close
-                    </button>
-                  </div>
-                </form>
+        <dialog id="city_modal" className="modal">
+          <div className="modal-box">
+            <form onSubmit={handleSubmit} className="text-black">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">City Name</span>
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="input input-bordered"
+                  required
+                />
               </div>
-              {/* Form ends here */}
-            </div>
-          </dialog>
-        </div>
-        <div className="overflow-x-auto ">
-          <table className="table ">
-            {/* head */}
-            <thead>
-              <tr className="text-white hover:text-black hover:bg-white">
-                <th>Sl. No.</th>
-                <th>Name</th>
-                <th>Region</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* row 1 */}
-              <tr className="hover:text-black hover:bg-white">
-                <th>1</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Region</span>
+                </label>
+                <select
+                  name="regionId"
+                  value={formData.regionId}
+                  onChange={handleInputChange}
+                  className="input input-bordered"
+                  required
+                >
+                  <option value="" disabled>Select Region</option>
+                  {regions.map((region) => (
+                    <option key={region._id} value={region._id}>
+                      {region.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex gap-4 mt-6">
+                <button className="btn px-4 btn-primary" type="submit">
+                  {editCityId ? "Update" : "Submit"}
+                </button>
+                <button
+                  className="btn bg-red-600 text-white"
+                  type="button"
+                  onClick={() => document.getElementById("city_modal").close()}
+                >
+                  Close
+                </button>
+              </div>
+            </form>
+          </div>
+        </dialog>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="table">
+          <thead>
+            <tr className="text-white hover:text-black hover:bg-white">
+              <th>Sl. No.</th>
+              <th>City Name</th>
+              <th>Region</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cities.map((city, index) => (
+              <tr key={city._id} className="hover:text-black hover:bg-white">
+                <td>{index + 1}</td>
+                <td>{city.name}</td>
+                <td>{city.region}</td>
                 <td className="flex gap-2">
-                  <RiDeleteBin6Line className="border cursor-pointer border-white p-1 text-2xl rounded-md" />
-                  <FaRegEdit className="border cursor-pointer border-white p-1 text-2xl rounded-md" onClick={() => document.getElementById('my_modal_3').showModal()} />
-                  <dialog id="my_modal_3" className="modal">
-                    <div className="modal-box">
-                      <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                      </form>
-                      <h3 className="font-bold text-lg text-center">Update City</h3>
-                      <form action="">
-                        <div className="py-2">
-                          <p>Name</p>
-                          <input type="text" name="name" className="border border-black w-full" />
-                        </div>
-                        <div className="py-2">
-                          <p>Regions</p>
-                          <input type="text" name="region" className="border border-black w-full" />
-                        </div>
-                        <div className="text-right pt-2">
-                          <button className="bg-[#265582] text-white rounded-md p-2">Update</button>
-                        </div>
-                      </form>
-                    </div>
-                  </dialog>
+                  <FaRegEdit
+                    className="border cursor-pointer border-white p-1 text-2xl rounded-md"
+                    onClick={() => handleEdit(city)}
+                  />
+                  <RiDeleteBin6Line
+                    className="border cursor-pointer border-white p-1 text-2xl rounded-md"
+                    onClick={() => handleDelete(city._id)}
+                  />
                 </td>
               </tr>
-              {/* row 2 */}
-              <tr className="hover:text-black hover:bg-white">
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>Desktop Support Technician</td>
-                <td className="flex gap-2">
-                  <RiDeleteBin6Line className="border border-white p-1 text-2xl rounded-md" />
-                  <FaRegEdit className="border border-white p-1 text-2xl rounded-md" />
-                </td>
-              </tr>
-              {/* row 3 */}
-              <tr className="hover:text-black hover:bg-white">
-                <th>3</th>
-                <td>Brice Swyre</td>
-                <td>Tax Accountant</td>
-                <td className="flex gap-2">
-                  <RiDeleteBin6Line className="border border-white p-1 text-2xl rounded-md" />
-                  <FaRegEdit className="border border-white p-1 text-2xl rounded-md" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 }
-export default Cities
+
+export default Cities;
