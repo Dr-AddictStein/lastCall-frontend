@@ -41,8 +41,8 @@ function ForRestaurants() {
           backgroundPosition: "center",
         }}
       >
-        <div className="   opacity-0"></div>
-        <div className="hero-content text-center text-neutral-content">
+        <div className=" absolute inset-0 bg-black bg-opacity-60"></div>
+        <div className="hero-content text-center text-neutral-content ">
           <div className="">
             <p className="mb-5 font-bold text-7xl">
               Transform empty seats into earnings
