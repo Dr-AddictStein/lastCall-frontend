@@ -61,6 +61,8 @@ function Users() {
 
   const createUser = async (data) => {
     try {
+
+      console.log("oaoaoaoaoa",data);
       const response = await fetch("http://localhost:4000/api/user/createuser", {
         method: "POST",
         headers: {
