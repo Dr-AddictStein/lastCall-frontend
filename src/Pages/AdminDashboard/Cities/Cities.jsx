@@ -9,7 +9,7 @@ function Cities() {
   const [regions, setRegions] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
-    regionId: ""
+    region: ""
   });
   const [editCityId, setEditCityId] = useState(null);
 
@@ -58,14 +58,14 @@ function Cities() {
     }
     setFormData({
       name: "",
-      regionId: ""
+      region: ""
     });
     setEditCityId(null);
   };
 
   const createCity = async (data) => {
     try {
-      const response = await fetch("http://localhost:4000/api/city/add", {
+      const response = await fetch("http://localhost:4000/api/city/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -109,7 +109,7 @@ function Cities() {
     setEditCityId(city._id);
     setFormData({
       name: city.name,
-      regionId: city.regionId
+      region: city.region
     });
     document.getElementById("city_modal").showModal();
   };
@@ -140,7 +140,7 @@ function Cities() {
             setEditCityId(null);
             setFormData({
               name: "",
-              regionId: ""
+              region: ""
             });
             document.getElementById("city_modal").showModal();
           }}
@@ -169,15 +169,15 @@ function Cities() {
                   <span className="label-text">Region</span>
                 </label>
                 <select
-                  name="regionId"
-                  value={formData.regionId}
+                  name="region"
+                  value={formData.region}
                   onChange={handleInputChange}
                   className="input input-bordered"
                   required
                 >
                   <option value="" disabled>Select Region</option>
                   {regions.map((region) => (
-                    <option key={region._id} value={region._id}>
+                    <option key={region._id} value={region.name}>
                       {region.name}
                     </option>
                   ))}
