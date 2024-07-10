@@ -1,26 +1,48 @@
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaInstagram, FaTiktok } from "react-icons/fa";
 import bgImg from "../../../assets/images/Community/ellips.svg";
 import { Link } from "react-router-dom";
+
 function SocialMedia() {
   return (
-    <div className="flex justify-between items-center flex-col md:flex-row-reverse lg:flex-row-reverse mt-4 mb-20 px-4 md:px-20 lg:px-40 py-10">
+    <div className="flex justify-between items-center flex-col md:flex-row lg:flex-row mt-4 mb-20 px-4 md:px-20 lg:px-40 py-10">
+      <div className="text-center lg:pl-20">
+        <div className="flex justify-center gap-8">
+          {/* Facebook */}
+          <a href="https://www.facebook.com/profile.php?id=61561479590760">
+            <FaFacebookF className="w-10 h-10 text-blue-600" />
+          </a>
+          {/* Twitter */}
+          <a href="https://x.com/LastCallVan">
+            <FaTwitter className="w-10 h-10 text-blue-400" />
+          </a>
+          {/* Instagram */}
+          <a href="https://www.instagram.com/lastcallvan">
+            <FaInstagram className="w-10 h-10 text-pink-500" />
+          </a>
+          {/* TikTok */}
+          <a href="https://www.tiktok.com/@lastcallvan">
+            <FaTiktok className="w-10 h-10 text-blue-800" />
+          </a>
+        </div>
+        <hr className="my-5" />
+        <p>
+          Or visit our &nbsp;
+          <Link className="text-orange-600" to={"/faq"}>
+            FAQs
+          </Link>
+        </p>
+      </div>
       <div
         className="flex justify-center gap-9 items-center"
         style={{
           backgroundImage: `url(${bgImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          // Adjust padding as needed
         }}
       >
-        <div className="flex  flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center">
           <svg
-            width="18px"
+            width="28px"
             height="48"
             fill="#d6bb96"
             xmlns="http://www.w3.org/2000/svg"
@@ -38,42 +60,16 @@ function SocialMedia() {
         </div>
         <div>
           <h2 className="text-3xl lg:text-5xl text-blue-900 mb-4">
-            Follow along on <br /> the gastronomic journey
+            Follow along on the <br /> gastronomic journey
           </h2>
           <p>
-            Connect with us on our social media to watch new restaurants get
-            announced and snag more deals
+            Connect with us on our social media to watch new restaurants <br />{" "}
+            get announced and snag more deals
           </p>
         </div>
-      </div>
-      <div className="text-center lg:pl-20">
-        <div className="flex justify-center gap-8">
-          {/* Facebook */}
-          <a href="#social-media-link">
-            <FaFacebookF className="w-10 h-10 text-blue-600" />
-          </a>
-          {/* Twitter */}
-          <a href="#social-media-link">
-            <FaTwitter className="w-10 h-10 text-blue-400" />
-          </a>
-          {/* Instagram */}
-          <a href="#social-media-link">
-            <FaInstagram className="w-10 h-10 text-pink-500" />
-          </a>
-          {/* LinkedIn */}
-          <a href="#social-media-link">
-            <FaLinkedinIn className="w-10 h-10 text-blue-800" />
-          </a>
-        </div>
-        <hr className="my-5" />
-        <p>
-          Or visit our &nbsp;
-          <Link className="text-orange-600" to={"/faq"}>
-            FAQs
-          </Link>
-        </p>
       </div>
     </div>
   );
 }
+
 export default SocialMedia;
