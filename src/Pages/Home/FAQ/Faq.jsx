@@ -55,15 +55,18 @@ function Faq() {
     "At this time, Last Call is operating in Canada.",
   ];
 
-  const [openIndexes, setOpenIndexes] = useState([0]);
+  const [openIndexes, setOpenIndexes] = useState(
+    questions.map((_, index) => index)
+  );
 
   const toggleIndex = (index) => {
-    if (openIndexes.includes(index)) {
-      setOpenIndexes(openIndexes.filter((i) => i !== index));
-    } else {
-      setOpenIndexes([...openIndexes, index]);
-    }
+    setOpenIndexes((prevIndexes) =>
+      prevIndexes.includes(index)
+        ? prevIndexes.filter((i) => i !== index)
+        : [...prevIndexes, index]
+    );
   };
+
 
   return (
     <div className="mx-auto mb-8  px-4 lg:px-36">

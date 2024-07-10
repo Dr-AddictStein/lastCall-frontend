@@ -7,48 +7,13 @@ function Footer() {
     <div>
       <footer className=" space-y-6 grid grid-cols-1 text-center  lg:grid-cols-3 gap-4 items-center  p-10 bg-[#234563] text-neutral-content">
         {/* Services */}
-        <nav>
-          <div>
-            <h3 className="text-white text-xl">Dinners</h3>
-            <p className="text-lg text-slate-300 my-4">
-              Join more than 1,400,000 diners who already &#x2764; First Table.
-            </p>
-            <button className=" bg-slate-600 p-4 text-white">Learn More</button>
-          </div>
-        </nav>
+       
 
         {/* Company */}
-        <nav>
-          <div>
-            <h3 className="text-white text-xl">Restaurateurs</h3>
-            <p className="text-lg text-slate-300 my-4">
-              Join more than 1,400,000 diners who already &#x2764; First Table.
-            </p>
-            <button className=" bg-slate-600 p-4 text-white">Learn More</button>
-          </div>
-        </nav>
+    
 
         {/* Legal */}
-        <nav>
-          <div>
-            <h3 className="text-white text-xl">Follow us</h3>
-            <p className="text-lg text-slate-300 my-4">
-              Join more than 1,400,000 diners who already &#x2764; First Table.
-            </p>
-            <div className="flex justify-center  items-center gap-3">
-              <Link className="bg-slate-600 rounded-full p-4 text-white">
-                <span>
-                  <FaFacebookF />
-                </span>
-              </Link>
-              <Link className="bg-slate-600  rounded-full  p-4 text-white">
-                <span>
-                  <FaInstagram />
-                </span>
-              </Link>
-            </div>
-          </div>
-        </nav>
+     
 
         <nav>
           <h6 className="footer-title">About Us</h6>
