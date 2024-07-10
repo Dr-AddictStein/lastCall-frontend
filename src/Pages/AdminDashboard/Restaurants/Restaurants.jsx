@@ -6,6 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Restaurants() {
   const [restaurants, setRestaurants] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [filteredCities, setFilteredCities] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     ownerfirstname: "",
@@ -19,6 +22,8 @@ function Restaurants() {
 
   useEffect(() => {
     fetchRestaurants();
+    fetchRegions();
+    fetchCities();
   }, []);
 
   const fetchRestaurants = async () => {
@@ -34,9 +39,41 @@ function Restaurants() {
     }
   };
 
+  const fetchRegions = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/api/region/");
+      if (!response.ok) {
+        throw new Error("Failed to fetch regions");
+      }
+      const data = await response.json();
+      setRegions(data);
+    } catch (error) {
+      console.error("Error fetching regions:", error);
+    }
+  };
+
+  const fetchCities = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/api/city/");
+      if (!response.ok) {
+        throw new Error("Failed to fetch cities");
+      }
+      const data = await response.json();
+      setCities(data);
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    if (name === "region") {
+      console.log("Here ",value)
+      const region=regions.filter(reg=>reg._id===value);
+      const filtered = cities.filter(city => city.region === region[0].name);
+      setFilteredCities(filtered);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -111,6 +148,7 @@ function Restaurants() {
       region: restaurant.region,
       city: restaurant.city
     });
+    setFilteredCities(cities.filter(city => city.regionId === restaurant.region));
     document.getElementById("restaurant_modal").showModal();
   };
 
@@ -147,6 +185,7 @@ function Restaurants() {
               region: "",
               city: ""
             });
+            setFilteredCities([]);
             document.getElementById("restaurant_modal").showModal();
           }}
         >
@@ -225,27 +264,39 @@ function Restaurants() {
                 <label className="label">
                   <span className="label-text">Region</span>
                 </label>
-                <input
-                  type="text"
+                <select
                   name="region"
                   value={formData.region}
                   onChange={handleInputChange}
                   className="input input-bordered"
                   required
-                />
+                >
+                  <option value="" disabled>Select Region</option>
+                  {regions.map((region) => (
+                    <option key={region._id} value={region._id}>
+                      {region.name}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">City</span>
                 </label>
-                <input
-                  type="text"
+                <select
                   name="city"
                   value={formData.city}
                   onChange={handleInputChange}
                   className="input input-bordered"
                   required
-                />
+                >
+                  <option value="" disabled>Select City</option>
+                  {filteredCities.map((city) => (
+                    <option key={city._id} value={city._id}>
+                      {city.name}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="flex gap-4 mt-6">
                 <button className="btn px-4 btn-primary" type="submit">
@@ -286,8 +337,8 @@ function Restaurants() {
                 <td>{`${restaurant.ownerfirstname} ${restaurant.ownerlastname}`}</td>
                 <td>{restaurant.email}</td>
                 <td>{restaurant.phone}</td>
-                <td>{restaurant.region}</td>
-                <td>{restaurant.city}</td>
+                <td>{regions.find(region => region._id === restaurant.region)?.name || "Unknown"}</td>
+                <td>{cities.find(city => city._id === restaurant.city)?.name || "Unknown"}</td>
                 <td className="flex gap-2">
                   <FaRegEdit
                     className="border cursor-pointer border-white p-1 text-2xl rounded-md"
