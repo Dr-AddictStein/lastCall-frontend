@@ -19,7 +19,7 @@ import AdminDashboard from "../Pages/AdminDashboard/AdminDashboard";
 import Profile from "../Pages/Profile/Profile";
 import MyBookings from "../Pages/Profile/MyBookings/MyBookings";
 import UpdateProfile from "../Pages/Profile/UpdateProfile/UpdateProfile";
-import EditRestaurant from "../Pages/Dashboard/EditRestaurant/EditRestaurant";
+import RestaurantBuilder from "../Pages/Dashboard/RestaurantBuilder/RestaurantBuilder";
 import ViewReservations from "../Pages/Dashboard/ViewReservations/ViewReservations";
 import AddTable from "../Pages/Dashboard/AddTable/AddTable";
 import ViewEmployees from "../Pages/Dashboard/ViewEmployees/ViewEmployees";
@@ -87,8 +87,8 @@ export const router = createBrowserRouter([
     element: <Dashboard></Dashboard>,
     children: [
       {
-        path: "/dashboard/restaurant/editRestaurant",
-        element: <EditRestaurant />
+        path: "/dashboard/restaurant/restaurantBuilder",
+        element: <RestaurantBuilder />
       },
       {
         path: "/dashboard/restaurant/viewReservations",

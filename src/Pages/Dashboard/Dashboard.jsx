@@ -66,10 +66,10 @@ function Dashboard() {
             {/* Sidebar navigation items */}
             <li>
               <NavLink
-                to="/dashboard/restaurant/editRestaurant"
+                to="/dashboard/restaurant/restaurantBuilder"
                 className=" w-full"
               >
-                <FaSubway className="text-xl mr-2" /> Edit Restaurant
+                <FaSubway className="text-xl mr-2" /> Restaurant Builder
               </NavLink>
             </li>
             <li>
@@ -118,7 +118,7 @@ function Dashboard() {
 
               <li>
                 <NavLink
-                  to="/dashboard/restaurant/editRestaurant"
+                  to="/dashboard/restaurant/restaurantBuilder"
                   className="flex justify-center text-center w-full"
                 >
                   <FaSubway className="text-xl mr-2" />
