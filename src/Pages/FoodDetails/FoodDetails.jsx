@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight, FaInstagram, FaRegStar, FaStar } from "react-icons/fa";
 import { GrFacebookOption } from "react-icons/gr";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -8,6 +8,19 @@ const FoodDetails = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [selected, setSelected] = useState('false');
     const [activeTab2, setActiveTab2] = useState(0);
+    const [foodData, setFoodData] = useState([]);
+
+    useEffect(() => {
+        const url = `http://localhost:4000/api/restaurant`;
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                // const filteredData = data.find(food => food._id === _id); // use this line after using useParams
+                setFoodData(data[0]);
+                console.log(data[0]);
+            })
+            .catch(error => console.log(error));
+    }, []);
 
     const slides = [
         {
@@ -76,7 +89,7 @@ const FoodDetails = () => {
             </div>
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-[#265582] text-5xl font-semibold">Demo Menu Name <span className="text-white bg-[#ff675c] px-2 text-2xl">New</span></h1>
+                    <h1 className="text-[#265582] text-5xl font-semibold">{foodData?.name}<span className="text-white bg-[#ff675c] px-2 text-2xl">New</span></h1>
                     <div className="flex gap-4 text-xl items-center">
                         <div className="flex gap-1">
                             <FaStar className="text-yellow-400" />
@@ -97,19 +110,19 @@ const FoodDetails = () => {
                 <div className="">
                     <div className="grid grid-cols-4">
                         <div className="col-span-2 relative cursor-pointer" onClick={() => document.getElementById('my_modal_3').showModal()}>
-                            <img className="h-[430px] w-full object-cover" src="https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg" alt="" />
+                            <img className="h-[430px] w-full object-cover" src={foodData?.banner} alt="" />
                             <div className="flex lg:gap-1 mt-3 justify-between lg:border-8 bg-white border-white md:absolute mx-auto w-[430px] left-0 right-0 -bottom-10">
                                 <div className="w-24 h-16 overflow-hidden">
-                                    <img src="https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg" alt="" />
+                                    <img src={foodData?.image1} alt="" />
                                 </div>
                                 <div className="w-24 h-16 overflow-hidden">
-                                    <img src="https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg" alt="" />
+                                    <img src={foodData?.image2} alt="" />
                                 </div>
                                 <div className="w-24 h-16 overflow-hidden">
-                                    <img src="https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg" alt="" />
+                                    <img src={foodData?.image3} alt="" />
                                 </div>
                                 <div className="w-24 h-16 overflow-hidden bg-black/20">
-                                    <img src="https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg" alt="" />
+                                    <img src={foodData?.image4} alt="" />
                                 </div>
                             </div>
                         </div>
@@ -296,10 +309,10 @@ const FoodDetails = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="pt-14 lg:pb-60">
+                    <div className="pt-14">
                         <div className="">
                             <h1 className="text-[#265582] text-5xl font-semibold pb-5">Overview</h1>
-                            <p className="lg:w-1/2 w-full text-justify">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit unde, officia possimus magnam porro officiis, ea laborum exercitationem autem reprehenderit accusamus totam facilis, eligendi libero? Maiores, amet consequatur nemo culpa inventore in doloribus, odit id voluptas corrupti voluptatem earum ducimus pariatur iste tempore. Amet sed quod atque beatae nisi cum?</p>
+                            <p className="lg:w-1/2 w-full text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime cumque atque excepturi! Accusamus accusantium neque deserunt quisquam eaque sed eveniet esse velit! Beatae, deleniti nam? Sed provident distinctio dolorem inventore ut. Distinctio ducimus consequuntur, sint natus optio fuga cupiditate repudiandae, a libero eos dolorem amet modi soluta? Asperiores quasi deserunt cumque obcaecati nemo! Possimus, aut perferendis. Explicabo voluptas sunt amet minus aut. Officia illo dolor itaque molestias rem cupiditate quis sapiente ab voluptatem provident? Distinctio quam sed laborum odit molestias iure libero in deserunt, cupiditate accusamus! Totam voluptates cum amet aliquam cupiditate quasi. Corporis ab quae nostrum eligendi similique accusantium.</p>
                         </div>
                     </div>
                     <div className="lg:hidden block bg-white py-16 w-full">
@@ -437,7 +450,7 @@ const FoodDetails = () => {
                         }
                     </div>
                     <div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center pt-96">
                             <h1 className="text-[#265582] text-5xl font-semibold pb-5">Nearby Newcastle restaurants</h1>
                             <div className="flex gap-2 text-5xl text-[#265582]">
                                 <FaAngleLeft onClick={handlePrev} className="cursor-pointer" />
