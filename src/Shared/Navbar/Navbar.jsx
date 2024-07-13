@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { CiSearch } from "react-icons/ci";
 import { Link, useLocation } from "react-router-dom";
 import lastCallImg from "../../assets/images/Navbar/lastcall.png";
+import { AuthContext } from "../../context/AuthContext";
 
 function Navbar() {
+  const { user } = useContext(AuthContext);
+  console.log(user);
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   const [lastScrollTop, setLastScrollTop] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
@@ -50,12 +53,21 @@ function Navbar() {
 
   const Navlinks = (
     <>
-      <li>
-        <Link to={"/signup"}>Sign Up</Link>
-      </li>
-      <li>
-        <Link to={"/login"}>Login</Link>
-      </li>
+      {user ?
+        <li>
+          <li>
+            <Link to={"/signup"}>Sign Up</Link>
+          </li>
+          <li>
+            <Link to={"/login"}>Login</Link>
+          </li>
+        </li> :
+        <div className="avatar">
+          <div className="w-12">
+            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          </div>
+        </div>}
+
       <li>
         <Link to={""}>Cities</Link>
       </li>
@@ -73,10 +85,10 @@ function Navbar() {
     <div className="relative">
       <div
         className={`${isHomePage
-            ? "fixed"
-            : isNewCastlePage
-              ? "sticky text-black"
-              : "sticky"
+          ? "fixed"
+          : isNewCastlePage
+            ? "sticky text-black"
+            : "sticky"
           } top-0 left-0 right-0 z-50 transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "-translate-y-full"
           }`}
       >
@@ -127,19 +139,19 @@ function Navbar() {
               >
                 <CiSearch
                   className={`${isFocused
+                    ? "text-black"
+                    : isNewCastlePage
                       ? "text-black"
-                      : isNewCastlePage
-                        ? "text-black"
-                        : "text-white"
+                      : "text-white"
                     }`}
                 />
                 <input
                   type="text"
                   className={`border-none outline-none bg-transparent rounded-full ${isFocused
+                    ? "placeholder-black text-black"
+                    : isNewCastlePage
                       ? "placeholder-black text-black"
-                      : isNewCastlePage
-                        ? "placeholder-black text-black"
-                        : "placeholder-white text-white"
+                      : "placeholder-white text-white"
                     }`}
                   placeholder="Search"
                   value={searchTerm}
