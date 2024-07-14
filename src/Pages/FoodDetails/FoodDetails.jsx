@@ -450,7 +450,7 @@ const FoodDetails = () => {
                         }
                     </div>
                     <div>
-                        <div className={`flex justify-between items-center ${foodData?.description.length > 30 ? 'pt-96' : 'pt-20'}`}>
+                        <div className={`flex justify-between items-center ${foodData?.description?.length > 30 ? 'pt-96' : 'pt-20'}`}>
                             <h1 className="text-[#265582] text-5xl font-semibold pb-5">Nearby Newcastle restaurants</h1>
                             <div className="flex gap-2 text-5xl text-[#265582]">
                                 <FaAngleLeft onClick={handlePrev} className="cursor-pointer" />
