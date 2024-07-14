@@ -129,10 +129,10 @@ const FoodDetails = () => {
                         <div className="col-span-2 relative">
                             <div className="flex cursor-pointer" onClick={() => document.getElementById('my_modal_3').showModal()}>
                                 <div className="">
-                                    <img className="h-[215px] object-cover" src="https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg" alt="" />
-                                    <img className="h-[215px] object-cover" src="https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg" alt="" />
+                                    <img className="h-[215px] object-cover" src={foodData?.image1} alt="" />
+                                    <img className="h-[215px] object-cover" src={foodData?.image2} alt="" />
                                 </div>
-                                <img className="w-1/2 hidden lg:block h-[430px] object-cover" src="https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg" alt="" />
+                                <img className="w-1/2 hidden lg:block h-[430px] object-cover" src={foodData?.image3} alt="" />
                             </div>
                             <dialog id="my_modal_3" className="modal w-full">
                                 <div className="modal-box max-w-[100vw] h-[100vh]">
@@ -144,7 +144,7 @@ const FoodDetails = () => {
                                         <div className="carousel h-[87vh]">
                                             <div id="slide2" className="carousel-item relative w-full">
                                                 <img
-                                                    src="https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg"
+                                                    src={foodData?.image1}
                                                     className="w-full object-cover" />
                                                 <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                                                     <a href="#slide1" className="btn btn-circle">❮</a>
@@ -153,7 +153,7 @@ const FoodDetails = () => {
                                             </div>
                                             <div id="slide3" className="carousel-item relative w-full">
                                                 <img
-                                                    src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.jpg"
+                                                    src={foodData?.image2}
                                                     className="w-full object-cover" />
                                                 <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                                                     <a href="#slide2" className="btn btn-circle">❮</a>
@@ -162,7 +162,7 @@ const FoodDetails = () => {
                                             </div>
                                             <div id="slide4" className="carousel-item relative w-full">
                                                 <img
-                                                    src="https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg"
+                                                    src={foodData?.image3}
                                                     className="w-full object-cover" />
                                                 <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                                                     <a href="#slide3" className="btn btn-circle">❮</a>
@@ -312,7 +312,7 @@ const FoodDetails = () => {
                     <div className="pt-14">
                         <div className="">
                             <h1 className="text-[#265582] text-5xl font-semibold pb-5">Overview</h1>
-                            <p className="lg:w-1/2 w-full text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime cumque atque excepturi! Accusamus accusantium neque deserunt quisquam eaque sed eveniet esse velit! Beatae, deleniti nam? Sed provident distinctio dolorem inventore ut. Distinctio ducimus consequuntur, sint natus optio fuga cupiditate repudiandae, a libero eos dolorem amet modi soluta? Asperiores quasi deserunt cumque obcaecati nemo! Possimus, aut perferendis. Explicabo voluptas sunt amet minus aut. Officia illo dolor itaque molestias rem cupiditate quis sapiente ab voluptatem provident? Distinctio quam sed laborum odit molestias iure libero in deserunt, cupiditate accusamus! Totam voluptates cum amet aliquam cupiditate quasi. Corporis ab quae nostrum eligendi similique accusantium.</p>
+                            <p className="lg:w-1/2 w-full text-justify">{foodData?.description}</p>
                         </div>
                     </div>
                     <div className="lg:hidden block bg-white py-16 w-full">
@@ -450,7 +450,7 @@ const FoodDetails = () => {
                         }
                     </div>
                     <div>
-                        <div className="flex justify-between items-center pt-96">
+                        <div className={`flex justify-between items-center ${foodData?.description.length > 30 ? 'pt-96' : 'pt-20'}`}>
                             <h1 className="text-[#265582] text-5xl font-semibold pb-5">Nearby Newcastle restaurants</h1>
                             <div className="flex gap-2 text-5xl text-[#265582]">
                                 <FaAngleLeft onClick={handlePrev} className="cursor-pointer" />
