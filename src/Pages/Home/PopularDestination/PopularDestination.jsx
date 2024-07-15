@@ -1,27 +1,85 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import canbera from "../../../assets/images/Banner/banner.webp";
 import './PopularDestination.css'
 
-function PopularDestination({ regions }) {
+function PopularDestination() {
   const today = new Date();
-  console.log(today);
+  const [cities, setCities] = useState([]);
+  const [regions, setRegions] = useState([]);
+
+  const [data, setData] = useState([]);
+
+  const fetchCities = () => {
+    fetch('http://localhost:4000/api/city')
+      .then(res => res.json())
+      .then(data => {
+        setCities(data);
+        // console.log('cities', data);
+      })
+      .catch(error => console.log(error));
+  };
+
+  const fetchRegions = () => {
+    fetch('http://localhost:4000/api/region')
+      .then(res => res.json())
+      .then(data => {
+        setRegions(data);
+        // console.log('regions', data);
+      })
+      .catch(error => console.log(error));
+  };
 
   useEffect(() => {
-    console.log('regions GOTCHA:', regions);
-  }, [regions]);
+    fetchCities();
+    fetchRegions();
+  }, []);
+  
+  useEffect(()=>{
+    if (cities && regions) {
+      let dex = [];
+  
+  
+      for (let i = 0; i < regions.length; i++) {
+        let reg = regions[i].name;
+        let cityArr = [];
+  
+        for (let j = 0; j < cities.length; j++) {
+          if (cities[j].region === reg) {
+            cityArr.push(cities[j]);
+            console.log("Here", cityArr);
+          }
+        }
+  
+        dex.push(
+          {
+            name: reg,
+            cities: cityArr
+          }
+        )
+      }
+  
+      console.log("DEX:", dex)
+  
+      setData(dex);
+    }
+  },[cities,regions])
+
+  useEffect(() => {
+    console.log('regions GOTCHA:', data);
+  }, [data]);
 
   return (
     <div className="my-10 md:px-20 lg:px-40 px-4">
       <div>
         <div className="">
-          {regions.map((region) => (
+          {data.map((region) => (
             <div
               key={region._id}
               className="relative group overflow-hidden rounded-lg mx-auto"
             >
               <p className="my-6 text-4xl font-bold">{region.name}</p>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
-                {regions.map(city => (
+                {region?.cities.map(city => (
                   <div key={city._id}>
                     <div className="relative w-full h-full">
                       <img

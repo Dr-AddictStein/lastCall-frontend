@@ -18,7 +18,7 @@ function Home() {
       .then(res => res.json())
       .then(data => {
         setCities(data);
-        console.log('cities', data);
+        // console.log('cities', data);
       })
       .catch(error => console.log(error));
   };
@@ -28,7 +28,7 @@ function Home() {
       .then(res => res.json())
       .then(data => {
         setRegions(data);
-        console.log('regions', data);
+        // console.log('regions', data);
       })
       .catch(error => console.log(error));
   };
@@ -41,26 +41,29 @@ function Home() {
     if(cities && regions){
       let dex = [];
 
-      for(let i=0;i<cities.length;i++){
-        let reg = cities[i].region;
-        let found=false;
-        for(let j=0;j<dex.length;j++){
-          if(dex[j].name===reg){
-            dex[j].cities.push(cities[i]);
-            found=true;
-            break;
+      
+      for(let i=0;i<regions.length;i++){
+        let reg = regions[i].name;
+        let cityArr = [];
+        
+        for(let j=0;j<cities.length;j++){
+          if(cities[j].region===reg){
+            cityArr.push(cities[j]);
+            console.log("Here",cityArr);
           }
         }
 
-        if(!found){
-          dex.push(
-            {
-              name:reg,
-              cities:[city[i]]
-            }
-          )
-        }
+        dex.push(
+          {
+            name:reg,
+            cities:cityArr
+          }
+        )
       }
+
+      console.log("DEX:",dex)
+
+      setData(dex);
     }
 
     
@@ -69,15 +72,19 @@ function Home() {
 
   }, []);
 
+  useEffect(()=>{
+    console.log("DAT:",data)
+  },[data])
+
   return (
     <div className="">
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <Banner cities={cities} regions={data} />
+      <Banner cities={cities} regions={regions} />
       <div className="max-w-screen-2xl mx-auto">
         <OfferSection />
-        <PopularDestination regions={regions}/>
+        <PopularDestination />
         <PopularHotels />
         <Community />
         <SocialMedia />
