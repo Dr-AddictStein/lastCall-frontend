@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 function Home() {
   const [cities, setCities] = useState([]);
   const [regions, setRegions] = useState([]);
+  
+  const [data,setData] = useState([]);
 
   const fetchCities = () => {
     fetch('http://localhost:4000/api/city')
@@ -34,6 +36,37 @@ function Home() {
   useEffect(() => {
     fetchCities();
     fetchRegions();
+
+
+    if(cities && regions){
+      let dex = [];
+
+      for(let i=0;i<cities.length;i++){
+        let reg = cities[i].region;
+        let found=false;
+        for(let j=0;j<dex.length;j++){
+          if(dex[j].name===reg){
+            dex[j].cities.push(cities[i]);
+            found=true;
+            break;
+          }
+        }
+
+        if(!found){
+          dex.push(
+            {
+              name:reg,
+              cities:[city[i]]
+            }
+          )
+        }
+      }
+    }
+
+    
+
+
+
   }, []);
 
   return (
@@ -41,7 +74,7 @@ function Home() {
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <Banner cities={cities} regions={regions} />
+      <Banner cities={cities} regions={data} />
       <div className="max-w-screen-2xl mx-auto">
         <OfferSection />
         <PopularDestination regions={regions}/>

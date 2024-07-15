@@ -7,7 +7,7 @@ function PopularDestination({ regions }) {
   console.log(today);
 
   useEffect(() => {
-    console.log('regions:', regions);
+    console.log('regions GOTCHA:', regions);
   }, [regions]);
 
   return (
