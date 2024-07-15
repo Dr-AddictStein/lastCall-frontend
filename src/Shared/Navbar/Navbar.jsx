@@ -11,6 +11,7 @@ function Navbar() {
   const [lastScrollTop, setLastScrollTop] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [cities, setCities] = useState([]);
   const [suggestions, setSuggestions] = useState([
     "Apple",
     "Banana",
@@ -18,7 +19,17 @@ function Navbar() {
     "Date",
     "Elderberry",
   ]);
-  const [isFocused, setIsFocused] = useState(false);
+
+  useEffect(() => {
+    const url = `http://localhost:4000/api/city`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        setCities(data);
+        console.log(data);
+      })
+      .catch(error => console.log(error));
+  }, []);
 
   const handleScroll = () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -84,16 +95,10 @@ function Navbar() {
   return (
     <div className="relative">
       <div
-        className={`${isHomePage
-          ? "fixed"
-          : isNewCastlePage
-            ? "sticky text-black"
-            : "sticky"
-          } top-0 left-0 right-0 z-50 transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "-translate-y-full"
-          }`}
+        className={`${isHomePage ? "fixed" : isNewCastlePage ? "sticky text-black" : "sticky"} top-0 left-0 right-0 z-50 transition-transform duration-300 ${isScrollingUp ? "translate-y-0" : "-translate-y-full"}`}
       >
         <div
-          className={`navbar w-full ${isNewCastlePage ? "text-black" : "text-white"
+          className={`navbar w-full ${isHomePage ? "text-white" : "text-black"
             }`}
         >
           <div className="navbar-start">
@@ -134,34 +139,22 @@ function Navbar() {
             </Link>
             <div className="relative">
               <label
-                className={`flex items-center gap-2 ml-3 rounded-full p-3 ${isFocused ? "bg-white text-black" : "bg-transparent"
+                className={`flex items-center gap-2 ml-3 rounded-full p-3 ${isHomePage ? "bg-transparent" : "bg-white text-black"
                   }`}
               >
                 <CiSearch
-                  className={`${isFocused
-                    ? "text-black"
-                    : isNewCastlePage
-                      ? "text-black"
-                      : "text-white"
-                    }`}
+                  className={`${isHomePage ? 'text-white' : 'text-black'}`}
                 />
                 <input
                   type="text"
-                  className={`border-none outline-none bg-transparent rounded-full ${isFocused
-                    ? "placeholder-black text-black"
-                    : isNewCastlePage
-                      ? "placeholder-black text-black"
-                      : "placeholder-white text-white"
-                    }`}
+                  className={`border-none outline-none bg-transparent rounded-full ${isHomePage ? "placeholder-white text-white" : "placeholder-black text-black"}`}
                   placeholder="Search"
                   value={searchTerm}
                   onChange={handleInputChange}
                   onFocus={() => {
-                    setIsFocused(true);
                     setDropdownVisible(searchTerm.length > 0);
                   }}
                   onBlur={() => {
-                    setIsFocused(false);
                     setTimeout(() => setDropdownVisible(false), 100);
                   }}
                 />
@@ -200,15 +193,11 @@ function Navbar() {
                 tabIndex={0}
                 className="dropdown-content z-[1] text-black shadow bg-base-100 rounded w-52 overflow-y-auto"
               >
-                <li className="hover:bg-slate-200 py-2 px-4 bg-blue-900 text-white">
-                  <a>China</a>
-                </li>
-                <li className="hover:bg-slate-200 py-2 px-4">
-                  <a>Bangladesh</a>
-                </li>
-                <li className="hover:bg-slate-200 py-2 px-4">
-                  <a>Thailand</a>
-                </li>
+                {
+                  cities.map(city => <li className="py-2 px-4 hover:bg-blue-900 hover:text-white" key={city.key}>
+                    <Link>{city?.name}</Link>
+                  </li>)
+                }
               </ul>
             </div>
           </div>
