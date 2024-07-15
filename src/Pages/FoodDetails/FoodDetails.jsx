@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight, FaInstagram, FaRegStar, FaStar } from "react-icons/fa";
 import { GrFacebookOption } from "react-icons/gr";
+import { Link } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const FoodDetails = () => {
     const [activeTab, setActiveTab] = useState(0);
+    const [activeTab2, setActiveTab2] = useState(0);
+    const [activeTab3, setActiveTab3] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [selected, setSelected] = useState('false');
-    const [activeTab2, setActiveTab2] = useState(0);
     const [foodData, setFoodData] = useState([]);
 
     useEffect(() => {
@@ -312,7 +314,49 @@ const FoodDetails = () => {
                     <div className="pt-14">
                         <div className="">
                             <h1 className="text-[#265582] text-5xl font-semibold pb-5">Overview</h1>
-                            <p className="lg:w-1/2 w-full text-justify">{foodData?.description}</p>
+                            <div className="flex gap-8 pb-8">
+                                <p className={`cursor-pointer`}>Australian</p>
+                                <p onClick={() => setActiveTab3(1)} className={`cursor-pointer pb-1 ${activeTab3 === 1 && 'border-b border-black'}`}>How to find us</p>
+                                <p onClick={() => setActiveTab3(2)} className={`cursor-pointer pb-1 ${activeTab3 === 2 && 'border-b border-black'}`}>Sample menu</p>
+                                <p onClick={() => setActiveTab3(3)} className={`cursor-pointer pb-1 ${activeTab3 === 3 && 'border-b border-black'}`}>Contacts</p>
+                            </div>
+                            <div className="pb-3">
+                                {activeTab3 === 1 && <div>
+                                    <h4 className="text-2xl font-semibold">How to find us</h4>
+                                </div>}
+                                {activeTab3 === 2 && <div>
+                                    <h4 className="text-2xl font-semibold">Sample Menu</h4>
+                                </div>}
+                                {activeTab3 === 3 && <div>
+                                    <h4 className="text-2xl font-semibold">Contact us</h4>
+                                    <div className="pt-3">
+                                        <div className="grid grid-cols-3 w-1/2 gap-8">
+                                            <div>
+                                                <p className="font-semibold text-lg">Address:</p>
+                                                <p>There will go very very long long long long long long long address</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold text-lg">Phone:</p>
+                                                <p>016465657878544</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold text-lg">Website:</p>
+                                                <Link>Click here to view</Link>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold text-lg pt-8">Open hours:</p>
+                                            <div>
+                                                <p>Mon - Tue : Closed</p>
+                                                <p>Wed - Thu : 12pm - 3pm // 4pm - 8pm</p>
+                                                <p>Fri - Sat: 12pm - 3pm //  4pm - 9pm</p>
+                                                <p>Sun: 12pm - 3pm //  4pm - 8pm</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>}
+                            </div>
+                            <p className="lg:w-1/2 w-full border-t pt-3 text-justify">{foodData?.description}</p>
                         </div>
                     </div>
                     <div className="lg:hidden block bg-white py-16 w-full">

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import canbera from "../../../assets/images/Banner/banner.webp";
 import './PopularDestination.css'
+import { Link } from "react-router-dom";
 
 function PopularDestination() {
   const today = new Date();
@@ -33,23 +34,23 @@ function PopularDestination() {
     fetchCities();
     fetchRegions();
   }, []);
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     if (cities && regions) {
       let dex = [];
-  
-  
+
+
       for (let i = 0; i < regions.length; i++) {
         let reg = regions[i].name;
         let cityArr = [];
-  
+
         for (let j = 0; j < cities.length; j++) {
           if (cities[j].region === reg) {
             cityArr.push(cities[j]);
             console.log("Here", cityArr);
           }
         }
-  
+
         dex.push(
           {
             name: reg,
@@ -57,12 +58,12 @@ function PopularDestination() {
           }
         )
       }
-  
+
       console.log("DEX:", dex)
-  
+
       setData(dex);
     }
-  },[cities,regions])
+  }, [cities, regions])
 
   useEffect(() => {
     console.log('regions GOTCHA:', data);
@@ -77,24 +78,27 @@ function PopularDestination() {
               key={region._id}
               className="relative group overflow-hidden rounded-lg mx-auto"
             >
-              <p className="my-6 text-4xl font-bold">{region.name}</p>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+              <p className="my-6 text-5xl text-blue-900 font-bold text-center">{region.name}</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
                 {region?.cities.map(city => (
                   <div key={city._id}>
-                    <div className="relative w-full h-full">
-                      <img
-                        className="w-full h-full object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-110"
-                        src={city.image}
-                        alt={city.name}
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <p className="bg-black bg-opacity-20 p-4 text-white text-3xl font-bold rounded">
-                          {city.name}
-                        </p>
-                      </div>
+                    <div className="relative w-[300px] h-[300px] overflow-hidden pb-20">
+                      <Link to={`/${city.name.replace(/\s+/g, '-')}`}>
+                        <img
+                          className="w-full h-full overflow-hidden object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-110"
+                          src={city.image}
+                          alt={city.name}
+                        />
+                        <div className="absolute bg-black bg-opacity-20 hover:bg-opacity-50 duration-300 w-[300px] h-[220px] inset-0 flex items-center justify-center">
+                          <p className="p-4 text-white text-3xl font-bold rounded">
+                            {city.name}
+                          </p>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                 ))}
+
               </div>
 
             </div>
