@@ -58,7 +58,7 @@ export const router = createBrowserRouter([
         element: <FreeSignUp></FreeSignUp>
       },
       {
-        path: "/newCastle",
+        path: "/:city",
         element: <NewCastle></NewCastle>
       },
       {
