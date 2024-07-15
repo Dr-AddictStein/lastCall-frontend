@@ -83,7 +83,7 @@ function PopularDestination() {
                 {region?.cities.map(city => (
                   <div key={city._id}>
                     <div className="relative w-[300px] h-[300px] overflow-hidden pb-20">
-                      <Link to={`/${city.name}`}>
+                      <Link to={`/${city.name.replace(/\s+/g, '-')}`}>
                         <img
                           className="w-full h-full overflow-hidden object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-110"
                           src={city.image}
@@ -98,6 +98,7 @@ function PopularDestination() {
                     </div>
                   </div>
                 ))}
+
               </div>
 
             </div>

@@ -64,7 +64,7 @@ function Navbar() {
 
   const Navlinks = (
     <>
-      {user ?
+      {!user ?
         <li>
           <li>
             <Link to={"/signup"}>Sign Up</Link>
@@ -131,11 +131,7 @@ function Navbar() {
               </ul>
             </div>
             <Link to="/">
-              {/* <img src={lastCallImg} alt="Last Call Logo" className="h-16" /> */}
-              <p className="flex  gap-1 lg:text-3xl cursor-pointer">
-                {" "}
-                <span className="font-bold">Last</span> <span>Call</span>
-              </p>
+              <img src="logo.png" alt="Last Call Logo" className="w-60" />
             </Link>
             <div className="relative">
               <label
@@ -203,12 +199,23 @@ function Navbar() {
           </div>
           <div className="navbar-end hidden lg:flex">
             <ul className="menu menu-horizontal px-1 space-x-3">
-              <li>
-                <Link to="/signup">Sign Up</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
+              {!user ?
+                <li>
+                  <li>
+                    <Link to={"/signup"}>Sign Up</Link>
+                  </li>
+                  <li>
+                    <Link to={"/login"}>Login</Link>
+                  </li>
+                </li> :
+                <div className="flex gap-3 items-center mr-5">
+                  <p className="cursor-pointer">Logout</p>
+                  <Link to={'/profile/update'} className="avatar">
+                    <div className="w-12 rounded-full">
+                      <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    </div>
+                  </Link>
+                </div>}
             </ul>
             <Link to="/restaurants" className="hidden lg:block">
               <button className="btn btn-outline rounded-full bg-white text-black">
