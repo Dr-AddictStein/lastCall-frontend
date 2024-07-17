@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../../Shared/Loader';
+import Select from "react-select";
 
 const RestaurantBuilder = () => {
 
@@ -12,6 +13,7 @@ const RestaurantBuilder = () => {
     const [regions, setRegions] = useState([]);
     const [cities, setCities] = useState([]);
     const [filteredCities, setFilteredCities] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
     const [formData, setFormData] = useState({
         _id: '',
         name: '',
@@ -27,7 +29,8 @@ const RestaurantBuilder = () => {
         image2: null,
         image3: null,
         image4: null,
-        specialconditions: []
+        specialconditions: [],
+        category: []
     });
 
     // Fetch restaurant data when the component mounts
@@ -52,12 +55,20 @@ const RestaurantBuilder = () => {
                 image2: data.image2 || null,
                 image3: data.image3 || null,
                 image4: data.image4 || null,
-                specialconditions: data.specialconditions || []
+                specialconditions: data.specialconditions || [],
+                category: data.category || []
             });
 
             // Populate conditions separately if it exists
             if (data.specialconditions) {
                 setConditions(data.specialconditions.map((condition, index) => ({ id: index, text: condition })));
+            }
+            if (data.category) {
+                const initialCategories = data.category.map(cat => ({
+                    value: cat,
+                    label: cat
+                }));
+                setSelectedCategories(initialCategories)
             }
         } catch (error) {
             console.error('Error fetching restaurant data:', error);
@@ -145,34 +156,35 @@ const RestaurantBuilder = () => {
             url: formData.url,
             operatinghours: formData.operatinghours,
             description: formData.description,
-            specialconditions: conditions.map(condition => condition.text)
+            specialconditions: conditions.map(condition => condition.text),
+            category: selectedCategories.map(option => option.value), // Extracting values from selected options
         };
 
         let finalData = jsonData;
 
         if (thumb) {
             const thumbImageUrl = await uploadFile(thumb, Date.now().toString());
-            finalData["thumb"]=thumbImageUrl;
+            finalData["thumb"] = thumbImageUrl;
         }
         if (banner) {
             const bannerImageUrl = await uploadFile(banner, Date.now().toString());
-            finalData["banner"]=bannerImageUrl;
+            finalData["banner"] = bannerImageUrl;
         }
         if (image1) {
             const image1ImageUrl = await uploadFile(image1, Date.now().toString());
-            finalData["image1"]=image1ImageUrl;
+            finalData["image1"] = image1ImageUrl;
         }
         if (image2) {
             const image2ImageUrl = await uploadFile(image2, Date.now().toString());
-            finalData["image2"]=image2ImageUrl;
+            finalData["image2"] = image2ImageUrl;
         }
         if (image3) {
             const image3ImageUrl = await uploadFile(image3, Date.now().toString());
-            finalData["image3"]=image3ImageUrl;
+            finalData["image3"] = image3ImageUrl;
         }
         if (image4) {
             const image4ImageUrl = await uploadFile(image4, Date.now().toString());
-            finalData["image4"]=image4ImageUrl;
+            finalData["image4"] = image4ImageUrl;
         }
 
         console.log("GOTCHA.!.", finalData)
@@ -200,9 +212,55 @@ const RestaurantBuilder = () => {
         }
     };
 
+
+    const options = [
+        { value: 'American', label: 'American' },
+        { value: 'Asian', label: 'Asian' },
+        { value: 'Barbeque', label: 'Barbeque' },
+        { value: 'Brunch', label: 'Brunch' },
+        { value: 'Burgers', label: 'Burgers' },
+        { value: 'Cafe', label: 'Cafe' },
+        { value: 'Chinese', label: 'Chinese' },
+        { value: 'Desserts', label: 'Desserts' },
+        { value: 'European', label: 'European' },
+        { value: 'Filipino', label: 'Filipino' },
+        { value: 'Fine Dining', label: 'Fine Dining' },
+        { value: 'French', label: 'French' },
+        { value: 'Fusion', label: 'Fusion' },
+        { value: 'Greek', label: 'Greek' },
+        { value: 'Halal', label: 'Halal' },
+        { value: 'Hotpot', label: 'Hotpot' },
+        { value: 'Indian', label: 'Indian' },
+        { value: 'Italian', label: 'Italian' },
+        { value: 'Japanese', label: 'Japanese' },
+        { value: 'Korean', label: 'Korean' },
+        { value: 'Latin', label: 'Latin' },
+        { value: 'Mediterranean', label: 'Mediterranean' },
+        { value: 'Mexican', label: 'Mexican' },
+        { value: 'Middle Eastern', label: 'Middle Eastern' },
+        { value: 'Pizza', label: 'Pizza' },
+        { value: 'Pub', label: 'Pub' },
+        { value: 'Ramen', label: 'Ramen' },
+        { value: 'Seafood', label: 'Seafood' },
+        { value: 'Spanish', label: 'Spanish' },
+        { value: 'Steakhouse', label: 'Steakhouse' },
+        { value: 'Sushi', label: 'Sushi' },
+        { value: 'Thai', label: 'Thai' },
+        { value: 'Vegan', label: 'Vegan' },
+        { value: 'Vegetarian', label: 'Vegetarian' },
+        { value: 'Vietnamese', label: 'Vietnamese' }
+    ];
+
+    const handleChangeMulti = (selectedOptions) => {
+        setSelectedCategories(selectedOptions);
+    };
+
+
+
+
     if (loader) {
         return (
-            <Loader/>
+            <Loader />
         )
     }
 
@@ -371,6 +429,23 @@ const RestaurantBuilder = () => {
                                 />
                             </div>
                         </div>
+                    </div>
+                    <div className="p-16">
+                        <h3 className="text-2xl font-semibold text-center">Tags</h3>
+                        <Select
+                            value={selectedCategories}
+                            onChange={handleChangeMulti}
+                            options={options}
+                            placeholder="Category"
+                            isMulti
+                            styles={{
+                                control: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    height: "55px",
+                                }),
+                            }}
+                            className='mt-3 text-black'
+                        />
                     </div>
                     <div className="p-16">
                         <h3 className="text-2xl font-semibold text-center">Special Conditions</h3>
