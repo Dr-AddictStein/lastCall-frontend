@@ -493,8 +493,92 @@ const FoodDetails = () => {
                             </div>
                         }
                     </div>
+                    <div className={`${foodData?.description?.length > 30 ? 'pt-72' : 'pt-20'}`}>
+                        <h1 className="text-[#265582] text-5xl font-semibold pb-2">What people say</h1>
+                        <div className="pb-9 border-b">
+                            <div className="flex gap-4 text-xl items-center">
+                                <div className="flex gap-1">
+                                    <FaStar className="text-yellow-400" />
+                                    <FaStar className="text-yellow-400" />
+                                    <FaStar className="text-yellow-400" />
+                                    <FaRegStar className="text-slate-400" />
+                                    <FaRegStar className="text-slate-400" />
+                                </div>
+                                <p className="text-slate-500 cursor-pointer hover:border-b border-slate-400">24 reviews</p>
+                            </div>
+                        </div>
+                        <div className="py-5 border-b mb-">
+                            <Link to={'/profile/update'} className="avatar absolute">
+                                <div className="w-14 rounded-full">
+                                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                </div>
+                            </Link>
+                            <div>
+                                <div className="pl-[70px]">
+                                    <div className="flex gap-3 items-center">
+                                        <p className="text-xl font-semibold">Elina Gilbert</p>
+                                        <div className="flex gap-1">
+                                            <FaStar className="text-yellow-400" />
+                                            <FaStar className="text-yellow-400" />
+                                            <FaStar className="text-yellow-400" />
+                                            <FaRegStar className="text-slate-400" />
+                                            <FaRegStar className="text-slate-400" />
+                                        </div>
+                                    </div>
+                                    <p className="text-slate-500">Dined at Elixiba on 28 Apr 2024</p>
+                                </div>
+                                <p className="pt-5 text-justify">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit, dignissimos, ratione incidunt explicabo deleniti corporis maiores cum nobis cupiditate tenetur maxime sed cumque harum totam culpa vero eos sequi saepe.</p>
+                            </div>
+                        </div>
+                        <div className="py-5 border-b mb-">
+                            <Link to={'/profile/update'} className="avatar absolute">
+                                <div className="w-14 rounded-full">
+                                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                </div>
+                            </Link>
+                            <div>
+                                <div className="pl-[70px]">
+                                    <div className="flex gap-3 items-center">
+                                        <p className="text-xl font-semibold">Stefan Salvator</p>
+                                        <div className="flex gap-1">
+                                            <FaStar className="text-yellow-400" />
+                                            <FaStar className="text-yellow-400" />
+                                            <FaStar className="text-yellow-400" />
+                                            <FaStar className="text-yellow-400" />
+                                            <FaStar className="text-yellow-400" />
+                                        </div>
+                                    </div>
+                                    <p className="text-slate-500">Dined at Elixiba on 28 Apr 2024</p>
+                                </div>
+                                <p className="pt-5 text-justify">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit, dignissimos, ratione incidunt explicabo deleniti corporis maiores cum nobis cupiditate tenetur maxime sed cumque harum totam culpa vero eos sequi saepe.</p>
+                            </div>
+                        </div>
+                        <div className="py-5 border-b mb-">
+                            <Link to={'/profile/update'} className="avatar absolute">
+                                <div className="w-14 rounded-full">
+                                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                </div>
+                            </Link>
+                            <div>
+                                <div className="pl-[70px]">
+                                    <div className="flex gap-3 items-center">
+                                        <p className="text-xl font-semibold">Stefan Salvator</p>
+                                        <div className="flex gap-1">
+                                            <FaStar className="text-yellow-400" />
+                                            <FaStar className="text-yellow-400" />
+                                            <FaRegStar className="text-slate-400" />
+                                            <FaRegStar className="text-slate-400" />
+                                            <FaRegStar className="text-slate-400" />
+                                        </div>
+                                    </div>
+                                    <p className="text-slate-500">Dined at Elixiba on 28 Apr 2024</p>
+                                </div>
+                                <p className="pt-5 text-justify">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit, dignissimos, ratione incidunt explicabo deleniti corporis maiores cum nobis cupiditate tenetur maxime sed cumque harum totam culpa vero eos sequi saepe.</p>
+                            </div>
+                        </div>
+                    </div>
                     <div>
-                        <div className={`flex justify-between items-center ${foodData?.description?.length > 30 ? 'pt-96' : 'pt-20'}`}>
+                        <div className={`flex justify-between items-center pt-20`}>
                             <h1 className="text-[#265582] text-5xl font-semibold pb-5">Nearby Newcastle restaurants</h1>
                             <div className="flex gap-2 text-5xl text-[#265582]">
                                 <FaAngleLeft onClick={handlePrev} className="cursor-pointer" />
