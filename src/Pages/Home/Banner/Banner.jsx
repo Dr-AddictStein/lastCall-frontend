@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import bannerImg from '../../../assets/images/Banner/banner.webp';
 import { SlCalender } from 'react-icons/sl';
 import { useEffect } from 'react';
+import { FaRegMap } from 'react-icons/fa';
+import { PiCityLight } from 'react-icons/pi';
+import { IoMdRestaurant } from 'react-icons/io';
 
 function Banner({ cities, regions }) {
   const today = new Date();
@@ -55,7 +58,7 @@ function Banner({ cities, regions }) {
                   role="button"
                   className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
                 >
-                  Select a Region
+                  <FaRegMap />Select a Region
                 </div>
                 <ul
                   tabIndex={0}
@@ -74,7 +77,7 @@ function Banner({ cities, regions }) {
                   role="button"
                   className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
                 >
-                  Select a City
+                  <PiCityLight />Select a City
                 </div>
                 <ul
                   tabIndex={0}
@@ -93,7 +96,7 @@ function Banner({ cities, regions }) {
                   role="button"
                   className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
                 >
-                  Dinner
+                  <IoMdRestaurant /> Dinner
                 </div>
                 <ul
                   tabIndex={0}

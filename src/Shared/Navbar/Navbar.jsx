@@ -131,7 +131,7 @@ function Navbar() {
               </ul>
             </div>
             <Link to="/">
-              <img src="logo.png" alt="Last Call Logo" className="w-60" />
+              <img src="/logo.png" alt="Last Call Logo" className="w-60" />
             </Link>
             <div className="relative">
               <label
