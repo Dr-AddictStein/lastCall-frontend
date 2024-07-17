@@ -10,6 +10,8 @@ import { useLogin } from '../../hooks/useLogin';
 import { GoogleAuthProvider, getAuth } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { app } from '../../auth/firebase';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const [email, setemail] = useState("");
@@ -40,7 +42,7 @@ function Login() {
     const response = await login(email, password);
 
     if(response){
-      alert(response)
+      alert(response);
       setemail("");
       setpassword("");
     }
@@ -72,6 +74,7 @@ function Login() {
               <div className="flex justify-center items-center  signup-btn-signup  ">
                 <input
                   type="text"
+                  value={email}
                   className="input input-bordered  w-full  "
                   placeholder="Enter email to Login"
                   onChange={(e) => {
@@ -82,6 +85,7 @@ function Login() {
               <div className="flex justify-center items-center  signup-btn-signup  ">
                 <input
                   type="password"
+                  value={password}
                   className="input input-bordered  w-full  "
                   placeholder="Password"
                   onChange={(e) => {

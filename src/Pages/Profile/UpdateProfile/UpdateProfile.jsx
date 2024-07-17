@@ -4,34 +4,56 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../../context/AuthContext";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+import { useNavigate } from "react-router-dom";
 
 const UpdateProfile = () => {
+    const navigate = useNavigate();
     const { user } = useContext(AuthContext);
     const fileInputRef = useRef(null);
     const [loader, setLoader] = useState(false);
     const [formData, setFormData] = useState({
-        firstName: user?.user?.firstname || '',
-        surname: user?.user?.lastname || '',
-        email: user?.user?.email || '',
-        phone: user?.user?.phone || '',
+        firstName: '',
+        lastname: '',
+        email: '',
+        phone: '',
         password: '',
         confPassword: '',
-        image: user?.user?.image || null,
+        image: null,
         imageFile: null,
     });
 
     useEffect(() => {
-        setFormData({
-            firstName: user?.user?.firstname || '',
-            surname: user?.user?.lastname || '',
-            email: user?.user?.email || '',
-            phone: user?.user?.phone || '',
-            password: '',
-            confPassword: '',
-            image: user?.user?.image || null,
-            imageFile: null,
-        });
+        if (!user) {
+            navigate('/');
+        } else {
+            fetchUserData();
+        }
     }, [user]);
+
+    const fetchUserData = async () => {
+        try {
+            const response = await axios.get(`http://localhost:4000/api/user/userByEmail/${user.user.email}`);
+            if (response.status === 200) {
+                const userData = response.data;
+                setFormData({
+                    firstName: userData.firstname || '',
+                    lastname: userData.lastname || '',
+                    email: userData.email || '',
+                    phone: userData.phone || '',
+                    password: '',
+                    confPassword: '',
+                    image: userData.image || null,
+                    imageFile: null,
+                });
+            } else {
+                throw new Error('Failed to fetch user data.');
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            toast.error('Failed to fetch user data.');
+        }
+    };
 
     const handleCameraClick = () => {
         fileInputRef.current.click();
@@ -39,26 +61,26 @@ const UpdateProfile = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
+        setFormData((prevFormData) => ({
+            ...prevFormData,
             [name]: value,
-        });
+        }));
     };
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        setFormData({
-            ...formData,
-            image: URL.createObjectURL(file), // Create a temporary URL for display
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            image: URL.createObjectURL(file),
             imageFile: file,
-        });
+        }));
     };
 
     const uploadFile = async (file) => {
         const formData = new FormData();
         formData.append('file', file);
         try {
-            const response = await axios.post(`http://localhost:4000/api/file/image/${user?.user?._id}`, formData, {
+            const response = await axios.post(`http://localhost:4000/api/file/image/${user.user._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -72,12 +94,11 @@ const UpdateProfile = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         setLoader(true);
 
-        const jsonData = {
+        const updatedData = {
             firstName: formData.firstName,
-            surname: formData.surname,
+            lastname: formData.lastname,
             email: formData.email,
             phone: formData.phone,
             password: formData.password,
@@ -87,38 +108,43 @@ const UpdateProfile = () => {
         if (formData.imageFile) {
             try {
                 const imageUrl = await uploadFile(formData.imageFile);
-                jsonData.image = imageUrl;
+                updatedData.image = imageUrl;
             } catch (error) {
-                console.error('Error uploading file:', error);
                 toast.error('An error occurred while uploading the profile picture.');
                 setLoader(false);
                 return;
             }
         }
 
-        console.log('Submitting form data:', jsonData);
-
         try {
-            const response = await axios.patch(`http://localhost:4000/api/user/${user?.user?._id}`, jsonData);
-
-            console.log('API response:', response);
-
-            if (response.status !== 200) {
+            const response = await axios.patch(`http://localhost:4000/api/user/${user.user._id}`, updatedData);
+            if (response.status === 200) {
+                fetchUserData();
+                toast.success('Profile updated successfully!');
+            } else {
                 throw new Error('Failed to update profile.');
             }
-
-            setLoader(false);
-            toast.success('Profile updated successfully!');
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error updating profile:', error);
             toast.error('An error occurred while updating the profile.');
+        } finally {
             setLoader(false);
         }
     };
 
     if (loader) {
         return (
-            <div>Loading...</div>
+            <div className="z-50">
+                <div className="text-center text-white text-3xl">
+                    Saving Your Profile Info. Please Wait...
+                </div>
+                <div className='w-full h-[70vh] flex justify-center items-center'>
+                    <ClimbingBoxLoader
+                        color='white'
+                        size={70}
+                    />
+                </div>
+            </div>
         );
     }
 
@@ -136,51 +162,51 @@ const UpdateProfile = () => {
                             className="cursor-pointer absolute right-2 bottom-2 bg-slate-400 text-white text-4xl p-2 rounded-full"
                             onClick={handleCameraClick}
                         />
-                        <input 
-                            type="file" 
-                            name="image" 
-                            id="image" 
-                            className="hidden" 
-                            ref={fileInputRef} 
-                            onChange={handleFileChange} 
+                        <input
+                            type="file"
+                            name="image"
+                            id="image"
+                            className="hidden"
+                            ref={fileInputRef}
+                            onChange={handleFileChange}
                         />
                     </div>
                     <div className="py-2">
                         <p>First Name</p>
-                        <input 
-                            type="text" 
-                            name="firstName" 
-                            className="border p-2 border-black w-full" 
+                        <input
+                            type="text"
+                            name="firstName"
+                            className="border p-2 border-black w-full"
                             value={formData.firstName}
                             onChange={handleInputChange}
                         />
                     </div>
                     <div className="py-2">
                         <p>Surname</p>
-                        <input 
-                            type="text" 
-                            name="surname" 
-                            className="border p-2 border-black w-full" 
-                            value={formData.surname}
+                        <input
+                            type="text"
+                            name="lastname"
+                            className="border p-2 border-black w-full"
+                            value={formData.lastname}
                             onChange={handleInputChange}
                         />
                     </div>
                     <div className="py-2">
                         <p>Email</p>
-                        <input 
-                            type="text" 
-                            name="email" 
-                            className="border p-2 border-black w-full" 
+                        <input
+                            type="text"
+                            name="email"
+                            className="border p-2 border-black w-full"
                             value={formData.email}
                             onChange={handleInputChange}
                         />
                     </div>
                     <div className="py-2">
                         <p>Phone</p>
-                        <input 
-                            type="text" 
-                            name="phone" 
-                            className="border p-2 border-black w-full" 
+                        <input
+                            type="text"
+                            name="phone"
+                            className="border p-2 border-black w-full"
                             value={formData.phone}
                             onChange={handleInputChange}
                         />
@@ -191,20 +217,20 @@ const UpdateProfile = () => {
                     <div>
                         <div className="py-2">
                             <p>New Password</p>
-                            <input 
-                                type="password" 
-                                name="password" 
-                                className="border p-2 border-black w-full" 
+                            <input
+                                type="password"
+                                name="password"
+                                className="border p-2 border-black w-full"
                                 value={formData.password}
                                 onChange={handleInputChange}
                             />
                         </div>
                         <div className="py-2">
                             <p>Confirm New Password</p>
-                            <input 
-                                type="password" 
-                                name="confPassword" 
-                                className="border p-2 border-black w-full" 
+                            <input
+                                type="password"
+                                name="confPassword"
+                                className="border p-2 border-black w-full"
                                 value={formData.confPassword}
                                 onChange={handleInputChange}
                             />
