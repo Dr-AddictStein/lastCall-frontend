@@ -65,7 +65,7 @@ function Navbar() {
   const Navlinks = (
     <>
       {!user ?
-        <li>
+        <li className="flex flex-row">
           <li>
             <Link to={"/signup"}>Sign Up</Link>
           </li>
@@ -200,7 +200,7 @@ function Navbar() {
           <div className="navbar-end hidden lg:flex">
             <ul className="menu menu-horizontal px-1 space-x-3">
               {!user ?
-                <li>
+                <li className="flex flex-row">
                   <li>
                     <Link to={"/signup"}>Sign Up</Link>
                   </li>

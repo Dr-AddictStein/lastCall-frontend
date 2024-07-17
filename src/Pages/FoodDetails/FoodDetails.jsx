@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { FaAngleLeft, FaAngleRight, FaInstagram, FaRegStar, FaStar } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight, FaBookOpen, FaInstagram, FaMapMarkerAlt, FaRegStar, FaStar } from "react-icons/fa";
 import { GrFacebookOption } from "react-icons/gr";
+import { MdOutlineFoodBank, MdRestaurantMenu } from "react-icons/md";
+import { BiSolidContact } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
@@ -315,10 +317,10 @@ const FoodDetails = () => {
                         <div className="">
                             <h1 className="text-[#265582] text-5xl font-semibold pb-5">Overview</h1>
                             <div className="flex gap-8 pb-8">
-                                <p className={`cursor-pointer`}>Australian</p>
-                                <p onClick={() => setActiveTab3(1)} className={`cursor-pointer pb-1 ${activeTab3 === 1 && 'border-b border-black'}`}>How to find us</p>
-                                <p onClick={() => setActiveTab3(2)} className={`cursor-pointer pb-1 ${activeTab3 === 2 && 'border-b border-black'}`}>Sample menu</p>
-                                <p onClick={() => setActiveTab3(3)} className={`cursor-pointer pb-1 ${activeTab3 === 3 && 'border-b border-black'}`}>Contacts</p>
+                                <div className={`cursor-pointer font-semibold text-xl flex gap-1 items-center`}><MdRestaurantMenu className="text-[#c7a77b] text-2xl"/> <p>Australian</p></div>
+                                <div onClick={() => setActiveTab3(1)} className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 1 && 'border-b border-black'}`}><FaMapMarkerAlt className="text-[#c7a77b] text-2xl"/><p>How to find us</p></div>
+                                <div onClick={() => setActiveTab3(2)} className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 2 && 'border-b border-black'}`}><FaBookOpen className="text-[#c7a77b] text-2xl"/><p>Sample menu</p></div>
+                                <div onClick={() => setActiveTab3(3)} className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 3 && 'border-b border-black'}`}><BiSolidContact className="text-[#c7a77b] text-2xl"/><p>Contacts</p></div>
                             </div>
                             <div className="pb-3">
                                 {activeTab3 === 1 && <div>

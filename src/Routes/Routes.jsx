@@ -62,6 +62,10 @@ export const router = createBrowserRouter([
         element: <NewCastle></NewCastle>
       },
       {
+        path: 'foodDetails/:id',
+        element: <FoodDetails />
+      },
+      {
         path: "/profile",
         element: <Profile />,
         children: [
@@ -75,10 +79,6 @@ export const router = createBrowserRouter([
           }
         ],
       },
-      {
-        path: 'foodDetails/:id',
-        element: <FoodDetails />
-      }
     ],
   },
   // Dashboard pages routes
