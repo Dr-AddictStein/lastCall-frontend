@@ -30,13 +30,13 @@ export const useSignup=()=>{
 
         }
     }
-    const gSignup=async(firstname, lastname, email)=>{
+    const gSignup=async(firstname, lastname, email, image)=>{
         setError(null);
 
         const response=await fetch("http://localhost:4000/api/user/signup",{
             method:'POST',
             headers:{'content-type':'application/json'},
-            body:JSON.stringify({firstname, lastname, email})
+            body:JSON.stringify({firstname, lastname, email, image})
         })
 
         const json=await response.json();

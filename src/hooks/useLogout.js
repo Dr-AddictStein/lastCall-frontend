@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useAuthContext } from "./useAuthContext";
-// import { useWorkoutsContext } from "./UseWorkoutsContext";
+import { useNavigate } from "react-router-dom";
 
 export const useLogout=()=>{
     const {dispatch}=useAuthContext();
@@ -12,7 +12,7 @@ export const useLogout=()=>{
 
 
         dispatch({type:'LOGOUT'});
-        // dispatchW({type:'SET_WORKOUTS', payload:null})
+        navigate(`/`);
     }
 
 

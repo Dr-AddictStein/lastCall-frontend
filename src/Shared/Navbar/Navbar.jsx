@@ -3,8 +3,10 @@ import { CiSearch } from "react-icons/ci";
 import { Link, useLocation } from "react-router-dom";
 import lastCallImg from "../../assets/images/Navbar/lastcall.png";
 import { AuthContext } from "../../context/AuthContext";
+import { useLogout } from "../../hooks/useLogout";
 
 function Navbar() {
+  const { logout } = useLogout();
   const { user } = useContext(AuthContext);
   console.log(user);
   const [isScrollingUp, setIsScrollingUp] = useState(true);
@@ -75,7 +77,7 @@ function Navbar() {
         </li> :
         <div className="avatar">
           <div className="w-12">
-            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+            <img src={"https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} />
           </div>
         </div>}
 
@@ -209,10 +211,10 @@ function Navbar() {
                   </li>
                 </li> :
                 <div className="flex gap-3 items-center mr-5">
-                  <p className="cursor-pointer">Logout</p>
+                  <button className="mx-2 px-3 bg-transparent py-3 rounded-3xl text-base font-semibold hover:bg-slate-200 hover:text-black" onClick={logout}>Logout</button>
                   <Link to={'/profile/update'} className="avatar">
                     <div className="w-12 rounded-full">
-                      <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                      <img src={user.user.image} />
                     </div>
                   </Link>
                 </div>}

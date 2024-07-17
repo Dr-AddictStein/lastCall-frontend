@@ -36,7 +36,7 @@ function SignUp() {
     try {
       const resultsFromGoogle = await signInWithPopup(auth, provider);
       console.log("APAPAPAPAPAPAPA", resultsFromGoogle.user)
-      const response = await gSignup(resultsFromGoogle.user.displayName.split(' ')[0], resultsFromGoogle.user.displayName.split(' ')[1], resultsFromGoogle.user.email);
+      const response = await gSignup(resultsFromGoogle.user.displayName.split(' ')[0], resultsFromGoogle.user.displayName.split(' ')[1], resultsFromGoogle.user.email, resultsFromGoogle.user.photoURL);
       if (response) alert(response)
     }
     catch (error) {
