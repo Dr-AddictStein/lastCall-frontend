@@ -1,13 +1,15 @@
-import React from "react";
 import { useForm } from "react-hook-form";
-import bgImg from '../../../assets/images/SignUp/bg01.jpg';
-import bg1 from '../../../assets/images/SignUp/bg1.png';
-import bg2 from "../../../assets/images/SignUp/bg2.png";
-import bg3 from "../../../assets/images/SignUp/bg3.jpg";
-import bg4 from "../../../assets/images/SignUp/bg4.png";
+import bgImg from '../../assets/images/SignUp/bg01.jpg';
+import bg1 from '../../assets/images/SignUp/bg1.png';
+import bg2 from '../../assets/images/SignUp/bg2.png';
+import bg3 from '../../assets/images/SignUp/bg3.jpg';
+import bg4 from '../../assets/images/SignUp/bg4.png';
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-function FreeSignUp() {
+function RestaurantRegister() {
+  const [isChecked, setIsChecked] = useState(false)
+
   const navigate = useNavigate();
   const {
     register,
@@ -27,7 +29,7 @@ function FreeSignUp() {
       });
 
       const result = await response.json();
-      console.log("Done",result);
+      console.log("Done", result);
 
       if (response.ok) {
         alert("Restaurant registered successfully!");
@@ -41,15 +43,20 @@ function FreeSignUp() {
     }
   };
 
+  const handleCheckboxChange = () => {
+    isChecked === true && setIsChecked(false);
+    isChecked === false && setIsChecked(true);
+  };
+
   return (
     <div>
       <div className="my-20 mx-2 lg:mx-40">
         <div className="text-center ">
           <h2 className="text-5xl text-blue-900 mb-5">
-            Sign up your restaurant <br /> for First Table
+            Sign up your restaurant <br /> for Last Call
           </h2>
           <p className="text-xl">
-            First Table is a restaurant discovery platform which helps turn
+            Last Call is a restaurant discovery platform which helps turn
             restaurants' hardest-to-fill tables into a marketing asset,
             increasing profitability and growing their business.
           </p>
@@ -57,9 +64,9 @@ function FreeSignUp() {
         <div>
           <h2 className="text-5xl text-blue-900 my-5">Your details</h2>
         </div>
-        <div className="mb-8">
+        <div className="mb-8 grid grid-cols-2 gap-10">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col lg:flex-row lg:w-1/2 gap-3">
+            <div className="flex flex-col lg:flex-row  gap-3">
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text text-blue-950">First Name <span className="text-red-500">*</span></span>
@@ -80,7 +87,7 @@ function FreeSignUp() {
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text text-blue-950">Last Name</span>
+                  <span className="label-text text-blue-950">Last Name<span className="text-red-500">*</span></span>
                 </label>
                 <input
                   {...register("lastName", {
@@ -98,7 +105,7 @@ function FreeSignUp() {
               </div>
             </div>
 
-            <div className=" lg:w-1/2">
+            <div className=" ">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text text-blue-950">Email <span className="text-red-500">*</span></span>
@@ -117,7 +124,7 @@ function FreeSignUp() {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-blue-950">Phone number</span>
+                  <span className="label-text text-blue-950">Phone Number<span className="text-red-500">*</span></span>
                 </label>
                 <input
                   {...register("phoneNumber", {
@@ -157,7 +164,7 @@ function FreeSignUp() {
               </div> */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-blue-950">Region AU <span className="text-red-500">*</span></span>
+                  <span className="label-text text-blue-950">Region<span className="text-red-500">*</span></span>
                 </label>
                 <select
                   className="select select-bordered"
@@ -181,22 +188,6 @@ function FreeSignUp() {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-blue-950">City <span className="text-red-500">*</span></span>
-                </label>
-                <input
-                  {...register("city", {
-                    required: "Please complete this required field",
-                  })}
-                  type="text"
-                  placeholder="City"
-                  className="input input-bordered"
-                />
-                {errors.city && (
-                  <span className="text-red-500">{errors.city.message}</span>
-                )}
-              </div>
-              <div className="form-control">
-                <label className="label">
                   <span className="label-text text-blue-950">Restaurant Name <span className="text-red-500">*</span></span>
                 </label>
                 <input
@@ -211,6 +202,22 @@ function FreeSignUp() {
                   <span className="text-red-500">
                     {errors.restaurantName.message}
                   </span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-blue-950">City <span className="text-red-500">*</span></span>
+                </label>
+                <input
+                  {...register("city", {
+                    required: "Please complete this required field",
+                  })}
+                  type="text"
+                  placeholder="City"
+                  className="input input-bordered"
+                />
+                {errors.city && (
+                  <span className="text-red-500">{errors.city.message}</span>
                 )}
               </div>
               <div className="form-control">
@@ -234,9 +241,9 @@ function FreeSignUp() {
                 )}
               </div>
             </div>
-            <div className="form-control lg:w-1/2 mt-6">
-              <p>
-                First Table needs the contact information you provide by
+            <div className="form-control  mt-6">
+              <p className="text-justify">
+                Last Call needs the contact information you provide by
                 submitting this form to contact you about our products and
                 services. You may unsubscribe from these communications at any
                 time. Please review our{" "}
@@ -245,17 +252,26 @@ function FreeSignUp() {
                 </a>
               </p>
             </div>
-            <div className="form-control mt-6 lg:w-1/2">
-              <button type="submit" className="btn bg-[#FF756B]">
-                Submit
-              </button>
+            <div className="flex gap-2 pt-3">
+              <input onClick={handleCheckboxChange} type="checkbox" name="checkPrivacyPolicy" id="" />
+              <p>By checking this box you are agreeing to all of our privacy and policy</p>
+            </div>
+            <div className="form-control mt-6 ">
+              {isChecked === true ?
+                <button type="submit" className="btn bg-[#FF756B] text-white hover:bg-[#FF756B] hover:text-white">
+                  Submit
+                </button> :
+                <p type="submit" className="btn bg-slate-400 text-slate-500 hover:bg-slate-400 hover:text-slate-500 cursor-not-allowed">
+                  Submit
+                </p>}
             </div>
           </form>
+          <img className="rounded-xl overflow-hidden" src="https://a.mktgcdn.com/p/rG1SzyDOZMsDj19-fakRweDt1Q7I5Cmk1Yyrh13fM1k/3000x4500.jpg" alt="" />
         </div>
         <div className="divider my-8"></div>
         <div className="flex flex-col lg:flex-row gap-10">
           <div
-            className="lg:w-1/2"
+            className=""
             style={{
               backgroundImage: `url(${bgImg})`,
               backgroundSize: "cover",
@@ -267,15 +283,7 @@ function FreeSignUp() {
             <h2 className="text-5xl text-blue-700">
               What Restaurants Are Saying
             </h2>
-            <p className="text-xl mt-10">
-              First Table has definitely been a great marketing tool for us.
-              It's a brilliant way for our local market to try us for a nice
-              dinner out without breaking the bank. Early dining is always a
-              quiet time of night so it's great being able to create some real
-              atmosphere in the restaurant at an early stage of the evening.
-              It's also a great opportunity for our staff to show the First
-              Table diners what we do here and add a personal touch to their
-              experience. We get a lot of return customers as a result.
+            <p className="text-xl mt-10"> Last Table has definitely been a great marketing tool for us. It's a brilliant way for our local market to try us for a nice dinner out without breaking the bank. Early dining is always a quiet time of night so it's great being able to create some real atmosphere in the restaurant at an early stage of the evening. It's also a great opportunity for our staff to show the First Table diners what we do here and add a personal touch to their experience. We get a lot of return customers as a result.
             </p>
             <p className="text-blue-800 mt-4">
               -Hayden Davison, <br /> Restaurant Manager at Jervois Steak House
@@ -295,11 +303,11 @@ function FreeSignUp() {
           </div>
         </div>
       </div>
-      <div className="bg-blue-950 py-10">
+      {/* <div className="bg-blue-950 py-10">
         <p className="text-center text-white text-xl">© Last Call 2014 - 2024</p>
-      </div>
+      </div> */}
     </div>
   );
 }
 
-export default FreeSignUp;
+export default RestaurantRegister;
