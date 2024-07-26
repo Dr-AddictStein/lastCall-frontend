@@ -52,7 +52,7 @@ function ForRestaurants() {
               marketing by taking advantage of tough-to-fill seats
             </p>
             <div className="mt-6">
-              <Link to={"/freesignup"}>
+              <Link to={"/restaurantRegister"}>
                 <button className="bg-[#FF756B] p-4 text-white font-bold">
                   Sign up for free
                 </button>

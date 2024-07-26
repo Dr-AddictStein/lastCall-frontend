@@ -10,7 +10,6 @@ import Cities from "../Pages/AdminDashboard/Cities/Cities";
 import Users from "../Pages/AdminDashboard/Users/Users";
 
 import ForRestaurants from "../Pages/Home/ForRestaurants/ForRestaurants";
-import FreeSignUp from "../Pages/Home/FreeSignUp/FreeSignUp";
 import SignUp from "../Pages/SignUp/SignUp";
 import Login from "../Pages/Login/Login";
 import NewCastle from "../Pages/NewCastle/NewCastle";
@@ -23,6 +22,8 @@ import RestaurantBuilder from "../Pages/Dashboard/RestaurantBuilder/RestaurantBu
 import ViewReservations from "../Pages/Dashboard/ViewReservations/ViewReservations";
 import AddTable from "../Pages/Dashboard/AddTable/AddTable";
 import ViewEmployees from "../Pages/Dashboard/ViewEmployees/ViewEmployees";
+import RestaurantRegister from "../Pages/RestaurantRegister/RestaurantRegister";
+import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 
 export const router = createBrowserRouter([
   {
@@ -50,12 +51,16 @@ export const router = createBrowserRouter([
         element: <Login></Login>
       },
       {
+        path: '/privacyPolicy',
+        element: <PrivacyPolicy />
+      },
+      {
         path: "/restaurants",
         element: <ForRestaurants></ForRestaurants>,
       },
       {
-        path: "/freesignup",
-        element: <FreeSignUp></FreeSignUp>
+        path: "/restaurantRegister",
+        element: <RestaurantRegister />
       },
       {
         path: "/:city",

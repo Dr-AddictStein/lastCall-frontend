@@ -5,20 +5,20 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <div>
-      <footer className=" space-y-6 grid grid-cols-1 text-center  lg:grid-cols-3 gap-4 items-center  p-10 bg-[#234563] text-neutral-content">
+      <footer className="space-y-6 grid grid-cols-1 text-center  lg:grid-cols-2 gap-4 items-center  p-10 bg-[#234563] text-neutral-content">
         {/* Services */}
-       
+
 
         {/* Company */}
-    
+
 
         {/* Legal */}
-     
+
 
         <nav>
           <h6 className="footer-title">About Us</h6>
           <ul className="footer-list space-y-2">
-            <li>
+            {/* <li>
               <Link to="/about-us" className="link link-hover">
                 About us
               </Link>
@@ -27,7 +27,7 @@ function Footer() {
               <Link to="/ourstory" className="link link-hover">
                 Our story
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/faq" className="link link-hover">
                 FAQs
@@ -38,9 +38,24 @@ function Footer() {
                 Contact Us
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/careers" className="link link-hover">
                 Careers
+              </Link>
+            </li> */}
+            <li>
+              <Link to="/careers" className="link link-hover">
+                Suggest a Restaurant
+              </Link>
+            </li>
+            <li>
+              <Link to="/privacyPolicy" className="link link-hover">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link to="/careers" className="link link-hover">
+                Cancellation Policy
               </Link>
             </li>
           </ul>
@@ -56,6 +71,11 @@ function Footer() {
               </Link>
             </li>
             <li>
+              <Link to="/how-it-works" className="link link-hover">
+                Signup
+              </Link>
+            </li>
+            {/* <li>
               <Link to="/request-info" className="link link-hover">
                 Request info
               </Link>
@@ -89,12 +109,12 @@ function Footer() {
               <Link to="/media-centre" className="link link-hover">
                 Media Centre
               </Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
 
         {/* Our Community */}
-        <nav>
+        {/* <nav>
           <h6 className="footer-title">Our Community</h6>
           <ul className="footer-list space-y-2">
             <li>
@@ -133,7 +153,7 @@ function Footer() {
               </Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
       </footer>
     </div>
   );
