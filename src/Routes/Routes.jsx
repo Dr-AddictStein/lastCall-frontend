@@ -24,6 +24,7 @@ import AddTable from "../Pages/Dashboard/AddTable/AddTable";
 import ViewEmployees from "../Pages/Dashboard/ViewEmployees/ViewEmployees";
 import RestaurantRegister from "../Pages/RestaurantRegister/RestaurantRegister";
 import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
+import CancellationPolicy from "../Pages/CancellationPolicy/CancellationPolicy";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
       {
         path: '/privacyPolicy',
         element: <PrivacyPolicy />
+      },
+      {
+        path: '/CancellationPolicy',
+        element: <CancellationPolicy />
       },
       {
         path: "/restaurants",

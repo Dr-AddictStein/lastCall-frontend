@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function PrivacyPolicy() {
+function CancellationPolicy() {
     const [openIndex, setOpenIndex] = useState(null);
 
     const toggleIndex = (index) => {
@@ -10,7 +10,7 @@ function PrivacyPolicy() {
     return (
         <div className="mx-auto mb-8 px-4 lg:px-36">
             <h1 className="px-4 text-blue-900 font-semibold text-4xl lg:text-7xl text-center my-12 mt-20">
-                Privacy Policy
+                Cancellation Policy
             </h1>
             <p>
                 We understand that you can't always make your Last Call booking as initially planned. Our cancellation policy is designed to encourage you to make your cancellation sooner rather than later to give restaurants enough time to secure a new Last Call booking. <br />
@@ -128,4 +128,4 @@ function PrivacyPolicy() {
     );
 }
 
-export default PrivacyPolicy;
+export default CancellationPolicy;
