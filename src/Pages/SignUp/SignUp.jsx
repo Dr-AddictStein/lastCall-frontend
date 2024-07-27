@@ -217,7 +217,7 @@ function SignUp() {
               remember
             </p>
             <p className="mt-7">
-              © First Table Limited 2024 <a href="">Privacy and Terms</a>
+              © First Table Limited 2024 <Link className="border-b " to={'/privacyPolicy'}>Privacy and Terms</Link>
             </p>
           </div>
         </div>

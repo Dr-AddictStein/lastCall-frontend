@@ -25,6 +25,7 @@ import ViewEmployees from "../Pages/Dashboard/ViewEmployees/ViewEmployees";
 import RestaurantRegister from "../Pages/RestaurantRegister/RestaurantRegister";
 import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 import CancellationPolicy from "../Pages/CancellationPolicy/CancellationPolicy";
+import ContactUs from "../Pages/ContactUs/ContactUs";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
       {
         path: '/CancellationPolicy',
         element: <CancellationPolicy />
+      },
+      {
+        path: '/contactUs',
+        element: <ContactUs />
       },
       {
         path: "/restaurants",

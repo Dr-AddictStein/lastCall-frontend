@@ -34,7 +34,7 @@ function Footer() {
               </Link>
             </li>
             <li>
-              <Link to="/contact-us" className="link link-hover">
+              <Link to="/contactUs" className="link link-hover">
                 Contact Us
               </Link>
             </li>
