@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { CiSearch } from "react-icons/ci";
 import { Link, useLocation } from "react-router-dom";
 import lastCallImg from "../../assets/images/Navbar/lastcall.png";
@@ -14,15 +14,9 @@ function Navbar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [cities, setCities] = useState([]);
-  const [suggestions, setSuggestions] = useState([
-    "Apple",
-    "Banana",
-    "Cherry",
-    "Date",
-    "Elderberry",
-  ]);
+  const [restaurants, setRestaurants] = useState([]);
 
-  useEffect(() => {
+  const fetchCities = () => {
     const url = `http://localhost:4000/api/city`;
     fetch(url)
       .then(res => res.json())
@@ -31,6 +25,22 @@ function Navbar() {
         console.log(data);
       })
       .catch(error => console.log(error));
+  }
+
+  const fetchRestaurant = () => {
+    const url = `http://localhost:4000/api/restaurant`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        setRestaurants(data);
+        console.log('Restaurants', data);
+      })
+      .catch(error => console.log(error));
+  }
+
+  useEffect(() => {
+    fetchCities();
+    fetchRestaurant();
   }, []);
 
   const handleScroll = () => {
@@ -158,20 +168,31 @@ function Navbar() {
                 />
               </label>
               {dropdownVisible && (
-                <ul className="absolute top-full left-0 w-full bg-white text-black border border-gray-200 mt-1 z-10 rounded-md">
-                  {suggestions
-                    .filter((suggestion) =>
-                      suggestion
+                <ul className="absolute top-full left-0 w-[450px] bg-white text-black border border-gray-200 mt-1 z-10 rounded-md">
+                  {restaurants
+                    .filter((restaurant) =>
+                      restaurant?.name
                         .toLowerCase()
                         .includes(searchTerm.toLowerCase())
                     )
-                    .map((suggestion) => (
+                    .map((restaurant) => (
                       <li
-                        key={suggestion}
+                        key={restaurant}
                         className="px-4 py-2 cursor-pointer hover:bg-gray-200"
-                        onMouseDown={() => handleSuggestionClick(suggestion)}
+                        onMouseDown={() => handleSuggestionClick(restaurant)}
                       >
-                        {suggestion}
+                        <div className="flex gap-3 items-center">
+                          <div className="avatar">
+                            <div className="w-20 h-20 border rounded-md object-cover">
+                              <img src={restaurant.thumb} />
+                            </div>
+                          </div>
+                          <div>
+                            <h5 className="font-semibold text-xl pb-2">{restaurant.name}</h5>
+                            <p>{restaurant.city}</p>
+                            <p>{restaurant.region}</p>
+                          </div>
+                        </div>
                       </li>
                     ))}
                 </ul>
