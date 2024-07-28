@@ -1,10 +1,21 @@
 import { useState } from "react";
 
 function PrivacyPolicy() {
-    const [openIndex, setOpenIndex] = useState(null);
+    const [openIndex, setOpenIndex] = useState([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]);
 
     const toggleIndex = (index) => {
-        setOpenIndex(openIndex === index ? null : index);
+        if(openIndex.includes(index)){
+            setOpenIndex(([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]));
+            let dex=openIndex.filter((i)=>{
+                return i!==index
+            });
+            setOpenIndex(dex);
+        }
+        else{
+            let dex = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+            // dex.push(index);
+            setOpenIndex(dex);
+        }
     };
 
     return (
@@ -15,13 +26,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 0}
+                    checked={openIndex.includes(0)}
                     onChange={() => toggleIndex(0)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     No surprises!
                 </div>
-                {openIndex === 0 && (
+                {openIndex.includes(0) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             Welcome to Last Call’s privacy policy. <br /><br />
@@ -36,13 +47,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 1}
+                    checked={openIndex.includes(1)}
                     onChange={() => toggleIndex(1)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium  text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium  text-center">
                     Who are we, and Other Important Information
                 </div>
-                {openIndex === 1 && (
+                {openIndex.includes(1) && (
                     <div className="collapse-content">
                         <div className="py-3">
                             <h3 className="text-3xl font-semibold pb-2">About this privacy policy</h3>
@@ -77,13 +88,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 2}
+                    checked={openIndex.includes(2)}
                     onChange={() => toggleIndex(2)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     Third Party Links
                 </div>
-                {openIndex === 2 && (
+                {openIndex.includes(2) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             This website, may include links to third-party websites, plug-ins and further applications. Clicking on those links or enabling those connections may allow third parties to collect or share data about you. We do not control these third-party websites and are not responsible for their privacy statements. When you leave our website, we encourage you to read the privacy policy of every website you visit.
@@ -94,13 +105,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 3}
+                    checked={openIndex.includes(3)}
                     onChange={() => toggleIndex(3)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     What personal data do we collect?
                 </div>
-                {openIndex === 3 && (
+                {openIndex.includes(3) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             Personal data, or personal information, means any information about an individual from which that person can be identified. It does not include data where the identity has been removed (anonymous data). Everyone who uses our services will have bits and pieces of information about them collected, stored and processed. However, we do not collect more information than we need.
@@ -127,13 +138,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 4}
+                    checked={openIndex.includes(4)}
                     onChange={() => toggleIndex(4)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     What if you don’t provide your personal data?
                 </div>
-                {openIndex === 4 && (
+                {openIndex.includes(4) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             Where we need to collect personal data by law, or under the terms of a contract we have with you, and you fail to provide that data when requested, we may not be able to perform the contract we have, or are trying to enter into, with you (for example, to provide you with goods or services). In this case, we may have to cancel a product or service you have with us, but we will notify you if this is the case at the time.
@@ -144,13 +155,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 5}
+                    checked={openIndex.includes(5)}
                     onChange={() => toggleIndex(5)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     How do we collect your personal data?
                 </div>
-                {openIndex === 5 && (
+                {openIndex.includes(5) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             We use different methods to collect data from and about you, including through:
@@ -183,13 +194,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 6}
+                    checked={openIndex.includes(6)}
                     onChange={() => toggleIndex(6)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     How and why do we use your personal data?
                 </div>
-                {openIndex === 6 && (
+                {openIndex.includes(6) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:
@@ -351,13 +362,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 7}
+                    checked={openIndex.includes(7)}
                     onChange={() => toggleIndex(7)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     Marketing
                 </div>
-                {openIndex === 7 && (
+                {openIndex.includes(7) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             We strive to provide you with choices regarding certain personal data uses, particularly around marketing and advertising. We have established the following personal data control mechanisms: <br />
@@ -380,13 +391,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 8}
+                    checked={openIndex.includes(8)}
                     onChange={() => toggleIndex(8)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     Do we use cookies or similar technologies?
                 </div>
-                {openIndex === 8 && (
+                {openIndex.includes(8) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             We use cookies and similar technologies to help deliver, optimise, personalise and analyse our services and for advertising purposes. We use a combination of cookies and other technologies such as pixels/web beacons and tracking codes to collect information for use in line with the purposes set out in this policy. <br />
@@ -398,13 +409,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 9}
+                    checked={openIndex.includes(9)}
                     onChange={() => toggleIndex(9)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     Change of purpose
                 </div>
-                {openIndex === 9 && (
+                {openIndex.includes(9) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             We will only use your personal data for the purposes for which we collected it, unless we reasonably consider that we need to use it for another reason and that reason is compatible with the original purpose. If you wish to get an explanation as to how the processing for the new purpose is compatible with the original purpose, please contact us. <br />
@@ -417,13 +428,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 10}
+                    checked={openIndex.includes(10)}
                     onChange={() => toggleIndex(10)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     Disclosing your personal data
                 </div>
-                {openIndex === 10 && (
+                {openIndex.includes(10) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             We may share your personal data with the parties set out below for the purposes set out in the table in the “Why and how do we use your personal data” section above.
@@ -444,13 +455,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 11}
+                    checked={openIndex.includes(11)}
                     onChange={() => toggleIndex(11)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     How do we keep your personal data secure?
                 </div>
-                {openIndex === 11 && (
+                {openIndex.includes(11) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             Safeguarding your privacy is embedded in our culture and we use a combination of industry-standard methods to protect it and prevent your personal data from being accidentally lost, used or accessed in an unauthorised way, altered or disclosed. In addition, we limit access to your personal data to those employees, agents, contractors and other third parties who must come into contact with your information to do their jobs and deliver our services. They will only process your personal data on our instructions, and they are subject to a duty of confidentiality. <br />
@@ -463,13 +474,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 12}
+                    checked={openIndex.includes(12)}
                     onChange={() => toggleIndex(12)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     How long, and where, do we store your personal data?
                 </div>
-                {openIndex === 12 && (
+                {openIndex.includes(12) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             We only keep your data for as long as reasonably necessary to fulfil the purposes we collected it for, including for the purposes of satisfying any legal, regulatory, tax, accounting or reporting requirements. We may retain your personal data for a longer period in the event of a complaint or if we reasonably believe there is a prospect of litigation in respect to our relationship with you. <br />
@@ -485,13 +496,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 13}
+                    checked={openIndex.includes(13)}
                     onChange={() => toggleIndex(13)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     Your Legal Rights
                 </div>
-                {openIndex === 13 && (
+                {openIndex.includes(13) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             Under certain circumstances, you have rights under data protection laws in relation to your personal data, including the right to:
@@ -550,13 +561,13 @@ function PrivacyPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 14}
+                    checked={openIndex.includes(14)}
                     onChange={() => toggleIndex(14)}
                 />
-                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-justify">
+                <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium text-center">
                     GLOSSARY Lawful Basis
                 </div>
-                {openIndex === 14 && (
+                {openIndex.includes(14) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             Legitimate Interest means the interest of our business in conducting and managing our business to enable us to give you the best service/product and the best and most secure experience. We make sure we consider and balance any potential impact on you (both positive and negative) and your rights before we process your personal data for our legitimate interests. We do not use your personal data for activities where our interests are overridden by the impact on you (unless we have your consent or are otherwise required or permitted to by law). You can obtain further information about how we assess our legitimate interests against any potential impact on you in respect of specific activities by contacting us. <br />
