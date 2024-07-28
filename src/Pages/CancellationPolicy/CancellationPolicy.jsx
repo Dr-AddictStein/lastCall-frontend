@@ -1,10 +1,21 @@
 import { useState } from "react";
 
 function CancellationPolicy() {
-    const [openIndex, setOpenIndex] = useState(null);
+    const [openIndex, setOpenIndex] = useState([0,1,2,3,4,5,6]);
 
     const toggleIndex = (index) => {
-        setOpenIndex(openIndex === index ? null : index);
+        if(openIndex.includes(index)){
+            setOpenIndex(([0,1,2,3,4,5,6]));
+            let dex=openIndex.filter((i)=>{
+                return i!==index
+            });
+            setOpenIndex(dex);
+        }
+        else{
+            let dex = [0,1,2,3,4,5,6];
+            // dex.push(index);
+            setOpenIndex(dex);
+        }
     };
 
     return (
@@ -19,13 +30,13 @@ function CancellationPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 1}
+                    checked={openIndex.includes(1)}
                     onChange={() => toggleIndex(1)}
                 />
                 <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium">
                     Cancel within 60 minutes of making your reservation
                 </div>
-                {openIndex === 1 && (
+                {openIndex.includes(1) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             Made a mistake or changed your mind? No problem. Cancel within 60 minutes of making your reservation and get a 100% refund on your booking fee as a credit on your Last Call account.
@@ -36,13 +47,13 @@ function CancellationPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 2}
+                    checked={openIndex.includes(2)}
                     onChange={() => toggleIndex(2)}
                 />
                 <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium">
                     Cancel any day before the date of your reservation
                 </div>
-                {openIndex === 2 && (
+                {openIndex.includes(2) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             Cancel any day before the date of your reservation, and you'll get a 50% refund on your booking fee as a credit on your Last Call account. If we're able to find someone else to book your spot, we'll automatically credit you the rest.
@@ -53,13 +64,13 @@ function CancellationPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 3}
+                    checked={openIndex.includes(3)}
                     onChange={() => toggleIndex(3)}
                 />
                 <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium">
                     Cancel on the day of your reservation
                 </div>
-                {openIndex === 3 && (
+                {openIndex.includes(3) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             No refunds are offered for cancellations made on the day of your reservation. However, if we find a hungry diner to book your spot, we'll automatically credit your full booking fee as a credit on your Last Call account.
@@ -70,13 +81,13 @@ function CancellationPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 4}
+                    checked={openIndex.includes(4)}
                     onChange={() => toggleIndex(4)}
                 />
                 <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium">
                     Our fair use policy for cancellations
                 </div>
-                {openIndex === 4 && (
+                {openIndex.includes(4) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             At Last Call, we want to make sure our users have the same odds at scoring the Last Call. With this in mind, Last Call users are eligible for a maximum of three refunded credits in a rolling 30 day period, in keeping with our cancellation policy rules.
@@ -87,13 +98,13 @@ function CancellationPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 5}
+                    checked={openIndex.includes(5)}
                     onChange={() => toggleIndex(5)}
                 />
                 <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium">
                     No shows
                 </div>
-                {openIndex === 5 && (
+                {openIndex.includes(5) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             Failure to arrive at a venue within 15 minutes of the reserved time may result in the venue allocating some or all of your seats to other diners. The user who made the booking may also be recorded as a “no-show” by both the venue and Last Call. <br />
@@ -110,13 +121,13 @@ function CancellationPolicy() {
             <div className="collapse collapse-arrow join-item text-center border-base-300 py-4">
                 <input
                     type="checkbox"
-                    checked={openIndex === 6}
+                    checked={openIndex.includes(6)}
                     onChange={() => toggleIndex(6)}
                 />
                 <div className="collapse-title text-2xl lg:text-4xl text-blue-900 font-medium">
                     Cancel a booking
                 </div>
-                {openIndex === 6 && (
+                {openIndex.includes(6) && (
                     <div className="collapse-content">
                         <p className="mr-4 text-xl text-justify">
                             Visit your bookings admin to cancel your bookings. Please note, cash refunds are not available, the credit will be stored on your Last Call account for 90 days.
