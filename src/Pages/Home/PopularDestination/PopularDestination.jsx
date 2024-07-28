@@ -40,7 +40,7 @@ function PopularDestination() {
       {data.map(region => (
         <div key={region._id} className="relative group overflow-hidden rounded-lg mx-auto">
           <p className="my-6 text-5xl text-blue-900 font-bold text-center">{region.name}</p>
-          <div className={`grid gap-5 w-fit mx-auto ${region?.cities.length === 1 && 'md:grid-cols-1'} ${region?.cities.length === 2 && 'md:grid-cols-2'} ${region?.cities.length === 3 && 'md:grid-cols-3'} ${region?.cities.length >= 4 && 'md:grid-cols-4'}`}>
+          <div className={`grid gap-5 w-fit mx-auto ${region?.cities.length === 1 && 'md:grid-cols-1'} ${region?.cities.length === 2 && 'md:grid-cols-2'} ${region?.cities.length === 3 && 'md:grid-cols-3'} ${region?.cities.length === 4 && 'md:grid-cols-4'} ${region?.cities.length >= 5 && 'md:grid-cols-5'}`}>
             {region.cities.map(city => (
               <div key={city._id} className="flex justify-center items-center">
                 <div className="relative w-[250px] h-[160px] overflow-hidden">

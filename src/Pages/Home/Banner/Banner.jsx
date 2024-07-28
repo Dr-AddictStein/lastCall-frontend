@@ -1,14 +1,36 @@
 import { Link } from 'react-router-dom';
 import bannerImg from '../../../assets/images/Banner/banner.webp';
 import { SlCalender } from 'react-icons/sl';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FaRegMap } from 'react-icons/fa';
 import { PiCityLight } from 'react-icons/pi';
 import { IoMdRestaurant } from 'react-icons/io';
 
 function Banner({ cities, regions }) {
-  const today = new Date();
-  console.log(today);
+  const [dates, setDates] = useState([]);
+
+  useEffect(() => {
+    const generateDates = () => {
+      const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+      const today = new Date();
+      const datesArray = [];
+      
+      for (let i = 1; i <= 7; i++) {
+        const nextDate = new Date(today);
+        nextDate.setDate(today.getDate() + i);
+        const day = daysOfWeek[nextDate.getDay()];
+        const date = nextDate.getDate();
+        const month = monthNames[nextDate.getMonth()];
+        datesArray.push(`${day} ${date} ${month}`);
+      }
+      setDates(datesArray);
+    };
+
+    generateDates();
+  }, []);
 
   useEffect(() => {
     console.log('Cities:', cities);
@@ -44,12 +66,11 @@ function Banner({ cities, regions }) {
                   tabIndex={0}
                   className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left "
                 >
-                  <li className="hover:bg-gray-200 bg-blue-950 text-white p-3">
-                    <Link>22 June</Link>
-                  </li>
-                  <li className="hover:bg-gray-200 p-3">
-                    <a>23 June</a>
-                  </li>
+                  {dates.map((date, index) => (
+                    <li key={index} className="hover:bg-blue-900 hover:text-white cursor-pointer p-3">
+                      <Link>{date}</Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="dropdown bg-white border-r py-4 rounded lg:w-60 ">
