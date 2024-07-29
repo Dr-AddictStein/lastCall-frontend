@@ -95,7 +95,7 @@ function Navbar() {
         <Link to={""}>Cities</Link>
       </li>
       <li>
-        <Link to={"/restaurants"}>For Restaurants</Link>
+        <Link to={"/restaurants"}>For Restaurateurs</Link>
       </li>
     </>
   );

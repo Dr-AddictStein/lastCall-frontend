@@ -40,7 +40,7 @@ function Banner({ cities, regions }) {
   return (
     <div className="">
       <div
-        className="hero h-full lg:h-[60vh] bg-cover relative"
+        className="hero h-full lg:h-[80vh] bg-cover relative pb-14"
         style={{
           backgroundImage: `url(${bannerImg})`,
           backgroundRepeat: "no-repeat",
@@ -52,7 +52,6 @@ function Banner({ cities, regions }) {
             <p className="mb-5 font-bold text-3xl mt-10 lg:text-5xl">
               Dining deals from dawn to dusk
             </p>
-            <p>1,480,086 rooms around the world are waiting for you!</p>
             <div className="grid grid-flow-cols-1 items-center rounded gap-2 lg:grid-cols-5 text-black mt-12">
               <div className="dropdown bg-white border-r py-4 rounded lg:w-60">
                 <div
