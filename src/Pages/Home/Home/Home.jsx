@@ -65,11 +65,6 @@ function Home() {
 
       setData(dex);
     }
-
-    
-
-
-
   }, []);
 
   useEffect(()=>{
