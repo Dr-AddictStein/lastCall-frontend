@@ -10,7 +10,7 @@ import img7 from "../../../assets/images/Restaurant/img7.webp";
 function ForRestaurants() {
   const today = new Date();
   console.log(today)
-  const images = [img1, img2, img3,img4, img5, img6, img7];
+  const images = [img1, img2, img3, img4, img5, img6, img7];
   const itemsHeading = [
     "Always completely free.",
     "Your marketing done for you.",
@@ -74,18 +74,6 @@ function ForRestaurants() {
       </div>
       <div className="divider mt-12 w-3/4 mx-auto"></div>
       <div className="flex text-center justify-around items-center flex-col lg:flex-row mx-4 my-14 lg:mx-10 gap-12">
-        <div className="mb-8">
-          <h2 className="text-4xl text-blue-950">
-            Request an <br /> information pack
-          </h2>
-          <p className="my-6">
-            We’ll send you more information on our story, how First Table works
-            and the benefits to your restaurant.
-          </p>
-          <button className="bg-[#FF756B] p-4 text-white font-bold">
-            Request information
-          </button>
-        </div>
         <div>
           <h2 className="text-4xl text-blue-950 ">Schedule a call</h2>
           <p className="my-6">
@@ -111,14 +99,13 @@ function ForRestaurants() {
       <div className="divider mx-auto mt-12 w-3/4"></div>
       <div>
         <h2 className="text-orange-300 text-center text-5xl  mb-28 mt-10">
-          Last Call’s Diverse Growth
+          Last Call’s Unique Growth
         </h2>
         {itemsHeading.map((heading, index) => (
           <div
             key={index}
-            className={`mx-40 my-6 flex gap-12 justify-between mb-32 ${
-              index % 2 === 0 ? "flex-row" : "flex-row-reverse"
-            }`}
+            className={`mx-40 my-6 flex gap-12 justify-between mb-32 ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+              }`}
           >
             {/* Display the heading with chain numbering */}
             <div>

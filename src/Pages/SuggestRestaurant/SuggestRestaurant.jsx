@@ -110,17 +110,18 @@ const SuggestRestaurant = () => {
                     </div>
                     <div className="form-control w-full">
                         <label className="label">
-                            <span className="label-text text-blue-950">Message <span className="text-red-500">*</span></span>
+                            <span className="label-text text-blue-950">Restaurant Name <span className="text-red-500">*</span></span>
                         </label>
-                        <textarea
-                            {...register("message", {
+                        <input
+                            {...register("restaurantName", {
                                 required: "Please complete this required field",
                             })}
-                            placeholder="Your message"
-                            className="textarea textarea-bordered h-32"
+                            type="text"
+                            placeholder="Restaurant Name"
+                            className="input input-bordered"
                         />
-                        {errors.message && (
-                            <span className="text-red-500">{errors.message.message}</span>
+                        {errors.restaurantName && (
+                            <span className="text-red-500">{errors.restaurantName.message}</span>
                         )}
                     </div>
                     <div className="form-control mt-6 ">

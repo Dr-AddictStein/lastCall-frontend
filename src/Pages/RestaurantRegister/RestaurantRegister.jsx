@@ -11,11 +11,7 @@ function RestaurantRegister() {
   const [isChecked, setIsChecked] = useState(false)
 
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -27,13 +23,14 @@ function RestaurantRegister() {
         },
         body: JSON.stringify(data),
       });
-
+  
       const result = await response.json();
       console.log("Done", result);
-
+  
       if (response.ok) {
         alert("Restaurant registered successfully!");
-        navigate('/')
+        reset(); // Reset the form fields
+        navigate('/');
       } else {
         alert(`Error: ${result.message}`);
       }
@@ -42,6 +39,7 @@ function RestaurantRegister() {
       alert("Error submitting form. Please try again.");
     }
   };
+  
 
   const handleCheckboxChange = () => {
     isChecked === true && setIsChecked(false);
@@ -140,28 +138,6 @@ function RestaurantRegister() {
                   </span>
                 )}
               </div>
-              {/* <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-blue-950">Country</span>
-                </label>
-                <select
-                  className="select select-bordered"
-                  defaultValue="default"
-                  {...register("country", {
-                    required: "Please complete this required field",
-                  })}
-                >
-                  <option disabled value="default">
-                    Select Country
-                  </option>
-                  <option value="Bangladesh">Bangladesh</option>
-                  <option value="India">India</option>
-                  <option value="Nepal">Nepal</option>
-                </select>
-                {errors.country && (
-                  <span className="text-red-500">{errors.country.message}</span>
-                )}
-              </div> */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text text-blue-950">Region<span className="text-red-500">*</span></span>
@@ -169,7 +145,7 @@ function RestaurantRegister() {
                 <select
                   className="select select-bordered"
                   defaultValue="default"
-                  {...register("regionAu", {
+                  {...register("region", {
                     required: "Please complete this required field",
                   })}
                 >
@@ -180,9 +156,9 @@ function RestaurantRegister() {
                   <option value="India">India</option>
                   <option value="Nepal">Nepal</option>
                 </select>
-                {errors.regionAu && (
+                {errors.region && (
                   <span className="text-red-500">
-                    {errors.regionAu.message}
+                    {errors.region.message}
                   </span>
                 )}
               </div>
@@ -222,26 +198,110 @@ function RestaurantRegister() {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-blue-950">
-                    Restaurant Website URL
-                  </span>
+                  <span className="label-text text-blue-950">Website</span>
                 </label>
                 <input
-                  {...register("websiteUrl", {
+                  {...register("website", {
                     required: "Please complete this required field",
                   })}
                   type="text"
-                  placeholder="Url"
+                  placeholder="Website"
                   className="input input-bordered"
                 />
-                {errors.websiteUrl && (
+                {errors.website && (
                   <span className="text-red-500">
-                    {errors.websiteUrl.message}
+                    {errors.website.message}
+                  </span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-blue-950">Facebook</span>
+                </label>
+                <input
+                  {...register("facebook")}
+                  type="text"
+                  placeholder="Facebook"
+                  className="input input-bordered"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-blue-950">Instagram</span>
+                </label>
+                <input
+                  {...register("instagram")}
+                  type="text"
+                  placeholder="Instagram"
+                  className="input input-bordered"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-blue-950">Times</span>
+                </label>
+                <input
+                  {...register("times")}
+                  type="text"
+                  placeholder="Times"
+                  className="input input-bordered"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-blue-950">Special Conditions</span>
+                </label>
+                <input
+                  {...register("specialConditions")}
+                  type="text"
+                  placeholder="Special Conditions"
+                  className="input input-bordered"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-blue-950">E-mail to send reservations <span className="text-red-500">*</span></span>
+                </label>
+                <input
+                  {...register("reservationEmail", {
+                    required: "Please complete this required field",
+                  })}
+                  type="email"
+                  placeholder="Reservation Email"
+                  className="input input-bordered"
+                />
+                {errors.reservationEmail && (
+                  <span className="text-red-500">
+                    {errors.reservationEmail.message}
+                  </span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-blue-950">Booking Platform <span className="text-red-500">*</span></span>
+                </label>
+                <select
+                  className="select select-bordered"
+                  defaultValue="default"
+                  {...register("bookingPlatform", {
+                    required: "Please complete this required field",
+                  })}
+                >
+                  <option disabled value="default">
+                    Select Booking Platform
+                  </option>
+                  <option value="Platform1">Platform 1</option>
+                  <option value="Platform2">Platform 2</option>
+                  <option value="Platform3">Platform 3</option>
+                </select>
+                {errors.bookingPlatform && (
+                  <span className="text-red-500">
+                    {errors.bookingPlatform.message}
                   </span>
                 )}
               </div>
             </div>
-            <div className="form-control  mt-6">
+            <div className="form-control mt-6">
               <p className="text-justify">
                 Last Call needs the contact information you provide by
                 submitting this form to contact you about our products and
@@ -257,7 +317,7 @@ function RestaurantRegister() {
               <p>By checking this box you are agreeing to all of our privacy and policy</p>
             </div>
             <div className="form-control mt-6 ">
-              {isChecked === true ?
+              {isChecked === false ?
                 <button type="submit" className="btn bg-[#FF756B] text-white hover:bg-[#FF756B] hover:text-white">
                   Submit
                 </button> :
