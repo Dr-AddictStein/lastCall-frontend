@@ -8,9 +8,9 @@ function SocialMedia() {
       <div className="text-center lg:pl-20">
         <div className="flex justify-center gap-8">
           {/* Facebook */}
-          <a href="https://www.facebook.com/profile.php?id=61561479590760">
+          <Link target="_blank" to="https://www.facebook.com/profile.php?id=61563414506076">
             <FaFacebookF className="w-10 h-10 text-blue-600" />
-          </a>
+          </Link>
           {/* Twitter */}
           <a href="https://x.com/LastCallVan">
             <FaTwitter className="w-10 h-10 text-blue-400" />
