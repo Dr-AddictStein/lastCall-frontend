@@ -23,10 +23,10 @@ function RestaurantRegister() {
         },
         body: JSON.stringify(data),
       });
-  
+
       const result = await response.json();
       console.log("Done", result);
-  
+
       if (response.ok) {
         alert("Restaurant registered successfully!");
         reset(); // Reset the form fields
@@ -39,7 +39,7 @@ function RestaurantRegister() {
       alert("Error submitting form. Please try again.");
     }
   };
-  
+
 
   const handleCheckboxChange = () => {
     isChecked === true && setIsChecked(false);
@@ -54,9 +54,7 @@ function RestaurantRegister() {
             Sign up your restaurant <br /> for Last Call
           </h2>
           <p className="text-xl">
-            Last Call is a restaurant discovery platform which helps turn
-            restaurants' hardest-to-fill tables into a marketing asset,
-            increasing profitability and growing their business.
+            Last Call enables increased revenue, vast market reach, and free marketing by taking advantage of tough-to-fill seats
           </p>
         </div>
         <div>
