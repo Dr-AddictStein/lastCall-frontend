@@ -105,8 +105,8 @@ function Banner({ cities, regions }) {
                   className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
                 >
                   {cities.map((city, index) => (
-                    <li key={index} className="hover:bg-blue-900 hover:text-white p-3">
-                      <Link>{city.name}</Link>
+                    <li key={index} className="hover:bg-blue-900 cursor-pointer hover:text-white p-3">
+                      <Link className='inline-block w-full' to={`/${city.name.replace(/\s+/g, '-')}`}>{city.name}</Link>
                     </li>
                   ))}
                 </ul>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { CiSearch } from "react-icons/ci";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import lastCallImg from "../../assets/images/Navbar/lastcall.png";
 import { AuthContext } from "../../context/AuthContext";
 import { useLogout } from "../../hooks/useLogout";
@@ -8,13 +8,13 @@ import { useLogout } from "../../hooks/useLogout";
 function Navbar() {
   const { logout } = useLogout();
   const { user } = useContext(AuthContext);
-  console.log(user);
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   const [lastScrollTop, setLastScrollTop] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [cities, setCities] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
+  const navigate = useNavigate(); // useNavigate hook
 
   const fetchCities = () => {
     const url = `http://localhost:4000/api/city`;
@@ -69,9 +69,10 @@ function Navbar() {
     setDropdownVisible(value.length > 0);
   };
 
-  const handleSuggestionClick = (suggestion) => {
-    setSearchTerm(suggestion);
+  const handleSuggestionClick = (restaurant) => {
+    setSearchTerm(restaurant.name);
     setDropdownVisible(false);
+    navigate(`/foodDetails/${restaurant._id}`); // Navigate to the food details page
   };
 
   const Navlinks = (
@@ -90,7 +91,6 @@ function Navbar() {
             <img src={"https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} />
           </div>
         </div>}
-
       <li>
         <Link to={""}>Cities</Link>
       </li>
@@ -177,9 +177,9 @@ function Navbar() {
                     )
                     .map((restaurant) => (
                       <li
-                        key={restaurant}
+                        key={restaurant._id} // Ensure the key is unique
                         className="px-4 py-2 cursor-pointer hover:bg-gray-200"
-                        onMouseDown={() => handleSuggestionClick(restaurant)}
+                        onMouseDown={() => handleSuggestionClick(restaurant)} // Pass the restaurant object
                       >
                         <div className="flex gap-3 items-center">
                           <div className="avatar">
