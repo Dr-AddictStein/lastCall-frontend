@@ -27,6 +27,7 @@ import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 import CancellationPolicy from "../Pages/CancellationPolicy/CancellationPolicy";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import SuggestRestaurant from "../Pages/SuggestRestaurant/SuggestRestaurant";
+import Booking from "../Pages/Booking/Booking";
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: "/restaurantRegister",
         element: <RestaurantRegister />
+      },
+      {
+        path: "/booking",
+        element: <Booking />
       },
       {
         path: "/:city",

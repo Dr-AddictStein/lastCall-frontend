@@ -8,6 +8,10 @@ import { IoMdRestaurant } from 'react-icons/io';
 
 function Banner({ cities, regions }) {
   const [dates, setDates] = useState([]);
+  const [selectedDate, setSelectedDate] = useState('All Dates');
+  const [selectedRegion, setSelectedRegion] = useState('Select a Region');
+  const [selectedCity, setSelectedCity] = useState('Select a City');
+  const [selectedMeal, setSelectedMeal] = useState('Category');
 
   useEffect(() => {
     const generateDates = () => {
@@ -18,7 +22,7 @@ function Banner({ cities, regions }) {
       const today = new Date();
       const datesArray = [];
       
-      for (let i = 1; i <= 7; i++) {
+      for (let i = 0; i <= 7; i++) {
         const nextDate = new Date(today);
         nextDate.setDate(today.getDate() + i);
         const day = daysOfWeek[nextDate.getDay()];
@@ -37,6 +41,15 @@ function Banner({ cities, regions }) {
     console.log('Regions:', regions);
   }, [cities, regions]);
 
+  const handleFindTable = () => {
+    console.log({
+      selectedDate,
+      selectedRegion,
+      selectedCity,
+      selectedMeal
+    });
+  };
+
   return (
     <div className="">
       <div
@@ -52,91 +65,109 @@ function Banner({ cities, regions }) {
             <p className="mb-5 font-bold text-3xl mt-10 lg:text-5xl">
               Dining deals from dawn to dusk
             </p>
-            <div className="grid grid-flow-cols-1 items-center rounded gap-2 lg:grid-cols-5 text-black mt-12">
+            <div className="grid grid-flow-cols-1 bg-white items-center rounded gap-2 lg:grid-cols-5 text-black mt-12">
               <div className="dropdown bg-white border-r py-4 rounded lg:w-60">
                 <div
                   tabIndex={0}
                   role="button"
                   className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
                 >
-                  <SlCalender /> All Dates
+                  <SlCalender /> {selectedDate}
                 </div>
                 <ul
                   tabIndex={0}
                   className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left "
                 >
                   {dates.map((date, index) => (
-                    <li key={index} className="hover:bg-blue-900 hover:text-white cursor-pointer p-3">
-                      <Link>{date}</Link>
+                    <li
+                      key={index}
+                      className="hover:bg-blue-900 hover:text-white cursor-pointer p-3"
+                      onClick={() => setSelectedDate(date)}
+                    >
+                      <p>{date}</p>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="dropdown bg-white border-r py-4 rounded lg:w-60 ">
+              <div className="dropdown bg-white border-r py-4 rounded lg:w-60">
                 <div
                   tabIndex={0}
                   role="button"
                   className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
                 >
-                  <FaRegMap />Select a Region
+                  <FaRegMap /> {selectedRegion}
                 </div>
                 <ul
                   tabIndex={0}
                   className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
                 >
                   {regions.map((region, index) => (
-                    <li key={index} className="hover:bg-blue-900 hover:text-white p-3">
-                      <Link>{region.name}</Link>
+                    <li
+                      key={index}
+                      className="hover:bg-blue-900 cursor-pointer hover:text-white p-3"
+                      onClick={() => setSelectedRegion(region.name)}
+                    >
+                      <p>{region.name}</p>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="dropdown bg-white border-r py-4 rounded lg:w-60 ">
+              <div className="dropdown bg-white border-r py-4 rounded lg:w-60">
                 <div
                   tabIndex={0}
                   role="button"
                   className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
                 >
-                  <PiCityLight />Select a City
+                  <PiCityLight /> {selectedCity}
                 </div>
                 <ul
                   tabIndex={0}
                   className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
                 >
                   {cities.map((city, index) => (
-                    <li key={index} className="hover:bg-blue-900 cursor-pointer hover:text-white p-3">
-                      <Link className='inline-block w-full' to={`/${city.name.replace(/\s+/g, '-')}`}>{city.name}</Link>
+                    <li
+                      key={index}
+                      className="hover:bg-blue-900 cursor-pointer hover:text-white p-3"
+                      onClick={() => setSelectedCity(city.name)}
+                    >
+                      <p>{city.name}</p>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="dropdown bg-white border-r py-4 rounded ">
+              <div className="dropdown bg-white border-r py-4 rounded">
                 <div
                   tabIndex={0}
                   role="button"
                   className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
                 >
-                  <IoMdRestaurant /> Dinner
+                  <IoMdRestaurant /> {selectedMeal}
                 </div>
                 <ul
                   tabIndex={0}
                   className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
                 >
-                  <li className="hover:bg-gray-200 bg-blue-950 text-white p-3">
-                    <Link>Dinner</Link>
+                  <li className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white" onClick={() => setSelectedMeal('Breakfast')}>
+                    <p>Breakfast</p>
                   </li>
-                  <li className="hover:bg-gray-200 p-3">
-                    <Link>Lunch</Link>
+                  <li className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white" onClick={() => setSelectedMeal('Lunch')}>
+                    <p>Lunch</p>
                   </li>
-                  <li className="hover:bg-gray-200 p-3">
-                    <Link>Breakfast</Link>
+                  <li className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white" onClick={() => setSelectedMeal('Dinner First Call')}>
+                    <p>Dinner First Call</p>
+                  </li>
+                  <li className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white" onClick={() => setSelectedMeal('Dinner Last Call')}>
+                    <p>Dinner Last Call</p>
                   </li>
                 </ul>
               </div>
               <div className="bg-white border-r flex justify-center items-center rounded">
                 <div className="py-4 flex justify-center mx-4">
-                  <span className="bg-red-400 hover:bg-red-500 px-10 py-4 text-white font-bold">
-                    <Link>Find a table</Link>
+                  <span
+                    className="bg-red-400 hover:bg-red-500 px-10 py-4 text-white font-bold cursor-pointer"
+                    onClick={handleFindTable}
+                  >
+                    Find a table
                   </span>
                 </div>
               </div>
