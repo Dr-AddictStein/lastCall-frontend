@@ -12,21 +12,27 @@ const FoodDetails = () => {
     const [activeTab3, setActiveTab3] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [selected, setSelected] = useState('false');
-    const [foodData, setFoodData] = useState([]);
-    const foodDetails = useParams();
+    const { foodDetails } = useParams();
+    const [foodData, setFoodData] = useState(null);
     console.log(foodDetails);
+    // const url = `http://localhost:4000/api/restaurant/${foodDetails}`;
+
+    const fetchFood = async () => {
+        try {
+            const response = await fetch(`http://localhost:4000/api/restaurant/${foodDetails}`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch regions");
+            }
+            const data = await response.json();
+            setFoodData(data);
+        } catch (error) {
+            console.error("Error fetching regions:", error);
+        }
+    };
 
     useEffect(() => {
-        const url = `http://localhost:4000/api/restaurant`;
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                const filteredData = data.find(food => food._id === foodDetails._id);
-                setFoodData(filteredData);
-                console.log(filteredData);
-            })
-            .catch(error => console.log(error));
-    }, []);
+        fetchFood()
+    }, [foodDetails]);
 
     const slides = [
         {
@@ -319,10 +325,10 @@ const FoodDetails = () => {
                         <div className="">
                             <h1 className="text-[#265582] text-5xl font-semibold pb-5">Overview</h1>
                             <div className="flex gap-8 pb-8">
-                                <div className={`cursor-pointer font-semibold text-xl flex gap-1 items-center`}><MdRestaurantMenu className="text-[#c7a77b] text-2xl"/> <p>Australian</p></div>
-                                <div onClick={() => setActiveTab3(1)} className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 1 && 'border-b border-black'}`}><FaMapMarkerAlt className="text-[#c7a77b] text-2xl"/><p>How to find us</p></div>
-                                <div onClick={() => setActiveTab3(2)} className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 2 && 'border-b border-black'}`}><FaBookOpen className="text-[#c7a77b] text-2xl"/><p>Sample menu</p></div>
-                                <div onClick={() => setActiveTab3(3)} className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 3 && 'border-b border-black'}`}><BiSolidContact className="text-[#c7a77b] text-2xl"/><p>Contacts</p></div>
+                                <div className={`cursor-pointer font-semibold text-xl flex gap-1 items-center`}><MdRestaurantMenu className="text-[#c7a77b] text-2xl" /> <p>Australian</p></div>
+                                <div onClick={() => setActiveTab3(1)} className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 1 && 'border-b border-black'}`}><FaMapMarkerAlt className="text-[#c7a77b] text-2xl" /><p>How to find us</p></div>
+                                <div onClick={() => setActiveTab3(2)} className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 2 && 'border-b border-black'}`}><FaBookOpen className="text-[#c7a77b] text-2xl" /><p>Sample menu</p></div>
+                                <div onClick={() => setActiveTab3(3)} className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 3 && 'border-b border-black'}`}><BiSolidContact className="text-[#c7a77b] text-2xl" /><p>Contacts</p></div>
                             </div>
                             <div className="pb-3">
                                 {activeTab3 === 1 && <div>
