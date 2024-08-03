@@ -8,18 +8,10 @@ import { TfiMenuAlt } from "react-icons/tfi";
 import { LuUtensilsCrossed } from "react-icons/lu";
 import { useEffect, useState } from "react";
 
-function NewCastle() {
+function FindTable() {
   const [isHover, setIsHover] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
   const [dates, setDates] = useState([]);
-
-  const categories = [
-    "American", "Asian", "Barbeque", "Brunch", "Burgers", "Cafe", "Chinese", "Desserts",
-    "European", "Filipino", "Fine Dining", "French", "Fusion", "Greek", "Halal", "Hotpot",
-    "Indian", "Italian", "Japanese", "Korean", "Latin", "Mediterranean", "Mexican",
-    "Middle Eastern", "Pizza", "Pub", "Ramen", "Seafood", "Spanish", "Steakhouse",
-    "Sushi", "Thai", "Vegan", "Vegetarian", "Vietnamese"
-  ];
 
   const fetchRestaurant = () => {
     const url = `http://localhost:4000/api/restaurant`;
@@ -126,93 +118,7 @@ function NewCastle() {
       </div>
 
       {/* DropDown section */}
-      <div className="lg:relative flex justify-center">
-        <div className="lg:absolute grid grid-cols-1 items-center justify-center rounded lg:grid-cols-4 text-black lg:-bottom-8 w-full max-w-screen-lg mx-auto gap-4">
-          <div className="dropdown bg-white shadow-lg py-4 rounded w-full lg:w-60 md:px-10">
-            <div
-              tabIndex={0}
-              role="button"
-              className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
-            >
-              <SlCalender className="text-blue-900" /> All Dates
-            </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left"
-            >
-              {dates.map((date, index) => (
-                <li key={index} className="hover:bg-gray-200 p-3">
-                  <a>{`${date.day} ${date.date} ${date.month}`}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="dropdown bg-white shadow-lg py-4 rounded w-full lg:w-60 md:px-10">
-            <div
-              tabIndex={0}
-              role="button"
-              className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
-            >
-              <IoLocation className="text-blue-900" /> All of NewCastles
-            </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left"
-            >
-              <li className="hover:bg-gray-200 bg-blue-950 text-white p-3">
-                <Link>Coocks Hill</Link>
-              </li>
-              <li className="hover:bg-gray-200 p-3">
-                <Link>New Castle CBD</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="dropdown bg-white shadow-lg py-4 rounded w-full lg:w-60 md:px-10">
-            <div
-              tabIndex={0}
-              role="button"
-              className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
-            >
-              <TfiMenuAlt className="text-blue-900" /> Dinner
-            </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left"
-            >
-              <li className="hover:bg-gray-200 bg-blue-950 text-white p-3">
-                <Link>Top Rated</Link>
-              </li>
-              <li className="hover:bg-gray-200 p-3">
-                <Link>A to Z</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="dropdown bg-white shadow-lg py-4 rounded w-full lg:w-60 md:px-10">
-            <div
-              tabIndex={0}
-              role="button"
-              className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
-            >
-              <LuUtensilsCrossed className="text-blue-900" />
-              Lunch
-            </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left"
-            >
-              <li className="hover:bg-gray-200 bg-blue-950 text-white p-3">
-                <Link>Lunch</Link>
-              </li>
-              <li className="hover:bg-gray-200 p-3">
-                <Link>Dinner</Link>
-              </li>
-              <li className="hover:bg-gray-200 p-3">
-                <Link>Breakfast</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      
       {/* Banner End */}
       {/* Calender section */}
       <div className="flex flex-col lg:flex-row mt-20 justify-between custom-screen max-w-screen-2xl mx-auto">
@@ -287,11 +193,12 @@ function NewCastle() {
             <details className="dropdown dropdown-end" open>
               <summary className="m-1 select focus:outline-none border-none"></summary>
               <ul className="p-2 dropdown-content z-[1] w-48">
-                {categories.map(category => (
-                  <li key={category} className="flex justify-between">
-                    <span>{category}</span> <input type="checkbox" />
-                  </li>
-                ))}
+                <li className="flex justify-between">
+                  <span>Asian (1) </span> <input type="checkbox" />
+                </li>
+                <li className="flex justify-between">
+                  <span>Asian (1) </span> <input type="checkbox" />
+                </li>
               </ul>
             </details>
           </p>
@@ -300,4 +207,4 @@ function NewCastle() {
     </div>
   );
 }
-export default NewCastle;
+export default FindTable;

@@ -28,6 +28,7 @@ import CancellationPolicy from "../Pages/CancellationPolicy/CancellationPolicy";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import SuggestRestaurant from "../Pages/SuggestRestaurant/SuggestRestaurant";
 import Booking from "../Pages/Booking/Booking";
+import FindTable from "../Pages/FindTable/FindTable";
 
 export const router = createBrowserRouter([
   {
@@ -85,6 +86,10 @@ export const router = createBrowserRouter([
       {
         path: "/:city",
         element: <NewCastle></NewCastle>
+      },
+      {
+        path: "/:findTable",
+        element: <FindTable />
       },
       {
         path: 'foodDetails/:id',
