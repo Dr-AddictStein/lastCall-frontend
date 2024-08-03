@@ -7,19 +7,20 @@ import { Link, useParams } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const FoodDetails = () => {
+    const { id } = useParams();
     const [activeTab, setActiveTab] = useState(0);
     const [activeTab2, setActiveTab2] = useState(0);
     const [activeTab3, setActiveTab3] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [selected, setSelected] = useState('false');
-    const { foodDetails } = useParams();
     const [foodData, setFoodData] = useState(null);
+    const foodDetails = id;
     console.log(foodDetails);
     // const url = `http://localhost:4000/api/restaurant/${foodDetails}`;
 
     const fetchFood = async () => {
         try {
-            const response = await fetch(`http://localhost:4000/api/restaurant/${foodDetails}`);
+            const response = await fetch(`http://localhost:4000/api/restaurant/${id}`);
             if (!response.ok) {
                 throw new Error("Failed to fetch regions");
             }
