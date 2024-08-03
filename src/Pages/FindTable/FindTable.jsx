@@ -1,210 +1,226 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 import bannerImg from "../../assets/images/Banner/banner.webp";
 import { SlCalender } from "react-icons/sl";
 import { CiLocationOn, CiStar } from "react-icons/ci";
 import { FaArrowRight } from "react-icons/fa";
-import { IoLocation } from "react-icons/io5";
-import { TfiMenuAlt } from "react-icons/tfi";
-import { LuUtensilsCrossed } from "react-icons/lu";
 import { useEffect, useState } from "react";
 
 function FindTable() {
-  const [isHover, setIsHover] = useState(false);
-  const [restaurants, setRestaurants] = useState([]);
-  const [dates, setDates] = useState([]);
+    const [isHover, setIsHover] = useState(false);
+    const [restaurants, setRestaurants] = useState([]);
+    const [dates, setDates] = useState([]);
 
-  const fetchRestaurant = () => {
-    const url = `http://localhost:4000/api/restaurant`;
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setRestaurants(data);
-        console.log("Restaurants", data);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const generateDates = () => {
-    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const monthNames = [
-      "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+    const categories = [
+        "American", "Asian", "Barbeque", "Brunch", "Burgers", "Cafe", "Chinese", "Desserts",
+        "European", "Filipino", "Fine Dining", "French", "Fusion", "Greek", "Halal", "Hotpot",
+        "Indian", "Italian", "Japanese", "Korean", "Latin", "Mediterranean", "Mexican",
+        "Middle Eastern", "Pizza", "Pub", "Ramen", "Seafood", "Spanish", "Steakhouse",
+        "Sushi", "Thai", "Vegan", "Vegetarian", "Vietnamese"
     ];
-    const today = new Date();
-    const datesArray = [];
 
-    for (let i = 0; i < 7; i++) {
-      const nextDate = new Date(today);
-      nextDate.setDate(today.getDate() + i);
-      const day = daysOfWeek[nextDate.getDay()];
-      const date = nextDate.getDate();
-      const month = monthNames[nextDate.getMonth()];
-      datesArray.push({
-        day,
-        date,
-        month,
-      });
-    }
-    setDates(datesArray);
-  };
+    const location = useLocation();
+    const {
+        selectedDate,
+        selectedRegion,
+        selectedCity,
+        selectedMeal,
+    } = location.state || {};
 
-  useEffect(() => {
-    fetchRestaurant();
-    generateDates();
-  }, []);
+    const fetchRestaurant = () => {
+        const url = `http://localhost:4000/api/restaurant`;
+        fetch(url)
+            .then((res) => res.json())
+            .then((data) => {
+                setRestaurants(data);
+                console.log("Restaurants", data);
+            })
+            .catch((error) => console.log(error));
+    };
 
-  return (
-    <div className="mb-20">
-      <div
-        className="hero h-full bg-center bg-cover object-cover bg-no-repeat lg:h-[70vh]"
-        style={{
-          backgroundImage: `url(${bannerImg})`,
-        }}
-      >
-        <div className="bg-opacity-95"></div>
-        <div className="hero-content text-neutral-content">
-          <div className="block lg:hidden mt-16 text-white">
-            <Link to={"/newCastle"}>
-              <p className="cursor-pointer">NewCastle</p>
-            </Link>
-            <h2 className="text-3xl lg:text-5xl font-bold mt-10 mb-5">
-              Newcastle Restaurants
-            </h2>
-            <p className="mb-5">Dine early, save money</p>
-          </div>
-        </div>
-      </div>
-      {/* Vejal */}
-      <div className="lg:relative hidden lg:block text-white max-w-screen-2xl mx-auto lg:px-32">
-        <div className="relative lg:absolute flex flex-col lg:flex-row items-center lg:justify-between -top-96 text-5xl text-red-600 custom-gap">
-          <div className="lg:w-1/2 text-white">
-            <Link to={"/newCastle"}>
-              <p>NewCastle</p>
-            </Link>
-            <h2 className="text-5xl font-bold mt-10 mb-5">
-              Newcastle Restaurants
-            </h2>
-            <p className="mb-5">Dine early, save money</p>
-          </div>
-          <div className="relative lg:w-1/2">
-            <div className="absolute right-0 lg:right-auto lg:-top-36 transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-200 rounded-lg shadow-lg"></div>
-            <div className="absolute right-0 lg:right-auto lg:-top-36 transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-50 rotate-3 rounded-lg shadow-lg"></div>
-            <div className="absolute right-0 lg:right-auto lg:-top-44 transform -translate-x-1/2 lg:translate-x-0 w-96 z-10 px-6 pt-10 text-center rounded-lg">
-              <h2 className="text-blue-950 text-4xl mb-4 font-bold">
-                Early bird dining
-              </h2>
-              <p className="text-black text-xl">
-                Book the first table at Newcastle restaurants and get 50% off
-                the food bill for two, three, or four people!
-              </p>
+    const generateDates = () => {
+        const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+        ];
+        const today = new Date();
+        const datesArray = [];
 
-              <Link to="/faq">
-                <button
-                  onMouseEnter={() => setIsHover(true)}
-                  onMouseLeave={() => setIsHover(false)}
-                  className={`btn-transition relative bg-[#ff675c] hover:bg-[#ff675c] w-[50px] hover:w-[130px] overflow-hidden btn mx-auto border-none rounded-full text-white mt-6 flex gap-6 items-center py-1 justify-end`}
-                >
-                  <p
-                    className={`absolute btn-transition left-3 whitespace-nowrap ${isHover ? "opacity-100" : "opacity-0"
-                      }`}
-                  >
-                    Learn More
-                  </p>
-                  <FaArrowRight className="" />
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+        for (let i = 0; i < 7; i++) {
+            const nextDate = new Date(today);
+            nextDate.setDate(today.getDate() + i);
+            const day = daysOfWeek[nextDate.getDay()];
+            const date = nextDate.getDate();
+            const month = monthNames[nextDate.getMonth()];
+            datesArray.push({
+                day,
+                date,
+                month,
+            });
+        }
+        setDates(datesArray);
+    };
 
-      {/* DropDown section */}
-      
-      {/* Banner End */}
-      {/* Calender section */}
-      <div className="flex flex-col lg:flex-row mt-20 justify-between custom-screen max-w-screen-2xl mx-auto">
-        <div className="mr-3">
-          {restaurants.map((restaurant) => (
+    useEffect(() => {
+        fetchRestaurant();
+        generateDates();
+    }, []);
+
+    useEffect(() => {
+        console.log("Selected Date:", selectedDate);
+        console.log("Selected Region:", selectedRegion);
+        console.log("Selected City:", selectedCity);
+        console.log("Selected Meal:", selectedMeal);
+    }, [selectedDate, selectedRegion, selectedCity, selectedMeal]);
+
+    return (
+        <div className="mb-20">
             <div
-              key={restaurant._id}
-              className="flex flex-col md:flex-row lg:flex-row gap-8 my-5"
+                className="hero h-full bg-center bg-cover object-cover bg-no-repeat lg:h-[70vh]"
+                style={{
+                    backgroundImage: `url(${bannerImg})`,
+                }}
             >
-              <div className="avatar">
-                <div className="w-60 rounded">
-                  <img src={restaurant?.thumb} alt={restaurant?.name} />
-                </div>
-              </div>
-              <div>
-                <h2>
-                  <Link to={`/foodDetails/${restaurant?._id}`}>
-                    <span className="text-3xl">{restaurant?.name}</span>
-                  </Link>
-                  &nbsp;
-                  <span className="bg-orange-500 px-2 py-1 text-white">NEW</span>
-                </h2>
-                <p className="flex my-3 text-xl">
-                  <span className="flex items-center gap-2 border-r-2 border-black pr-5">
-                    <CiLocationOn />
-                    <p>
-                      {restaurant?.city}, {restaurant?.region}
-                    </p>
-                  </span>
-                  <span className="pl-5">
-                    <span>{restaurant?.category[0]}, </span>
-                    <span>{restaurant?.category[1]}</span>
-                  </span>
-                </p>
-                <p className="flex gap-2 items-center text-2xl">
-                  <span className="flex">
-                    <CiStar className="text-slate-500" />
-                    <CiStar className="text-slate-500" />
-                    <CiStar className="text-slate-500" />
-                    <CiStar className="text-slate-500" />
-                    <CiStar className="text-slate-500" />
-                  </span>
-                  0 reviews
-                </p>
-                <div id="dates" className="flex text-center flex-wrap">
-                  {dates.map((date, index) => (
-                    <div
-                      key={index}
-                      className={`px-2 lg:px-3 py-2 border-r ${index >= 3 ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'}`}
-                    >
-                      <p className="my-2">{date.day}</p><hr />
-                      <p className="mt-3">{date.date} {date.month}</p>
-                      {index >= 3 && (
-                        <>
-                          <p className="mb-3">1:30PM</p>
-                          <span className="absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
-                            50% off
-                          </span>
-                        </>
-                      )}
+                <div className="bg-opacity-95"></div>
+                <div className="hero-content text-neutral-content">
+                    <div className="block lg:hidden mt-16 text-white">
+                        <Link to={"/newCastle"}>
+                            <p className="cursor-pointer">NewCastle</p>
+                        </Link>
+                        <h2 className="text-3xl lg:text-5xl font-bold mt-10 mb-5">
+                            Newcastle Restaurants
+                        </h2>
+                        <p className="mb-5">Dine early, save money</p>
                     </div>
-                  ))}
                 </div>
-              </div>
             </div>
-          ))}
+            {/* Vejal */}
+            <div className="lg:relative hidden lg:block text-white max-w-screen-2xl mx-auto lg:px-32">
+                <div className="relative lg:absolute flex flex-col lg:flex-row items-center lg:justify-between -top-96 text-5xl text-red-600 custom-gap">
+                    <div className="lg:w-1/2 text-white">
+                        <Link to={"/newCastle"}>
+                            <p>NewCastle</p>
+                        </Link>
+                        <h2 className="text-5xl font-bold mt-10 mb-5">
+                            Newcastle Restaurants
+                        </h2>
+                        <p className="mb-5">Dine early, save money</p>
+                    </div>
+                    <div className="relative lg:w-1/2">
+                        <div className="absolute right-0 lg:right-auto lg:-top-36 transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-200 rounded-lg shadow-lg"></div>
+                        <div className="absolute right-0 lg:right-auto lg:-top-36 transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-50 rotate-3 rounded-lg shadow-lg"></div>
+                        <div className="absolute right-0 lg:right-auto lg:-top-44 transform -translate-x-1/2 lg:translate-x-0 w-96 z-10 px-6 pt-10 text-center rounded-lg">
+                            <h2 className="text-blue-950 text-4xl mb-4 font-bold">
+                                Early bird dining
+                            </h2>
+                            <p className="text-black text-xl">
+                                Book the first table at Newcastle restaurants and get 50% off
+                                the food bill for two, three, or four people!
+                            </p>
+
+                            <Link to="/faq">
+                                <button
+                                    onMouseEnter={() => setIsHover(true)}
+                                    onMouseLeave={() => setIsHover(false)}
+                                    className={`btn-transition relative bg-[#ff675c] hover:bg-[#ff675c] w-[50px] hover:w-[130px] overflow-hidden btn mx-auto border-none rounded-full text-white mt-6 flex gap-6 items-center py-1 justify-end`}
+                                >
+                                    <p
+                                        className={`absolute btn-transition left-3 whitespace-nowrap ${isHover ? "opacity-100" : "opacity-0"
+                                            }`}
+                                    >
+                                        Learn More
+                                    </p>
+                                    <FaArrowRight className="" />
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* DropDown section */}
+
+            {/* Banner End */}
+            {/* Calender section */}
+            <div className="flex flex-col lg:flex-row mt-20 justify-between custom-screen max-w-screen-2xl mx-auto">
+                <div className="mr-3">
+                    {restaurants.map((restaurant) => (
+                        <div
+                            key={restaurant._id}
+                            className="flex flex-col md:flex-row lg:flex-row gap-8 my-5"
+                        >
+                            <div className="avatar">
+                                <div className="w-60 rounded">
+                                    <img src={restaurant?.thumb} alt={restaurant?.name} />
+                                </div>
+                            </div>
+                            <div>
+                                <h2>
+                                    <Link to={`/foodDetails/${restaurant?._id}`}>
+                                        <span className="text-3xl">{restaurant?.name}</span>
+                                    </Link>
+                                    &nbsp;
+                                    <span className="bg-orange-500 px-2 py-1 text-white">NEW</span>
+                                </h2>
+                                <p className="flex my-3 text-xl">
+                                    <span className="flex items-center gap-2 border-r-2 border-black pr-5">
+                                        <CiLocationOn />
+                                        <p>
+                                            {restaurant?.city}, {restaurant?.region}
+                                        </p>
+                                    </span>
+                                    <span className="pl-5">
+                                        <span>{restaurant?.category[0]}, </span>
+                                        <span>{restaurant?.category[1]}</span>
+                                    </span>
+                                </p>
+                                <p className="flex gap-2 items-center text-2xl">
+                                    <span className="flex">
+                                        <CiStar className="text-slate-500" />
+                                        <CiStar className="text-slate-500" />
+                                        <CiStar className="text-slate-500" />
+                                        <CiStar className="text-slate-500" />
+                                        <CiStar className="text-slate-500" />
+                                    </span>
+                                    0 reviews
+                                </p>
+                                <div id="dates" className="flex text-center flex-wrap">
+                                    {dates.map((date, index) => (
+                                        <div
+                                            key={index}
+                                            className={`px-2 lg:px-3 py-2 border-r ${index >= 3 ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'}`}
+                                        >
+                                            <p className="my-2">{date.day}</p><hr />
+                                            <p className="mt-3">{date.date} {date.month}</p>
+                                            {index >= 3 && (
+                                                <>
+                                                    <p className="mb-3">1:30PM</p>
+                                                    <span className="absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
+                                                        50% off
+                                                    </span>
+                                                </>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                {/* Aside section */}
+                <div className="hidden md:hidden lg:block border-l pl-24">
+                    <div className="">
+                        <p className='text-center font-semibold'>Category</p>
+                        <ul className="p-2 z-[1] w-48">
+                            {categories.map(category => (
+                                <li key={category} className="flex justify-between">
+                                    <span>{category}</span> <input type="checkbox" />
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-        {/* Aside section */}
-        <div className="hidden md:hidden lg:block border-l pl-24">
-          <p className="flex justify-between items-center mb-20">
-            Category
-            <details className="dropdown dropdown-end" open>
-              <summary className="m-1 select focus:outline-none border-none"></summary>
-              <ul className="p-2 dropdown-content z-[1] w-48">
-                <li className="flex justify-between">
-                  <span>Asian (1) </span> <input type="checkbox" />
-                </li>
-                <li className="flex justify-between">
-                  <span>Asian (1) </span> <input type="checkbox" />
-                </li>
-              </ul>
-            </details>
-          </p>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
 export default FindTable;
