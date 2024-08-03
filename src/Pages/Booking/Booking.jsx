@@ -1,7 +1,23 @@
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const Booking = () => {
+
+
+    const location = useLocation();
+    const {
+        foodData,
+        table,
+        bookingTime,
+        bookingTimeDet,
+    } = location.state || {};
+
+    console.log("unga-vunga 2", foodData, table);
+
+
+
+
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [paymentMethod, setPaymentMethod] = useState('newCard');
     const [isChecked, setIsChecked] = useState(false);
@@ -31,7 +47,7 @@ const Booking = () => {
 
     return (
         <div className="w-11/12 lg:w-3/4 mx-auto py-10">
-            <h2 className="text-center text-[#265582] text-5xl font-semibold py-5">Reservation at Cafe del Mar</h2>
+            <h2 className="text-center text-[#265582] text-5xl font-semibold py-5">Reservation at {foodData?.name}</h2>
             <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-2 gap-10'>
                 <div>
                     <div className="form-control w-full">
@@ -116,9 +132,9 @@ const Booking = () => {
 
                 <div className="form-control mt-6 bg-gradient-to-b from-[#f5ede4] p-16">
                     <div>
-                        <h5 className='text-2xl font-bold pb-1 text-[#d6bb96]'>Secure your first table</h5>
-                        <h2 className='text-[#265582] font-bold text-4xl'>6:00pm, Thursday 1st Aug</h2>
-                        <h5 className='py-5 text-2xl font-semibold'>Cafe del Mar</h5>
+                        <h5 className='text-2xl font-bold pb-1 text-[#d6bb96]'>Secure your {bookingTime}</h5>
+                        <h2 className='text-[#265582] font-bold text-4xl'>{bookingTimeDet}, {table.date}</h2>
+                        <h5 className='py-5 text-2xl font-semibold'>{foodData?.name}</h5>
                         <div>
                             <p><span className='text-slate-400'>Booking fee: </span>$10</p>
                             <p><span className='text-slate-400'>Discount: </span>50% of the food bill</p>

@@ -11,10 +11,11 @@ import {
 import { GrFacebookOption } from "react-icons/gr";
 import { MdRestaurantMenu } from "react-icons/md";
 import { BiSolidContact } from "react-icons/bi";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 const FoodDetails = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [activeTab, setActiveTab] = useState(0);
   const [activeTab2, setActiveTab2] = useState(0);
@@ -136,6 +137,30 @@ const FoodDetails = () => {
       prevSlide === slides.length - 1 ? 0 : prevSlide + 1
     );
   };
+
+  const [table, selectedTable] = useState(null);
+
+  const [bookingTime, setBookingtime] = useState(null);
+  const [bookingTimeDet, setBookingtimeDet] = useState(null);
+
+  const sentToBooking=()=>{
+    
+    if(table===null)return;
+    
+    navigate("/booking", {
+        state: {
+          foodData,
+          table,
+          bookingTime,
+          bookingTimeDet,
+        },
+      });
+
+  }
+
+  useEffect(() => {
+    sentToBooking();
+  }, [table]);
 
   return (
     <div className="w-11/12 lg:w-2/3 md:w-11/12 mx-auto py-12">
@@ -340,23 +365,33 @@ const FoodDetails = () => {
                         <TabPanel>
                           <div className="grid grid-cols-4 gap-2 pt-2">
                             {dates.map((dt) => (
-                                <Link key={dt}>
-                              <div
-                               
-                                className={`relative mb-2 text-white p-3  ${
-                                  dt.isclosed ? "bg-slate-300 cursor-default" : "bg-[#265582]"
-                                }`}
-                              >
-                                <p className="border-b boder-white text-center">
-                                  {dt.date.substring(0,3)}
-                                </p>
-                                <p className="text-center">{dt.date.substring(4,10)}</p>
-                                <p className="text-center">{dt.breakfast.starts}</p>
-                                <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                                  50% off
-                                </p>
-                              </div>
-                                </Link>
+                              <Link key={dt}>
+                                <div
+                                  onClick={() => {
+                                    setBookingtime("Breakfast");
+                                    setBookingtimeDet(dt.breakfast.starts)
+                                    selectedTable(dt);
+                                  }}
+                                  className={`relative mb-2 text-white p-3  ${
+                                    dt.isclosed
+                                      ? "bg-slate-300 cursor-default"
+                                      : "bg-[#265582]"
+                                  }`}
+                                >
+                                  <p className="border-b boder-white text-center">
+                                    {dt.date.substring(0, 3)}
+                                  </p>
+                                  <p className="text-center">
+                                    {dt.date.substring(4, 10)}
+                                  </p>
+                                  <p className="text-center">
+                                    {dt.breakfast.starts}
+                                  </p>
+                                  <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                    50% off
+                                  </p>
+                                </div>
+                              </Link>
                             ))}
                           </div>
                           <div
@@ -370,23 +405,33 @@ const FoodDetails = () => {
                         <TabPanel>
                           <div className="grid grid-cols-4 gap-2 pt-2">
                             {dates.map((dt) => (
-                                <Link key={dt}>
-                              <div
-                               
-                                className={`relative mb-2 text-white p-3  ${
-                                  dt.isclosed ? "bg-slate-300 cursor-default" : "bg-[#265582]"
-                                }`}
-                              >
-                                <p className="border-b boder-white text-center">
-                                  {dt.date.substring(0,3)}
-                                </p>
-                                <p className="text-center">{dt.date.substring(4,10)}</p>
-                                <p className="text-center">{dt.lunch.starts}</p>
-                                <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                                  50% off
-                                </p>
-                              </div>
-                                </Link>
+                              <Link key={dt}>
+                                <div
+                                onClick={() => {
+                                    setBookingtime("Lunch");
+                                    setBookingtimeDet(dt.lunch.starts)
+                                    selectedTable(dt);
+                                  }}
+                                  className={`relative mb-2 text-white p-3  ${
+                                    dt.isclosed
+                                      ? "bg-slate-300 cursor-default"
+                                      : "bg-[#265582]"
+                                  }`}
+                                >
+                                  <p className="border-b boder-white text-center">
+                                    {dt.date.substring(0, 3)}
+                                  </p>
+                                  <p className="text-center">
+                                    {dt.date.substring(4, 10)}
+                                  </p>
+                                  <p className="text-center">
+                                    {dt.lunch.starts}
+                                  </p>
+                                  <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                    50% off
+                                  </p>
+                                </div>
+                              </Link>
                             ))}
                           </div>
                           <div
@@ -400,23 +445,33 @@ const FoodDetails = () => {
                         <TabPanel>
                           <div className="grid grid-cols-4 gap-2 pt-2">
                             {dates.map((dt) => (
-                                <Link key={dt}>
-                              <div
-                               
-                                className={`relative mb-2 text-white p-3  ${
-                                  dt.isclosed ? "bg-slate-300 cursor-default" : "bg-[#265582]"
-                                }`}
-                              >
-                                <p className="border-b boder-white text-center">
-                                  {dt.date.substring(0,3)}
-                                </p>
-                                <p className="text-center">{dt.date.substring(4,10)}</p>
-                                <p className="text-center">{dt.dinnerfirstcall.starts}</p>
-                                <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                                  50% off
-                                </p>
-                              </div>
-                                </Link>
+                              <Link key={dt}>
+                                <div
+                                onClick={() => {
+                                    setBookingtime("Dinner First Call");
+                                    setBookingtimeDet(dt.dinnerfirstcall.starts)
+                                    selectedTable(dt);
+                                  }}
+                                  className={`relative mb-2 text-white p-3  ${
+                                    dt.isclosed
+                                      ? "bg-slate-300 cursor-default"
+                                      : "bg-[#265582]"
+                                  }`}
+                                >
+                                  <p className="border-b boder-white text-center">
+                                    {dt.date.substring(0, 3)}
+                                  </p>
+                                  <p className="text-center">
+                                    {dt.date.substring(4, 10)}
+                                  </p>
+                                  <p className="text-center">
+                                    {dt.dinnerfirstcall.starts}
+                                  </p>
+                                  <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                    50% off
+                                  </p>
+                                </div>
+                              </Link>
                             ))}
                           </div>
                           <div
@@ -430,23 +485,33 @@ const FoodDetails = () => {
                         <TabPanel>
                           <div className="grid grid-cols-4 gap-2 pt-2">
                             {dates.map((dt) => (
-                                <Link key={dt}>
-                              <div
-                               
-                                className={`relative mb-2 text-white p-3  ${
-                                  dt.isclosed ? "bg-slate-300 cursor-default" : "bg-[#265582]"
-                                }`}
-                              >
-                                <p className="border-b boder-white text-center">
-                                  {dt.date.substring(0,3)}
-                                </p>
-                                <p className="text-center">{dt.date.substring(4,10)}</p>
-                                <p className="text-center">{dt.dinnerlastcall.starts}</p>
-                                <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                                  50% off
-                                </p>
-                              </div>
-                                </Link>
+                              <Link key={dt}>
+                                <div
+                                onClick={() => {
+                                    setBookingtime("Dinner Last Call");
+                                    setBookingtimeDet(dt.dinnerlastcall.starts)
+                                    selectedTable(dt);
+                                  }}
+                                  className={`relative mb-2 text-white p-3  ${
+                                    dt.isclosed
+                                      ? "bg-slate-300 cursor-default"
+                                      : "bg-[#265582]"
+                                  }`}
+                                >
+                                  <p className="border-b boder-white text-center">
+                                    {dt.date.substring(0, 3)}
+                                  </p>
+                                  <p className="text-center">
+                                    {dt.date.substring(4, 10)}
+                                  </p>
+                                  <p className="text-center">
+                                    {dt.dinnerlastcall.starts}
+                                  </p>
+                                  <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                    50% off
+                                  </p>
+                                </div>
+                              </Link>
                             ))}
                           </div>
                           <div
