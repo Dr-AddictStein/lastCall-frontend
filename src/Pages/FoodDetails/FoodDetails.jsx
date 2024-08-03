@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight, FaBookOpen, FaInstagram, FaMapMarkerAlt, FaRegStar, FaStar } from "react-icons/fa";
 import { GrFacebookOption } from "react-icons/gr";
-import { MdOutlineFoodBank, MdRestaurantMenu } from "react-icons/md";
+import { MdRestaurantMenu } from "react-icons/md";
 import { BiSolidContact } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const FoodDetails = () => {
@@ -13,15 +13,17 @@ const FoodDetails = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [selected, setSelected] = useState('false');
     const [foodData, setFoodData] = useState([]);
+    const foodDetails = useParams();
+    console.log(foodDetails);
 
     useEffect(() => {
         const url = `http://localhost:4000/api/restaurant`;
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                // const filteredData = data.find(food => food._id === _id); // use this line after using useParams
-                setFoodData(data[0]);
-                console.log(data[0]);
+                const filteredData = data.find(food => food._id === foodDetails._id);
+                setFoodData(filteredData);
+                console.log(filteredData);
             })
             .catch(error => console.log(error));
     }, []);

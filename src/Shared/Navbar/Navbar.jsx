@@ -22,7 +22,7 @@ function Navbar() {
       .then(res => res.json())
       .then(data => {
         setCities(data);
-        console.log(data);
+        // console.log(data);
       })
       .catch(error => console.log(error));
   }
@@ -33,7 +33,7 @@ function Navbar() {
       .then(res => res.json())
       .then(data => {
         setRestaurants(data);
-        console.log('Restaurants', data);
+        // console.log('Restaurants', data);
       })
       .catch(error => console.log(error));
   }
@@ -214,7 +214,7 @@ function Navbar() {
               >
                 {
                   cities.map(city => <li className="py-2 px-4 hover:bg-blue-900 hover:text-white" key={city.key}>
-                    <Link>{city?.name}</Link>
+                    <Link className="w-full inline-block" to={`/${city.name.replace(/\s+/g, '-')}`}>{city?.name}</Link>
                   </li>)
                 }
               </ul>

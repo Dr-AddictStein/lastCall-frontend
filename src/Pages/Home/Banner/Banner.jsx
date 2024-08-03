@@ -13,6 +13,11 @@ function Banner({ cities, regions }) {
   const [selectedCity, setSelectedCity] = useState('Select a City');
   const [selectedMeal, setSelectedMeal] = useState('Category');
 
+  const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
+  const [isRegionDropdownOpen, setIsRegionDropdownOpen] = useState(false);
+  const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
+  const [isMealDropdownOpen, setIsMealDropdownOpen] = useState(false);
+
   useEffect(() => {
     const generateDates = () => {
       const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -50,6 +55,26 @@ function Banner({ cities, regions }) {
     });
   };
 
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+    setIsDateDropdownOpen(false);
+  };
+
+  const handleRegionClick = (region) => {
+    setSelectedRegion(region.name);
+    setIsRegionDropdownOpen(false);
+  };
+
+  const handleCityClick = (city) => {
+    setSelectedCity(city.name);
+    setIsCityDropdownOpen(false);
+  };
+
+  const handleMealClick = (meal) => {
+    setSelectedMeal(meal);
+    setIsMealDropdownOpen(false);
+  };
+
   return (
     <div className="">
       <div
@@ -71,95 +96,119 @@ function Banner({ cities, regions }) {
                   tabIndex={0}
                   role="button"
                   className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
+                  onClick={() => setIsDateDropdownOpen(!isDateDropdownOpen)}
                 >
                   <SlCalender /> {selectedDate}
                 </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left "
-                >
-                  {dates.map((date, index) => (
-                    <li
-                      key={index}
-                      className="hover:bg-blue-900 hover:text-white cursor-pointer p-3"
-                      onClick={() => setSelectedDate(date)}
-                    >
-                      <p>{date}</p>
-                    </li>
-                  ))}
-                </ul>
+                {isDateDropdownOpen && (
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left "
+                  >
+                    {dates.map((date, index) => (
+                      <li
+                        key={index}
+                        className="hover:bg-blue-900 hover:text-white cursor-pointer p-3"
+                        onClick={() => handleDateClick(date)}
+                      >
+                        <p>{date}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <div className="dropdown bg-white border-r py-4 rounded lg:w-60">
                 <div
                   tabIndex={0}
                   role="button"
                   className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
+                  onClick={() => setIsRegionDropdownOpen(!isRegionDropdownOpen)}
                 >
                   <FaRegMap /> {selectedRegion}
                 </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
-                >
-                  {regions.map((region, index) => (
-                    <li
-                      key={index}
-                      className="hover:bg-blue-900 cursor-pointer hover:text-white p-3"
-                      onClick={() => setSelectedRegion(region.name)}
-                    >
-                      <p>{region.name}</p>
-                    </li>
-                  ))}
-                </ul>
+                {isRegionDropdownOpen && (
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
+                  >
+                    {regions.map((region, index) => (
+                      <li
+                        key={index}
+                        className="hover:bg-blue-900 cursor-pointer hover:text-white p-3"
+                        onClick={() => handleRegionClick(region)}
+                      >
+                        <p>{region.name}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <div className="dropdown bg-white border-r py-4 rounded lg:w-60">
                 <div
                   tabIndex={0}
                   role="button"
                   className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
+                  onClick={() => setIsCityDropdownOpen(!isCityDropdownOpen)}
                 >
                   <PiCityLight /> {selectedCity}
                 </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
-                >
-                  {cities.map((city, index) => (
-                    <li
-                      key={index}
-                      className="hover:bg-blue-900 cursor-pointer hover:text-white p-3"
-                      onClick={() => setSelectedCity(city.name)}
-                    >
-                      <p>{city.name}</p>
-                    </li>
-                  ))}
-                </ul>
+                {isCityDropdownOpen && (
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
+                  >
+                    {cities.map((city, index) => (
+                      <li
+                        key={index}
+                        className="hover:bg-blue-900 cursor-pointer hover:text-white p-3"
+                        onClick={() => handleCityClick(city)}
+                      >
+                        <p>{city.name}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <div className="dropdown bg-white border-r py-4 rounded">
                 <div
                   tabIndex={0}
                   role="button"
                   className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
+                  onClick={() => setIsMealDropdownOpen(!isMealDropdownOpen)}
                 >
                   <IoMdRestaurant /> {selectedMeal}
                 </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
-                >
-                  <li className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white" onClick={() => setSelectedMeal('Breakfast')}>
-                    <p>Breakfast</p>
-                  </li>
-                  <li className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white" onClick={() => setSelectedMeal('Lunch')}>
-                    <p>Lunch</p>
-                  </li>
-                  <li className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white" onClick={() => setSelectedMeal('Dinner First Call')}>
-                    <p>Dinner First Call</p>
-                  </li>
-                  <li className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white" onClick={() => setSelectedMeal('Dinner Last Call')}>
-                    <p>Dinner Last Call</p>
-                  </li>
-                </ul>
+                {isMealDropdownOpen && (
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
+                  >
+                    <li
+                      className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                      onClick={() => handleMealClick('Breakfast')}
+                    >
+                      <p>Breakfast</p>
+                    </li>
+                    <li
+                      className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                      onClick={() => handleMealClick('Lunch')}
+                    >
+                      <p>Lunch</p>
+                    </li>
+                    <li
+                      className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                      onClick={() => handleMealClick('Dinner First Call')}
+                    >
+                      <p>Dinner First Call</p>
+                    </li>
+                    <li
+                      className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                      onClick={() => handleMealClick('Dinner Last Call')}
+                    >
+                      <p>Dinner Last Call</p>
+                    </li>
+                  </ul>
+                )}
               </div>
               <div className="bg-white border-r flex justify-center items-center rounded">
                 <div className="py-4 flex justify-center mx-4">
