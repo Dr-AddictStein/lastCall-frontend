@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import bannerImg from '../../../assets/images/Banner/banner.webp';
 import { SlCalender } from 'react-icons/sl';
 import { useEffect, useState } from 'react';
@@ -17,6 +17,8 @@ function Banner({ cities, regions }) {
   const [isRegionDropdownOpen, setIsRegionDropdownOpen] = useState(false);
   const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
   const [isMealDropdownOpen, setIsMealDropdownOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const generateDates = () => {
@@ -47,11 +49,13 @@ function Banner({ cities, regions }) {
   }, [cities, regions]);
 
   const handleFindTable = () => {
-    console.log({
-      selectedDate,
-      selectedRegion,
-      selectedCity,
-      selectedMeal
+    navigate('/findTable', {
+      state: {
+        selectedDate,
+        selectedRegion,
+        selectedCity,
+        selectedMeal,
+      },
     });
   };
 
@@ -212,12 +216,12 @@ function Banner({ cities, regions }) {
               </div>
               <div className="bg-white border-r flex justify-center items-center rounded">
                 <div className="py-4 flex justify-center mx-4">
-                  <span
+                  <button
                     className="bg-red-400 hover:bg-red-500 px-10 py-4 text-white font-bold cursor-pointer"
                     onClick={handleFindTable}
                   >
                     Find a table
-                  </span>
+                  </button>
                 </div>
               </div>
             </div>

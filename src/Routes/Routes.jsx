@@ -88,7 +88,7 @@ export const router = createBrowserRouter([
         element: <NewCastle></NewCastle>
       },
       {
-        path: "/:findTable",
+        path: "/findTable",
         element: <FindTable />
       },
       {

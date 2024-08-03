@@ -282,19 +282,16 @@ function NewCastle() {
         </div>
         {/* Aside section */}
         <div className="hidden md:hidden lg:block border-l pl-24">
-          <p className="flex justify-between items-center mb-20">
-            Category
-            <details className="dropdown dropdown-end" open>
-              <summary className="m-1 select focus:outline-none border-none"></summary>
-              <ul className="p-2 dropdown-content z-[1] w-48">
-                {categories.map(category => (
-                  <li key={category} className="flex justify-between">
-                    <span>{category}</span> <input type="checkbox" />
-                  </li>
-                ))}
-              </ul>
-            </details>
-          </p>
+          <div className="">
+            <p className='text-center font-semibold'>Category</p>
+            <ul className="p-2 z-[1] w-48">
+              {categories.map(category => (
+                <li key={category} className="flex justify-between">
+                  <span>{category}</span> <input type="checkbox" />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
