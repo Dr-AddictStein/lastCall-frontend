@@ -12,6 +12,8 @@
   "dependencies": {
     "@expo-google-fonts/bodoni-moda": "^0.2.3",
     "@fontsource/bodoni-moda": "^5.0.14",
+    "@stripe/react-stripe-js": "^2.7.3",
+    "@stripe/stripe-js": "^4.1.0",
     "axios": "^1.7.2",
     "firebase": "^10.12.2",
     "localforage": "^1.10.0",

@@ -8,6 +8,10 @@ import "@fontsource/bodoni-moda"; // Defaults to weight 400
 import "@fontsource/bodoni-moda/400.css"; // Specify weight
 import "@fontsource/bodoni-moda/400-italic.css"; // Specify weight and style;
 import { AuthContextProvider } from "./context/AuthContext.jsx";
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe('pk_test_51PjrgT2MktoZh11iDeUPLnJgTjL6X2KqOWkLL2Tvk7XBd6C7ZNey2mYIYeZqJ1ZF9CDeug1zagRSv9fIWZONzrmc00QWRtMK3C');
 
 
 
@@ -16,7 +20,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <AuthContextProvider>
       <div className="rounded-lg">
         <HelmetProvider>
-          <RouterProvider router={router} />
+          <Elements stripe={stripePromise}>
+            <RouterProvider router={router} />
+          </Elements>
         </HelmetProvider>
       </div>
     </AuthContextProvider>
