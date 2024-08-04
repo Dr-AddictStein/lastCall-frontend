@@ -205,7 +205,63 @@ const Booking = () => {
             <div className="text-slate-400 pb-10">
                 <h5 className="pt-20 text-2xl font-semibold pb-4">Conditions</h5>
                 <ol className="list-decimal list-inside text-lg text-justify">
-                    {/* Your conditions here */}
+                <li>
+                        Your reservation confirmation will be delivered to you by email. Present the reservation confirmation (on your phone or printed out) at the specified restaurant on the date and time of your booking.
+                    </li>
+                    <li>
+                        You are entitled to the First Table offer of 50% off food only, as detailed on your reservation confirmation for the specified restaurant and number of diners, at the date and time shown. Any applicable service charges will be calculated on the whole bill and are not subject to the First Table offer.
+                    </li>
+                    <li>
+                        Beverages are charged at full price and are not included in the First Table offer. The First Table offer is available for 2, 3 or 4 diners, including adults and children of any age. The First Table offer will not be upheld, and your booking fee will be forfeited if more than the number of diners stated on your confirmation attend the reservation.
+                    </li>
+                    <li>
+                        First Table reservations can only be amended to 2, 3 or 4 people. To amend the number of diners on your reservation, please contact First Table.
+                    </li>
+                    <li>
+                        All diners must be seated no later than 15 minutes after the booking time – no exceptions. Late arrivals will not qualify for the First Table offer. The restaurant is not obliged to honour the discount or the reservation in the instance where you arrive at the restaurant more than 15 minutes after the time specified on your reservation confirmation.
+                    </li>
+                    <li>
+                        Meals ordered are for dine-in only. Restaurants may allow you to take away leftovers, but to prevent over-ordering, this is at their own discretion.
+                    </li>
+                    <li>
+                        If the restaurant is a licensed venue, diners will need to be the legal drinking age in that jurisdiction to enter, and the venue may require you to produce a photo ID.
+                    </li>
+                    <li>
+                        The First Table offer cannot be combined with any other offers, in-house specials, drink specials, discounts or promotions unless otherwise specified by the restaurant.
+                    </li>
+                    <li>
+                        First Table bookings cannot be combined – a maximum of one table of up to four diners only.
+                    </li>
+                    <li>
+                        No refunds. Except when a restaurant cannot accommodate your reservation for any reason other than you arriving more than 15 minutes after the time specified on your reservation confirmation.
+                    </li>
+                    <li>
+                        This reservation is not exchangeable for cash and is not permitted for resale. If your reservation is on a public holiday, the restaurant may or may not impose a surcharge as advertised at the restaurant.
+                    </li>
+                    <li>
+                        Cancellations are permitted, but the booking fee may be non-refundable. Refer to our Cancellation Policy for details and information on how to cancel.
+                    </li>
+                    <li>
+                        NZ only: First Table can amend the number of diners on Four+More reservations per the terms agreed with participating venues. The First Table offer applies to a maximum of four diners. The discount will be applied at the venue's discretion for bookings of more than four. Please contact the venue directly for further information.
+                    </li>
+                    <li>
+                        First Table reserves the absolute right to cancel and refund any confirmed booking resulting from an error or incorrect information presented on the website, such as, but not limited to, availability errors.
+                    </li>
+                    <li>
+                        Reservations are not transferable to another date, venue or time.
+                    </li>
+                    <li>
+                        Diners can make a public or private review of their dining experience. Refer to our Review Guidelines to ensure your review complies.
+                    </li>
+                    <li>
+                        By using this platform, you acknowledge and agree that we accept no liability for the accuracy or currency of menus, pricing or photos provided by restaurants.
+                    </li>
+                    <li>
+                        It is at the restaurant's discretion as to where First Table bookings will be seated.
+                    </li>
+                    <li>
+                        It is the responsibility of the diner to ensure that wait staff are informed of the First Table reservation and offer prior to making payment.
+                    </li>
                 </ol>
             </div>
         </div>
