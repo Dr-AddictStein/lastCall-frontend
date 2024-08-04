@@ -209,10 +209,10 @@ function Banner({ cities, regions }) {
                   </ul>
                 )}
               </div>
-              <div className="bg-white border-r flex justify-center items-center rounded">
+              <div className="bg-red-400 border-r flex justify-center items-center rounded">
                 <div className="py-4 flex justify-center mx-4">
                   <button
-                    className="bg-red-400 hover:bg-red-500 px-10 py-4 text-white font-bold cursor-pointer"
+                    className="bg-red-400 px-10 py-4 text-white font-bold cursor-pointer"
                     onClick={handleFindTable}
                   >
                     Find a table

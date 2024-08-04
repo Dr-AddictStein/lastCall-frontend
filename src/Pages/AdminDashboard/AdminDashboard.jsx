@@ -12,11 +12,12 @@ import { AuthContext } from "../../context/AuthContext";
 const AdminDashboard = () => {
     const [drawerOpen, setDrawerOpen] = useState(true);
     const { user } = useContext(AuthContext);
+    console.log("🚀 ~ AdminDashboard ~ user:", user.user.role)
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user || user?.user?.role !== 'admin') {
-            //navigate('/login');
+        if (user?.user?.role !== 'admin') {
+            navigate('/login');
         }
     }, [user, navigate]);
 
