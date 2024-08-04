@@ -14,7 +14,7 @@ function OfferSection() {
 
         <h2 className="my-5 font-bold text-2xl">Find a restaurant</h2>
         <p className="text-center text-xl">
-          Discover your newest restaurant <br /> to try out
+          Discover your next restaurant <br /> to try out
         </p>
       </div>
       <div className="flex flex-col items-center justify-center">

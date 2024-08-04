@@ -199,27 +199,6 @@ function Navbar() {
               )}
             </div>
           </div>
-          <div className="navbar-center hidden lg:block">
-            <div className="dropdown">
-              <div
-                tabIndex={0}
-                role="select"
-                className="select bg-transparent flex items-center m-1"
-              >
-                Cities
-              </div>
-              <ul
-                tabIndex={0}
-                className="dropdown-content z-[1] text-black shadow bg-base-100 rounded w-52 overflow-y-auto"
-              >
-                {
-                  cities.map(city => <li className="py-2 px-4 hover:bg-blue-900 hover:text-white" key={city.key}>
-                    <Link className="w-full inline-block" to={`/${city.name.replace(/\s+/g, '-')}`}>{city?.name}</Link>
-                  </li>)
-                }
-              </ul>
-            </div>
-          </div>
           <div className="navbar-end hidden lg:flex">
             <ul className="menu menu-horizontal px-1 space-x-3">
               {!user ?
@@ -242,7 +221,7 @@ function Navbar() {
             </ul>
             <Link to="/restaurants" className="hidden lg:block">
               <button className="btn btn-outline rounded-full bg-white text-black">
-                For Restaurant
+              For Restaurateurs
               </button>
             </Link>
           </div>

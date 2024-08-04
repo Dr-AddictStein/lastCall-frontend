@@ -73,11 +73,11 @@ function ForRestaurants() {
         </p>
       </div>
       <div className="divider mt-12 w-3/4 mx-auto"></div>
-      <div className="flex text-center justify-around items-center flex-col lg:flex-row mx-4 my-14 lg:mx-10 gap-12">
+      <div className="flex text-center justify-center items-center flex-col lg:flex-row mx-4 my-14 lg:mx-10 gap-12">
         <div>
           <h2 className="text-4xl text-blue-950 ">Schedule a call</h2>
           <p className="my-6">
-            Schedule a call or visit to learn more about how it works and answer
+            Schedule a call or visit to learn more about how it works and answer<br/>
             any outstanding questions.
           </p>
           <Link to={"/contactUs"}>

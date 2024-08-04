@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SuggestRestaurant = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -7,15 +9,18 @@ const SuggestRestaurant = () => {
     const onSubmit = async (data) => {
         try {
             console.log('sending data', data);
-            const response = await axios.post('', data);
+            const response = await axios.post('http://localhost:4000/api/restaurant/suggestadmin', data);
             console.log(response.data);
+            toast.success("Restaurant suggestion submitted successfully!");
         } catch (error) {
             console.error('Error submitting the form', error);
+            toast.error("Error submitting the form. Please try again.");
         }
     };
 
     return (
         <div className="lg:w-3/4 w-11/12 mx-auto py-20">
+            <ToastContainer />
             <h2 className='text-5xl font-semibold text-center pb-10'>Suggest a restaurant</h2>
             <div>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -79,16 +84,16 @@ const SuggestRestaurant = () => {
                             <span className="label-text text-blue-950">Phone Number <span className="text-red-500">*</span></span>
                         </label>
                         <input
-                            {...register("phoneNumber", {
+                            {...register("phone", {
                                 required: "Please complete this required field",
                             })}
                             type="text"
                             placeholder="Phone number"
                             className="input input-bordered"
                         />
-                        {errors.phoneNumber && (
+                        {errors.phone && (
                             <span className="text-red-500">
-                                {errors.phoneNumber.message}
+                                {errors.phone.message}
                             </span>
                         )}
                     </div>
@@ -113,15 +118,15 @@ const SuggestRestaurant = () => {
                             <span className="label-text text-blue-950">Restaurant Name <span className="text-red-500">*</span></span>
                         </label>
                         <input
-                            {...register("restaurantName", {
+                            {...register("restaurant", {
                                 required: "Please complete this required field",
                             })}
                             type="text"
                             placeholder="Restaurant Name"
                             className="input input-bordered"
                         />
-                        {errors.restaurantName && (
-                            <span className="text-red-500">{errors.restaurantName.message}</span>
+                        {errors.restaurant && (
+                            <span className="text-red-500">{errors.restaurant.message}</span>
                         )}
                     </div>
                     <div className="form-control mt-6 ">
