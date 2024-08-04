@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { CiMenuBurger } from "react-icons/ci";
 import { FaCity, FaSubway, FaArrowLeft } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import { IoIosRestaurant } from "react-icons/io";
 import { LuUsers } from "react-icons/lu";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import Drawer from "react-modern-drawer";
 import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../../context/AuthContext";
 
 const AdminDashboard = () => {
     const [drawerOpen, setDrawerOpen] = useState(true);
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user || user?.user?.role !== 'admin') {
+            navigate('/login');
+        }
+    }, [user, navigate]);
 
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
@@ -30,16 +39,6 @@ const AdminDashboard = () => {
                     onChange={toggleDrawer}
                 />
                 <div className="drawer-content flex gap-1 ">
-                    {/* Hamburger menu icon */}
-                    {/* <label
-            htmlFor="my-drawer"
-            className={`ml-8 mt-4 text-4xl fixed text-white w-10 flex justify-start z-10 ${
-              drawerOpen ? "hidden" : ""
-            }`}
-          >
-            <CiMenuBurger />
-          </label> */}
-                    {/* Main content area */}
                     <div
                         className={`content-area px-4 text-white bg-[#1B2431] min-h-screen w-full `}
                     >

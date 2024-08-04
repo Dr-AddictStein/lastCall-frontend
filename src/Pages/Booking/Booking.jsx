@@ -1,12 +1,21 @@
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useStripe, useElements } from '@stripe/react-stripe-js';
+import { AuthContext } from '../../context/AuthContext';
 
 const Booking = () => {
     const stripe = useStripe();
     const elements = useElements();
     const location = useLocation();
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user, navigate]);
 
     const {
         foodData,
@@ -171,7 +180,7 @@ const Booking = () => {
                             Secure your {bookingTime}
                         </h5>
                         <h2 className="text-[#265582] font-bold text-4xl">
-                            {bookingTimeDet}, {table.date}
+                            {bookingTimeDet}, {table?.date}
                         </h2>
                         <h5 className="py-5 text-2xl font-semibold">{foodData?.name}</h5>
                         <div>
@@ -186,7 +195,7 @@ const Booking = () => {
                                 <span className="text-slate-400">Special Conditions: </span>
                             </p>
                             <ul className="list-disc pl-16">
-                                {foodData.specialconditions.map((spcond) => (
+                                {foodData?.specialconditions?.map((spcond) => (
                                     <li key={spcond}>{spcond}</li>
                                 ))}
                             </ul>
