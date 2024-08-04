@@ -80,16 +80,18 @@ function ForRestaurants() {
             Schedule a call or visit to learn more about how it works and answer
             any outstanding questions.
           </p>
+          <Link to={"/contactUs"}>
           <button className="bg-[#FF756B] p-4 text-white font-bold">
             Schedule a call
           </button>
+          </Link>
         </div>
         <div>
           <h2 className="text-4xl text-blue-950">Sign up for free</h2>
           <p className="my-6">
             Start maximizing revenue today by signing up your restaurant
           </p>
-          <Link to={"/freesignup"}>
+          <Link to={"/restaurantRegister"}>
             <button className="bg-[#FF756B] p-4 text-white font-bold">
               Sign up for free
             </button>

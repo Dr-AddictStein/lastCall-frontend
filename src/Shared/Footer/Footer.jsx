@@ -42,12 +42,12 @@ function Footer() {
           <h6 className="footer-title">Restaurateurs</h6>
           <ul className="footer-list space-y-2">
             <li>
-              <Link to="/how-it-works" className="link link-hover">
+              <Link to="/restaurants" className="link link-hover">
                 How it works
               </Link>
             </li>
             <li>
-              <Link to="/signup" className="link link-hover">
+              <Link to="/restaurantRegister" className="link link-hover">
                 Signup
               </Link>
             </li>
