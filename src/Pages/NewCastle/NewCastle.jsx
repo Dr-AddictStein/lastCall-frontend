@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import bannerImg from "../../assets/images/Banner/banner.webp";
 import { SlCalender } from "react-icons/sl";
 import { CiLocationOn, CiStar } from "react-icons/ci";
@@ -12,6 +12,8 @@ function NewCastle() {
   const [isHover, setIsHover] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
   const [dates, setDates] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const cityName = useParams();
 
   const categories = [
     "American", "Asian", "Barbeque", "Brunch", "Burgers", "Cafe", "Chinese", "Desserts",
@@ -26,8 +28,8 @@ function NewCastle() {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        setRestaurants(data);
-        console.log("Restaurants", data);
+        const filteredData = data?.filter(restaurant => restaurant?.city === cityName?.city);
+        setRestaurants(filteredData);
       })
       .catch((error) => console.log(error));
   };
@@ -59,6 +61,14 @@ function NewCastle() {
     fetchRestaurant();
     generateDates();
   }, []);
+
+  const filteredRestaurants = selectedCategory
+    ? restaurants.filter(restaurant => restaurant.category.includes(selectedCategory))
+    : restaurants;
+
+    const handleCategoryChange = (category) => {
+      setSelectedCategory((prevCategory) => (prevCategory === category ? "" : category));
+    };
 
   return (
     <div className="mb-20">
@@ -217,7 +227,7 @@ function NewCastle() {
       {/* Calender section */}
       <div className="flex flex-col lg:flex-row mt-20 justify-between custom-screen max-w-screen-2xl mx-auto">
         <div className="mr-3">
-          {restaurants.map((restaurant) => (
+          {filteredRestaurants.map((restaurant) => (
             <div
               key={restaurant._id}
               className="flex flex-col md:flex-row lg:flex-row gap-8 my-5"
@@ -287,7 +297,7 @@ function NewCastle() {
             <ul className="p-2 z-[1] w-48">
               {categories.map(category => (
                 <li key={category} className="flex justify-between">
-                  <span>{category}</span> <input type="checkbox" />
+                  <span>{category}</span> <input type="checkbox" checked={selectedCategory === category} onChange={() => handleCategoryChange(category)} />
                 </li>
               ))}
             </ul>
