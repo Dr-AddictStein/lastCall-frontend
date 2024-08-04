@@ -5,15 +5,38 @@ import bg2 from '../../assets/images/SignUp/bg2.png';
 import bg3 from '../../assets/images/SignUp/bg3.jpg';
 import bg4 from '../../assets/images/SignUp/bg4.png';
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from 'axios';
 
 function RestaurantRegister() {
-  const [isChecked, setIsChecked] = useState(false)
+  const [isChecked, setIsChecked] = useState(false);
+  const [showrest, setShowrest] = useState(true);
+  const [regions, setRegions] = useState([]);
+  const [cities, setCities] = useState([]);
 
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
+  useEffect(() => {
+    // Fetch regions and cities on component mount
+    const fetchRegionsAndCities = async () => {
+      try {
+        const [regionsResponse, citiesResponse] = await Promise.all([
+          axios.get("http://localhost:4000/api/region/"),
+          axios.get("http://localhost:4000/api/city/")
+        ]);
+        setRegions(regionsResponse.data);
+        setCities(citiesResponse.data);
+      } catch (error) {
+        console.error("Error fetching regions and cities:", error);
+      }
+    };
+
+    fetchRegionsAndCities();
+  }, []);
+
   const onSubmit = async (data) => {
+    setShowrest(false);
     console.log(data);
     try {
       const response = await fetch("http://localhost:4000/api/restaurant/notifyadmin", {
@@ -40,10 +63,8 @@ function RestaurantRegister() {
     }
   };
 
-
   const handleCheckboxChange = () => {
-    isChecked === true && setIsChecked(false);
-    isChecked === false && setIsChecked(true);
+    setIsChecked(!isChecked);
   };
 
   return (
@@ -150,14 +171,40 @@ function RestaurantRegister() {
                   <option disabled value="default">
                     Select Region
                   </option>
-                  <option value="Bangladesh">Bangladesh</option>
-                  <option value="India">India</option>
-                  <option value="Nepal">Nepal</option>
+                  {regions.map((region) => (
+                    <option key={region._id} value={region.name}>
+                      {region.name}
+                    </option>
+                  ))}
                 </select>
                 {errors.region && (
                   <span className="text-red-500">
                     {errors.region.message}
                   </span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-blue-950">City <span className="text-red-500">*</span></span>
+                </label>
+                <select
+                  className="select select-bordered"
+                  defaultValue="default"
+                  {...register("city", {
+                    required: "Please complete this required field",
+                  })}
+                >
+                  <option disabled value="default">
+                    Select City
+                  </option>
+                  {cities.map((city) => (
+                    <option key={city._id} value={city.name}>
+                      {city.name}
+                    </option>
+                  ))}
+                </select>
+                {errors.city && (
+                  <span className="text-red-500">{errors.city.message}</span>
                 )}
               </div>
               <div className="form-control">
@@ -173,25 +220,7 @@ function RestaurantRegister() {
                   className="input input-bordered"
                 />
                 {errors.restaurantName && (
-                  <span className="text-red-500">
-                    {errors.restaurantName.message}
-                  </span>
-                )}
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-blue-950">City <span className="text-red-500">*</span></span>
-                </label>
-                <input
-                  {...register("city", {
-                    required: "Please complete this required field",
-                  })}
-                  type="text"
-                  placeholder="City"
-                  className="input input-bordered"
-                />
-                {errors.city && (
-                  <span className="text-red-500">{errors.city.message}</span>
+                  <span className="text-red-500">{errors.restaurantName.message}</span>
                 )}
               </div>
               <div className="form-control">
@@ -199,18 +228,11 @@ function RestaurantRegister() {
                   <span className="label-text text-blue-950">Website</span>
                 </label>
                 <input
-                  {...register("website", {
-                    required: "Please complete this required field",
-                  })}
+                  {...register("website")}
                   type="text"
                   placeholder="Website"
                   className="input input-bordered"
                 />
-                {errors.website && (
-                  <span className="text-red-500">
-                    {errors.website.message}
-                  </span>
-                )}
               </div>
               <div className="form-control">
                 <label className="label">
@@ -236,13 +258,31 @@ function RestaurantRegister() {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-blue-950">Times</span>
+                  <span className="label-text text-blue-950">Table Offering Times</span>
                 </label>
                 <input
                   {...register("times")}
                   type="text"
-                  placeholder="Times"
-                  className="input input-bordered"
+                  placeholder="Example: Breakfast 8:00am 4 tables"
+                  className="input input-bordered m"
+                />
+                <input
+                  {...register("times")}
+                  type="text"
+                  placeholder="Example: Lunch N/A"
+                  className="input input-bordered mt-2"
+                />
+                <input
+                  {...register("times")}
+                  type="text"
+                  placeholder="Example: Dinner First Call 5:00pm 6 tables"
+                  className="input input-bordered mt-2"
+                />
+                <input
+                  {...register("times")}
+                  type="text"
+                  placeholder="Example: Dinner Last Call 9:30pm 4 tables"
+                  className="input input-bordered mt-2"
                 />
               </div>
               <div className="form-control">
@@ -315,7 +355,7 @@ function RestaurantRegister() {
               <p>By checking this box you are agreeing to all of our privacy and policy</p>
             </div>
             <div className="form-control mt-6 ">
-              {isChecked === false ?
+              {isChecked === true ?
                 <button type="submit" className="btn bg-[#FF756B] text-white hover:bg-[#FF756B] hover:text-white">
                   Submit
                 </button> :
@@ -327,39 +367,41 @@ function RestaurantRegister() {
           <img className="rounded-xl overflow-hidden" src="https://a.mktgcdn.com/p/rG1SzyDOZMsDj19-fakRweDt1Q7I5Cmk1Yyrh13fM1k/3000x4500.jpg" alt="" />
         </div>
         <div className="divider my-8"></div>
-        <div className="flex flex-col lg:flex-row gap-10">
-          <div
-            className=""
-            style={{
-              backgroundImage: `url(${bgImg})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              minHeight: "50vh",
-            }}
-          ></div>
-          <div className="w-1/2">
-            <h2 className="text-5xl text-blue-700">
-              What Restaurants Are Saying
+        {showrest && <>
+          <div className="flex flex-col lg:flex-row gap-10">
+            <div
+              className=""
+              style={{
+                backgroundImage: `url(${bgImg})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                minHeight: "50vh",
+              }}
+            ></div>
+            <div className="w-1/2">
+              <h2 className="text-5xl text-blue-700">
+                What Restaurants Are Saying
+              </h2>
+              <p className="text-xl mt-10"> Last Table has definitely been a great marketing tool for us. It's a brilliant way for our local market to try us for a nice dinner out without breaking the bank. Early dining is always a quiet time of night so it's great being able to create some real atmosphere in the restaurant at an early stage of the evening. It's also a great opportunity for our staff to show the First Table diners what we do here and add a personal touch to their experience. We get a lot of return customers as a result.
+              </p>
+              <p className="text-blue-800 mt-4">
+                -Hayden Davison, <br /> Restaurant Manager at Jervois Steak House
+              </p>
+            </div>
+          </div>
+          <div className="divider my-8"></div>
+          <div>
+            <h2 className="text-5xl text-blue-800 text-center my-7">
+              Restaurants using Last Call to win customers
             </h2>
-            <p className="text-xl mt-10"> Last Table has definitely been a great marketing tool for us. It's a brilliant way for our local market to try us for a nice dinner out without breaking the bank. Early dining is always a quiet time of night so it's great being able to create some real atmosphere in the restaurant at an early stage of the evening. It's also a great opportunity for our staff to show the First Table diners what we do here and add a personal touch to their experience. We get a lot of return customers as a result.
-            </p>
-            <p className="text-blue-800 mt-4">
-              -Hayden Davison, <br /> Restaurant Manager at Jervois Steak House
-            </p>
+            <div className="flex gap-10 justify-center my-8">
+              <img src={bg1} className="w-64" alt="" srcSet="" />
+              <img src={bg2} className="w-64" alt="" srcSet="" />
+              <img src={bg3} className="w-64" alt="" srcSet="" />
+              <img src={bg4} className="w-64" alt="" srcSet="" />
+            </div>
           </div>
-        </div>
-        <div className="divider my-8"></div>
-        <div>
-          <h2 className="text-5xl text-blue-800 text-center my-7">
-            Restaurants using Last Call to win customers
-          </h2>
-          <div className="flex gap-10 justify-center my-8">
-            <img src={bg1} className="w-64" alt="" srcSet="" />
-            <img src={bg2} className="w-64" alt="" srcSet="" />
-            <img src={bg3} className="w-64" alt="" srcSet="" />
-            <img src={bg4} className="w-64" alt="" srcSet="" />
-          </div>
-        </div>
+        </>}
       </div>
       {/* <div className="bg-blue-950 py-10">
         <p className="text-center text-white text-xl">© Last Call 2014 - 2024</p>

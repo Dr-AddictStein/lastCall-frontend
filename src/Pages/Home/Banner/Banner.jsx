@@ -11,7 +11,7 @@ function Banner({ cities, regions }) {
   const [selectedDate, setSelectedDate] = useState('All Dates');
   const [selectedRegion, setSelectedRegion] = useState('Select a Region');
   const [selectedCity, setSelectedCity] = useState('Select a City');
-  const [selectedMeal, setSelectedMeal] = useState('Category');
+  const [selectedMeal, setSelectedMeal] = useState('Time');
 
   const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
   const [isRegionDropdownOpen, setIsRegionDropdownOpen] = useState(false);
@@ -203,14 +203,9 @@ function Banner({ cities, regions }) {
                       className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
                       onClick={() => handleMealClick('Dinner First Call')}
                     >
-                      <p>Dinner First Call</p>
+                      <p>Dinner</p>
                     </li>
-                    <li
-                      className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
-                      onClick={() => handleMealClick('Dinner Last Call')}
-                    >
-                      <p>Dinner Last Call</p>
-                    </li>
+
                   </ul>
                 )}
               </div>

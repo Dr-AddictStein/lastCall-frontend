@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ContactUs = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -11,10 +13,12 @@ const ContactUs = () => {
         if (!recaptchaValid) return;
         try {
             console.log('sending data', data);
-            const response = await axios.post('', data);
+            const response = await axios.post('http://localhost:4000/api/restaurant/contactadmin', data);
             console.log(response.data);
+            toast.success("Form submitted successfully!");
         } catch (error) {
             console.error('Error submitting the form', error);
+            toast.error("Error submitting the form. Please try again.");
         }
     };
 
@@ -24,6 +28,7 @@ const ContactUs = () => {
 
     return (
         <div className="lg:w-3/4 w-11/12 mx-auto py-20">
+            <ToastContainer />
             <h2 className='text-5xl font-semibold text-center pb-10'>Contact Us</h2>
             <div>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -118,8 +123,7 @@ const ContactUs = () => {
                     </div>
                     <div className="form-control w-full">
                         <label className="label">
-                            <span className="label-text text-blue-950">Message <span className="text-red-500">*</span></span>
-                        </label>
+                            <span className="label-text text-blue-950">Message <span className="text-red-500">*</span></span></label>
                         <textarea
                             {...register("message", {
                                 required: "Please complete this required field",
