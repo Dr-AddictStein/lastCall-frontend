@@ -1,10 +1,14 @@
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import ReCAPTCHA from "react-google-recaptcha";
+import { useState } from 'react';
 
 const SuggestRestaurant = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [recaptchaValid, setRecaptchaValid] = useState(false);
 
     const onSubmit = async (data) => {
+        if (!recaptchaValid) return;
         try {
             console.log('sending data', data);
             const response = await axios.post('', data);
@@ -12,6 +16,10 @@ const SuggestRestaurant = () => {
         } catch (error) {
             console.error('Error submitting the form', error);
         }
+    };
+
+    const onChange = (value) => {
+        setRecaptchaValid(value !== null);
     };
 
     return (
@@ -124,8 +132,12 @@ const SuggestRestaurant = () => {
                             <span className="text-red-500">{errors.restaurantName.message}</span>
                         )}
                     </div>
-                    <div className="form-control mt-6 ">
-                        <button type="submit" className="btn bg-[#FF756B] text-white hover:bg-[#FF756B] hover:text-white">
+                    <ReCAPTCHA
+                        sitekey="6Lc7dx8qAAAAABGBNzce1_3r2B-AXSIxpxjfOKAZ"
+                        onChange={onChange}
+                    />
+                    <div className="form-control mt-6">
+                        <button type="submit" className={`btn bg-[#FF756B] text-white ${recaptchaValid ? 'hover:bg-[#FF756B] cursor-pointer' : 'bg-gray-400 cursor-not-allowed'}`} disabled={!recaptchaValid}>
                             Submit
                         </button>
                     </div>
