@@ -4,8 +4,12 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../../Shared/Loader';
 import Select from "react-select";
+import { AuthContext } from '../../../context/AuthContext';
+import { useContext } from 'react';
 
 const RestaurantBuilder = () => {
+
+    const { user } = useContext(AuthContext);
 
     const [loader, setLoader] = useState(false);
 
@@ -36,7 +40,7 @@ const RestaurantBuilder = () => {
     // Fetch restaurant data when the component mounts
     const fetchRestaurantData = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/api/restaurant/ownercall/dr.addictstein@gmail.com');
+            const response = await axios.get(`http://localhost:4000/api/restaurant/ownercall/${user?.user?.email}`);
             const data = response.data;
 
             // Populate formData and conditions
@@ -92,7 +96,7 @@ const RestaurantBuilder = () => {
 
         fetchRestaurantData();
         fetchRegionsAndCities();
-    }, []);
+    }, [user]);
 
     const addCondition = () => {
         setConditions([...conditions, { id: conditions.length, text: '' }]);
@@ -191,7 +195,7 @@ const RestaurantBuilder = () => {
 
         try {
             // First send JSON data
-            const responseJson = await fetch(`http://localhost:4000/api/restaurant/${formData._id}`, {
+            const responseJson = await fetch(`http://localhost:4000/api/restaurant/ownercall/${user?.user?.email}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'

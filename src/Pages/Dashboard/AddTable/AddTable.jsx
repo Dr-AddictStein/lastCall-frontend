@@ -4,8 +4,14 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import { AuthContext } from '../../../context/AuthContext';
+import { useContext } from 'react';
 
 const AddTable = () => {
+
+    const { user } = useContext(AuthContext);
+
+
     const [date, setDate] = useState(new Date());
     const [selectedDay, setSelectedDay] = useState('');
     const [breakfast, setBreakfast] = useState({ starts: '8:00 am', accomodations: '' });
@@ -19,7 +25,7 @@ const AddTable = () => {
         // Fetch restaurant info to get the restaurant ID and tables
         const fetchRestaurantInfo = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/api/restaurant/ownercall/dr.addictstein@gmail.com');
+                const response = await axios.get(`http://localhost:4000/api/restaurant/ownercall/${user?.user?.email}`);
                 const restaurant = response.data;
                 setRestaurantId(restaurant._id);
                 setTables(restaurant.tables || []);
@@ -28,7 +34,7 @@ const AddTable = () => {
             }
         };
         fetchRestaurantInfo();
-    }, []);
+    }, [user]);
 
     const handleInputChange = (e, setter) => {
         const { name, value } = e.target;
