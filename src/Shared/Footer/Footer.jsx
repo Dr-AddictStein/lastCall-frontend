@@ -131,6 +131,9 @@ function Footer() {
           </ul>
         </nav> */}
       </footer>
+      <p className="text-slate-200 text-center pb-5">
+        Need help? hello@lastcall.co
+      </p>
     </div>
   );
 }

@@ -11,7 +11,7 @@ import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('pk_live_51Pb6MZRqpEIBbqVXpKqucXvkLM2JkM75SHb7xcxmEtZmbN4a4WEh2SXSZ1gfRKbum46VrTxTPkO3vKmjuPJyIu1m00UnVW3Q3r');
+const stripePromise = loadStripe('pk_test_51Pb6MZRqpEIBbqVXFiG60DSIhOTnUxJX9LSMrGJjVLHH19puWPLNTiOLgG5xIR0WE5vyKqBMp2qWn1qcLBN1hYR500U54FLrp4');
 
 
 

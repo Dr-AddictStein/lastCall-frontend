@@ -352,7 +352,7 @@ function RestaurantRegister() {
             </div>
             <div className="flex gap-2 pt-3">
               <input onClick={handleCheckboxChange} type="checkbox" name="checkPrivacyPolicy" id="" />
-              <p>By checking this box you are agreeing to all of our privacy and policy</p>
+              <p>By checking this box you agree to our Privacy Policy</p>
             </div>
             <div className="form-control mt-6 ">
               {isChecked === true ?
@@ -366,42 +366,8 @@ function RestaurantRegister() {
           </form>
           <img className="rounded-xl overflow-hidden" src="https://a.mktgcdn.com/p/rG1SzyDOZMsDj19-fakRweDt1Q7I5Cmk1Yyrh13fM1k/3000x4500.jpg" alt="" />
         </div>
-        <div className="divider my-8"></div>
-        {showrest && <>
-          <div className="flex flex-col lg:flex-row gap-10">
-            <div
-              className=""
-              style={{
-                backgroundImage: `url(${bgImg})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                minHeight: "50vh",
-              }}
-            ></div>
-            <div className="w-1/2">
-              <h2 className="text-5xl text-blue-700">
-                What Restaurants Are Saying
-              </h2>
-              <p className="text-xl mt-10"> Last Table has definitely been a great marketing tool for us. It's a brilliant way for our local market to try us for a nice dinner out without breaking the bank. Early dining is always a quiet time of night so it's great being able to create some real atmosphere in the restaurant at an early stage of the evening. It's also a great opportunity for our staff to show the First Table diners what we do here and add a personal touch to their experience. We get a lot of return customers as a result.
-              </p>
-              <p className="text-blue-800 mt-4">
-                -Hayden Davison, <br /> Restaurant Manager at Jervois Steak House
-              </p>
-            </div>
-          </div>
-          <div className="divider my-8"></div>
-          <div>
-            <h2 className="text-5xl text-blue-800 text-center my-7">
-              Restaurants using Last Call to win customers
-            </h2>
-            <div className="flex gap-10 justify-center my-8">
-              <img src={bg1} className="w-64" alt="" srcSet="" />
-              <img src={bg2} className="w-64" alt="" srcSet="" />
-              <img src={bg3} className="w-64" alt="" srcSet="" />
-              <img src={bg4} className="w-64" alt="" srcSet="" />
-            </div>
-          </div>
-        </>}
+        {/* <div className="divider my-8"></div> */}
+        
       </div>
       {/* <div className="bg-blue-950 py-10">
         <p className="text-center text-white text-xl">© Last Call 2014 - 2024</p>

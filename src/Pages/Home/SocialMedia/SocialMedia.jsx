@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function SocialMedia() {
   return (
-    <div className="flex justify-between items-center flex-col md:flex-row lg:flex-row mt-4 mb-20 px-4 md:px-20 lg:px-40 py-10">
+    <div className="flex justify-between items-center flex-col md:flex-row lg:flex-row  mb-20 px-4 md:px-20 lg:px-40">
       <div className="text-center lg:pl-20">
         <div className="flex justify-center gap-8">
           {/* Facebook */}

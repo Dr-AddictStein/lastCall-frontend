@@ -3,7 +3,7 @@ import bgImg from '../../../assets/images/Community/ellips.svg'
 
 function Community() {
   return (
-    <div className="flex justify-between items-center flex-col md:flex-row lg:flex-row mt-4 mb-20 px-4 md:px-20 lg:px-40 py-10">
+    <div className="flex justify-between items-center flex-col md:flex-row lg:flex-row mt-4  px-4 md:px-20 lg:px-40 pt-10">
       <div
         className="flex justify-center gap-9 items-center"
         style={{
@@ -47,7 +47,7 @@ function Community() {
           </button>
         </Link>
         <p>
-          Or visit our &nbsp;
+          Or visit our&nbsp;
           <Link className="text-orange-600" to={"/faq"}>
             FAQs
           </Link>

@@ -28,7 +28,7 @@ function Banner({ cities, regions }) {
       ];
       const today = new Date();
       const datesArray = [];
-      
+
       for (let i = 0; i <= 7; i++) {
         const nextDate = new Date(today);
         nextDate.setDate(today.getDate() + i);
@@ -92,7 +92,10 @@ function Banner({ cities, regions }) {
         <div className="hero-content text-center text-neutral-content">
           <div className="">
             <p className="mb-5 font-bold text-3xl mt-10 lg:text-5xl">
-              Dining deals from dawn to dusk
+              Dine early or late, save half your plate!
+            </p>
+            <p className="  text-sm mt-1 lg:text-xl">
+            Reserve now and taste the difference
             </p>
             <div className="grid grid-flow-cols-1 bg-white items-center rounded gap-2 lg:grid-cols-5 text-black mt-12">
               <div className="dropdown bg-white border-r py-4 rounded lg:w-60">
@@ -209,8 +212,8 @@ function Banner({ cities, regions }) {
                   </ul>
                 )}
               </div>
-              <div className="bg-red-400 border-r flex justify-center items-center rounded">
-                <div className="py-4 flex justify-center mx-4">
+              <div className="bg-red-400  flex justify-center items-center rounded ml-[-10px]">
+                <div className="py-4 flex justify-center">
                   <button
                     className="bg-red-400 px-10 py-4 text-white font-bold cursor-pointer"
                     onClick={handleFindTable}
