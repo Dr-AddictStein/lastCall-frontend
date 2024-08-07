@@ -7,6 +7,8 @@ import Select from "react-select";
 import { AuthContext } from '../../../context/AuthContext';
 import { useContext } from 'react';
 
+const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
 const RestaurantBuilder = () => {
 
     const { user } = useContext(AuthContext);
@@ -25,7 +27,7 @@ const RestaurantBuilder = () => {
         city: '',
         phone: '',
         url: '',
-        operatinghours: '',
+        operatinghours: Array(7).fill(''),
         description: '',
         thumb: null,
         banner: null,
@@ -51,7 +53,7 @@ const RestaurantBuilder = () => {
                 city: data.city || '',
                 phone: data.phone || '',
                 url: data.url || '',
-                operatinghours: data.operatinghours || '',
+                operatinghours: data.operatinghours || Array(7).fill(''),
                 description: data.description || '',
                 thumb: data.thumb || null,
                 banner: data.banner || null,
@@ -78,6 +80,7 @@ const RestaurantBuilder = () => {
             console.error('Error fetching restaurant data:', error);
         }
     };
+
     useEffect(() => {
 
         // Fetch regions and cities
@@ -121,11 +124,16 @@ const RestaurantBuilder = () => {
         }
     };
 
+    const handleOperatingHoursChange = (index, value) => {
+        const updatedHours = [...formData.operatinghours];
+        updatedHours[index] = value;
+        setFormData({ ...formData, operatinghours: updatedHours });
+    };
+
     const handleFileChange = (e) => {
         const { name, files } = e.target;
         setFormData({ ...formData, [name]: files[0] });
     };
-
 
     const uploadFile = async (file, id) => {
         console.log("HERE", file)
@@ -195,7 +203,7 @@ const RestaurantBuilder = () => {
 
         try {
             // First send JSON data
-            const responseJson = await fetch(`http://localhost:4000/api/restaurant/ownercall/${user?.user?.email}`, {
+            const responseJson = await fetch(`http://localhost:4000/api/restaurant/${formData._id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -215,7 +223,6 @@ const RestaurantBuilder = () => {
             toast.error('An error occurred while saving the restaurant.');
         }
     };
-
 
     const options = [
         { value: 'American', label: 'American' },
@@ -256,11 +263,10 @@ const RestaurantBuilder = () => {
     ];
 
     const handleChangeMulti = (selectedOptions) => {
-        setSelectedCategories(selectedOptions);
+        if (selectedOptions.length <= 3) {
+            setSelectedCategories(selectedOptions);
+        }
     };
-
-
-
 
     if (loader) {
         return (
@@ -334,16 +340,6 @@ const RestaurantBuilder = () => {
                                 />
                             </div>
                             <div>
-                                <p>Operating hours</p>
-                                <input
-                                    type="text"
-                                    name="operatinghours"
-                                    value={formData.operatinghours}
-                                    onChange={handleChange}
-                                    className="p-2 mt-2 border border-white rounded-md w-full text-black"
-                                />
-                            </div>
-                            <div>
                                 <p>Description</p>
                                 <textarea
                                     type="text"
@@ -352,6 +348,20 @@ const RestaurantBuilder = () => {
                                     onChange={handleChange}
                                     className="p-2 mt-2 border border-white rounded-md w-full text-black"
                                 />
+                            </div>
+                            <div>
+                                <p className='text-center'>Operating hours</p>
+                                {daysOfWeek.map((day, index) => (
+                                    <div key={index}>
+                                        <p>{day}</p>
+                                        <input
+                                            type="text"
+                                            value={formData.operatinghours[index]}
+                                            onChange={(e) => handleOperatingHoursChange(index, e.target.value)}
+                                            className="p-2 mt-2 border border-white rounded-md w-full text-black"
+                                        />
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>

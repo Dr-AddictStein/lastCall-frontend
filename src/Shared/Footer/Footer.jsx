@@ -63,7 +63,7 @@ function Footer() {
             </li>
             <li>
               <Link to="/first-table-bites" className="link link-hover">
-                First Table Bites
+                Last Call Bites
               </Link>
             </li>
             <li>

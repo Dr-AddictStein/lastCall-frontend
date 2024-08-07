@@ -9,7 +9,7 @@ import Drawer from "react-modern-drawer";
 import { Helmet } from "react-helmet-async";
 
 function Dashboard() {
-  const [drawerOpen, setDrawerOpen] = useState(true);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);

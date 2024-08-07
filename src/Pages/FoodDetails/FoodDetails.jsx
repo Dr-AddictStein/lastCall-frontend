@@ -313,7 +313,7 @@ const FoodDetails = () => {
                 {activeTab2 === 0 ? (
                   <div>
                     <h3 className="text-3xl text-[#265582] font-semibold">
-                      Book a First Table
+                      Book a Last Call
                     </h3>
                     <p className="text-[#c7a77b]">
                       Get 50% off the food bill or two to four people
@@ -535,8 +535,7 @@ const FoodDetails = () => {
                       Special Conditions
                     </h4>
                     <p>
-                      This venue has the following special conditions for First
-                      Table reservations:
+                      This venue has the following special conditions for Last Call reservations:
                     </p>
                     <ul className="py-5 list-disc ml-5">
                       {foodData?.specialconditions?.map((spcond) => {
@@ -644,7 +643,7 @@ const FoodDetails = () => {
             {activeTab2 === 0 ? (
               <div>
                 <h3 className="text-3xl text-[#265582] font-semibold">
-                  Book a First Table
+                  Book a Last Call
                 </h3>
                 <p className="text-[#c7a77b]">
                   Get 50% off the food bill or two to four people
@@ -786,7 +785,7 @@ const FoodDetails = () => {
                       </div>
                     </TabPanel>
                     <TabPanel>
-                      <p className="text-xl font-semibold pt-5">First Table</p>
+                      <p className="text-xl font-semibold pt-5">Last Call</p>
                       <p>2-4 people</p>
                       <div className="grid grid-cols-4 gap-2 pt-2">
                         <div className="bg-[#265582] relative mb-2 text-white p-3">

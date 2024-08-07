@@ -17,7 +17,7 @@ function OurStory() {
             Why we started
           </h2>
           <p className="text-xl">
-            Inspiration for First Table sparked when our founder, Mat Weir,
+            Inspiration for Last Call sparked when our founder, Mat Weir,
             discovered a new approach to dining that he’d never come across
             before. Tucked away in Queenstown, New Zealand, was a small French
             restaurant offering 50% off their first table of the night. <br />{" "}
@@ -56,7 +56,7 @@ function OurStory() {
             better training ground than a humble, door-to-door effort. He walked
             from venue to venue learning what resonated with owners and
             managers, refining the value proposition along the way and
-            officially launched First Table in September 2014 with ten ‘keen as
+            officially launched Last Call in September 2014 with ten ‘keen as
             mustard’ restaurants.
             <br /> <br /> <br /> It was simple – the ‘first table’ helped build
             an atmosphere from the start of service to attract more customers.

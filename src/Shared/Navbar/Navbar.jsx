@@ -219,9 +219,17 @@ function Navbar() {
                   </Link>
                 </div>}
             </ul>
+            {
+              (user && user.user.role === 'restaurant-owner') &&
+              <Link to="/dashboard/restaurant/restaurantBuilder" className="hidden lg:block mr-3">
+                <button className="btn btn-outline rounded-full bg-white text-black">
+                  Manage Your Restaurant
+                </button>
+              </Link>
+            }
             <Link to="/restaurants" className="hidden lg:block">
               <button className="btn btn-outline rounded-full bg-white text-black">
-              For Restaurateurs
+                For Restaurateurs
               </button>
             </Link>
           </div>
