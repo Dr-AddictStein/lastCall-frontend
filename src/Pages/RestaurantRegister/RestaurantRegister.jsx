@@ -4,7 +4,7 @@ import bg1 from '../../assets/images/SignUp/bg1.png';
 import bg2 from '../../assets/images/SignUp/bg2.png';
 import bg3 from '../../assets/images/SignUp/bg3.jpg';
 import bg4 from '../../assets/images/SignUp/bg4.png';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
@@ -328,9 +328,32 @@ function RestaurantRegister() {
                   <option disabled value="default">
                     Select Booking Platform
                   </option>
-                  <option value="Platform1">Platform 1</option>
-                  <option value="Platform2">Platform 2</option>
-                  <option value="Platform3">Platform 3</option>
+                  <option value="None">None</option>
+                  <option value="Resdiary">Resdiary</option>
+                  <option value="NowBookeit">NowBookeit</option>
+                  <option value="SevenRooms">SevenRooms</option>
+                  <option value="Resy">Resy</option>
+                  <option value="Tock">Tock</option>
+                  <option value="Open Table">Open Table</option>
+                  <option value="Obee">Obee</option>
+                  <option value="The Fork">The Fork</option>
+                  <option value="Qyandoo">Qyandoo</option>
+                  <option value="Eveve">Eveve</option>
+                  <option value="Hosteme App">Hosteme App</option>
+                  <option value="GXM Bye Supurb Experience">GXM Bye Supurb Experience</option>
+                  <option value="Nabooki">Nabooki</option>
+                  <option value="Bookenda">Bookenda</option>
+                  <option value="No Platform">No Platform</option>
+                  <option value="Internal">Internal</option>
+                  <option value="Chope">Chope</option>
+                  <option value="Mollom">Mollom</option>
+                  <option value="Yelp">Yelp</option>
+                  <option value="FavuriteTable">FavuriteTable</option>
+                  <option value="GloriaFood/GlobalFood">GloriaFood/GlobalFood</option>
+                  <option value="Bookatable">Bookatable</option>
+                  <option value="Design My Night">Design My Night</option>
+                  <option value="Dojo">Dojo</option>
+                  <option value="Table Agent">Table Agent</option>
                 </select>
                 {errors.bookingPlatform && (
                   <span className="text-red-500">
@@ -345,8 +368,10 @@ function RestaurantRegister() {
                 submitting this form to contact you about our products and
                 services. You may unsubscribe from these communications at any
                 time. Please review our{" "}
-                <a href="" className="underline">
+                <Link to='/privacyPolicy' className="underline">
                   Privacy Policy here
+                </Link>
+                <a href="">
                 </a>
               </p>
             </div>
