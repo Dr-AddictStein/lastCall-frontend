@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../context/AuthContext";
 
 const AdminDashboard = () => {
-    const [drawerOpen, setDrawerOpen] = useState(true);
+    const [drawerOpen, setDrawerOpen] = useState(false);
     const { user } = useContext(AuthContext);
     console.log("🚀 ~ AdminDashboard ~ user:", user.user.role)
     const navigate = useNavigate();

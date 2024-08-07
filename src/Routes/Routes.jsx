@@ -29,6 +29,10 @@ import ContactUs from "../Pages/ContactUs/ContactUs";
 import SuggestRestaurant from "../Pages/SuggestRestaurant/SuggestRestaurant";
 import Booking from "../Pages/Booking/Booking";
 import FindTable from "../Pages/FindTable/FindTable";
+import RestaurantBuilderForAdmin from "../Pages/Dashboard/RestaurantBuilder/RestaurantBuilderForAdmin";
+import AddTableForAdmin from "../Pages/Dashboard/AddTable/AddTableForAdmin";
+import ViewReservationsForAdmin from "../Pages/Dashboard/ViewReservations/ViewReservationsForAdmin";
+import DashboardRA from "../Pages/AdminDashboard/DashboardRA";
 
 export const router = createBrowserRouter([
   {
@@ -157,5 +161,29 @@ export const router = createBrowserRouter([
         element: <Users></Users>,
       },
     ],
+  },
+
+  // Dashboard pages of Restaurants for Admin routes
+  {
+    path: "/dashboard/adminRestaurant",
+    element: <DashboardRA></DashboardRA>,
+    children: [
+      {
+        path: "/dashboard/adminRestaurant/restaurantBuilder/:id",
+        element: <RestaurantBuilderForAdmin />
+      },
+      {
+        path: "/dashboard/adminRestaurant/viewReservations/:id",
+        element: <ViewReservationsForAdmin />
+      },
+      {
+        path: "/dashboard/adminRestaurant/addTable/:id",
+        element: <AddTableForAdmin />
+      },
+      // {
+      //   path: "/dashboard/restaurant/viewEmployees",
+      //   element: <ViewEmployees />
+      // },
+    ]
   },
 ]);

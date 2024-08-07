@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { Link } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -69,8 +70,8 @@ function Restaurants() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     if (name === "region") {
-      console.log("Here ",value)
-      const region=regions.filter(reg=>reg._id===value);
+      console.log("Here ", value)
+      const region = regions.filter(reg => reg._id === value);
       const filtered = cities.filter(city => city.region === region[0].name);
       setFilteredCities(filtered);
     }
@@ -340,10 +341,13 @@ function Restaurants() {
                 <td>{regions.find(region => region._id === restaurant.region)?.name || "Unknown"}</td>
                 <td>{cities.find(city => city._id === restaurant.city)?.name || "Unknown"}</td>
                 <td className="flex gap-2">
-                  <FaRegEdit
-                    className="border cursor-pointer border-white p-1 text-2xl rounded-md"
-                    onClick={() => handleEdit(restaurant)}
-                  />
+                  <Link
+                    to={`/dashboard/adminRestaurant/restaurantBuilder/${restaurant._id}`}
+                  >
+                    <FaRegEdit
+                      className="border cursor-pointer border-white p-1 text-2xl rounded-md"
+                    />
+                  </Link>
                   <RiDeleteBin6Line
                     className="border cursor-pointer border-white p-1 text-2xl rounded-md"
                     onClick={() => handleDelete(restaurant._id)}
