@@ -132,7 +132,7 @@ function Footer() {
         </nav> */}
       </footer>
       <p className="text-slate-200 text-center pb-5">
-        Need help? hello@lastcall.co
+        Need help? <a href="mailto:hello@lastcall.co" className="text-slate-200 underline">hello@lastcall.co</a>
       </p>
     </div>
   );

@@ -328,32 +328,31 @@ function RestaurantRegister() {
                   <option disabled value="default">
                     Select Booking Platform
                   </option>
-                  <option value="None">None</option>
-                  <option value="Resdiary">Resdiary</option>
-                  <option value="NowBookeit">NowBookeit</option>
-                  <option value="SevenRooms">SevenRooms</option>
-                  <option value="Resy">Resy</option>
-                  <option value="Tock">Tock</option>
-                  <option value="Open Table">Open Table</option>
-                  <option value="Obee">Obee</option>
-                  <option value="The Fork">The Fork</option>
-                  <option value="Qyandoo">Qyandoo</option>
-                  <option value="Eveve">Eveve</option>
-                  <option value="Hosteme App">Hosteme App</option>
-                  <option value="GXM Bye Supurb Experience">GXM Bye Supurb Experience</option>
-                  <option value="Nabooki">Nabooki</option>
-                  <option value="Bookenda">Bookenda</option>
-                  <option value="No Platform">No Platform</option>
-                  <option value="Internal">Internal</option>
-                  <option value="Chope">Chope</option>
-                  <option value="Mollom">Mollom</option>
-                  <option value="Yelp">Yelp</option>
-                  <option value="FavuriteTable">FavuriteTable</option>
-                  <option value="GloriaFood/GlobalFood">GloriaFood/GlobalFood</option>
                   <option value="Bookatable">Bookatable</option>
+                  <option value="Bookenda">Bookenda</option>
+                  <option value="Chope">Chope</option>
                   <option value="Design My Night">Design My Night</option>
                   <option value="Dojo">Dojo</option>
+                  <option value="Eveve">Eveve</option>
+                  <option value="FavuriteTable">FavuriteTable</option>
+                  <option value="GloriaFood/GlobalFood">GloriaFood/GlobalFood</option>
+                  <option value="GXM Bye Supurb Experience">GXM Bye Supurb Experience</option>
+                  <option value="Hosteme App">Hosteme App</option>
+                  <option value="Internal">Internal</option>
+                  <option value="Mollom">Mollom</option>
+                  <option value="Nabooki">Nabooki</option>
+                  <option value="NowBookeit">NowBookeit</option>
+                  <option value="No Platform">No Platform</option>
+                  <option value="Obee">Obee</option>
+                  <option value="Open Table">Open Table</option>
+                  <option value="Qyandoo">Qyandoo</option>
+                  <option value="Resdiary">Resdiary</option>
+                  <option value="Resy">Resy</option>
+                  <option value="SevenRooms">SevenRooms</option>
                   <option value="Table Agent">Table Agent</option>
+                  <option value="The Fork">The Fork</option>
+                  <option value="Tock">Tock</option>
+                  <option value="Yelp">Yelp</option>
                 </select>
                 {errors.bookingPlatform && (
                   <span className="text-red-500">
@@ -392,7 +391,7 @@ function RestaurantRegister() {
           <img className="rounded-xl overflow-hidden" src="https://a.mktgcdn.com/p/rG1SzyDOZMsDj19-fakRweDt1Q7I5Cmk1Yyrh13fM1k/3000x4500.jpg" alt="" />
         </div>
         {/* <div className="divider my-8"></div> */}
-        
+
       </div>
       {/* <div className="bg-blue-950 py-10">
         <p className="text-center text-white text-xl">© Last Call 2014 - 2024</p>

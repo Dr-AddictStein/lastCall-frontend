@@ -35,6 +35,7 @@ import DashboardRA from "../Pages/AdminDashboard/DashboardRA";
 import ViewEmployeesForAdmin from "../Pages/Dashboard/ViewEmployees/ViewEmployeesForAdmin";
 import PastBookings from "../Pages/Profile/MyBookings/PastBookings";
 import UpcomingBookings from "../Pages/Profile/MyBookings/UpcomingBookings";
+import ReviewPosting from "../Pages/ReviewPosting";
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: '/suggestRestaurant',
         element: <SuggestRestaurant />
+      },
+      {
+        path: '/reviewPosting/:id',
+        element: <ReviewPosting />
       },
       {
         path: "/restaurants",

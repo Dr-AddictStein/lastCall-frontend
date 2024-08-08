@@ -35,7 +35,7 @@ const PastBookings = () => {
 
   return (
     <div className="container mx-auto py-10">
-      <h2 className="text-center text-3xl font-semibold mb-6">Past Bookings</h2>
+      <h2 className="text-center text-3xl font-semibold mb-6">Past Reservations</h2>
       {filteredReservations.length > 0 ? (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-200">
