@@ -143,18 +143,18 @@ const FoodDetails = () => {
   const [bookingTime, setBookingtime] = useState(null);
   const [bookingTimeDet, setBookingtimeDet] = useState(null);
 
-  const sentToBooking=()=>{
-    
-    if(table===null)return;
-    
+  const sentToBooking = () => {
+
+    if (table === null) return;
+
     navigate("/booking", {
-        state: {
-          foodData,
-          table,
-          bookingTime,
-          bookingTimeDet,
-        },
-      });
+      state: {
+        foodData,
+        table,
+        bookingTime,
+        bookingTimeDet,
+      },
+    });
 
   }
 
@@ -306,9 +306,8 @@ const FoodDetails = () => {
                 </div>
               </dialog>
               <div
-                className={`hidden lg:block bg-white px-10 py-7 absolute mx-auto w-[430px] left-0 right-0 ${
-                  activeTab2 === 0 ? "-bottom-[479px]" : "-bottom-[362px]"
-                } `}
+                className={`hidden lg:block bg-white px-10 py-7 absolute mx-auto w-[430px] left-0 right-0 ${activeTab2 === 0 ? "-bottom-[479px]" : "-bottom-[362px]"
+                  } `}
               >
                 {activeTab2 === 0 ? (
                   <div>
@@ -321,41 +320,37 @@ const FoodDetails = () => {
                     <div className="pt-5">
                       <TabList className="flex justify-center text-center">
                         <Tab
-                          className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${
-                            activeTab === 0
+                          className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${activeTab === 0
                               ? "font-semibold border-black"
                               : "font-normal"
-                          }`}
+                            }`}
                           onClick={() => setActiveTab(0)}
                         >
                           Breakfast
                         </Tab>
                         <Tab
-                          className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${
-                            activeTab === 1
+                          className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${activeTab === 1
                               ? "font-semibold border-black"
                               : "font-normal"
-                          }`}
+                            }`}
                           onClick={() => setActiveTab(1)}
                         >
                           Lunch
                         </Tab>
                         <Tab
-                          className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${
-                            activeTab === 2
+                          className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${activeTab === 2
                               ? "font-semibold border-black"
                               : "font-normal"
-                          }`}
+                            }`}
                           onClick={() => setActiveTab(2)}
                         >
                           Dinner First Call
                         </Tab>
                         <Tab
-                          className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${
-                            activeTab === 3
+                          className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${activeTab === 3
                               ? "font-semibold border-black"
                               : "font-normal"
-                          }`}
+                            }`}
                           onClick={() => setActiveTab(3)}
                         >
                           Dinner Last Call
@@ -372,11 +367,10 @@ const FoodDetails = () => {
                                     setBookingtimeDet(dt.breakfast.starts)
                                     selectedTable(dt);
                                   }}
-                                  className={`relative mb-2 text-white p-3  ${
-                                    dt.isclosed
+                                  className={`relative mb-2 text-white p-3  ${dt.isclosed
                                       ? "bg-slate-300 cursor-default"
                                       : "bg-[#265582]"
-                                  }`}
+                                    }`}
                                 >
                                   <p className="border-b boder-white text-center">
                                     {dt.date.substring(0, 3)}
@@ -407,16 +401,15 @@ const FoodDetails = () => {
                             {dates.map((dt) => (
                               <Link key={dt}>
                                 <div
-                                onClick={() => {
+                                  onClick={() => {
                                     setBookingtime("Lunch");
                                     setBookingtimeDet(dt.lunch.starts)
                                     selectedTable(dt);
                                   }}
-                                  className={`relative mb-2 text-white p-3  ${
-                                    dt.isclosed
+                                  className={`relative mb-2 text-white p-3  ${dt.isclosed
                                       ? "bg-slate-300 cursor-default"
                                       : "bg-[#265582]"
-                                  }`}
+                                    }`}
                                 >
                                   <p className="border-b boder-white text-center">
                                     {dt.date.substring(0, 3)}
@@ -447,16 +440,15 @@ const FoodDetails = () => {
                             {dates.map((dt) => (
                               <Link key={dt}>
                                 <div
-                                onClick={() => {
+                                  onClick={() => {
                                     setBookingtime("Dinner First Call");
                                     setBookingtimeDet(dt.dinnerfirstcall.starts)
                                     selectedTable(dt);
                                   }}
-                                  className={`relative mb-2 text-white p-3  ${
-                                    dt.isclosed
+                                  className={`relative mb-2 text-white p-3  ${dt.isclosed
                                       ? "bg-slate-300 cursor-default"
                                       : "bg-[#265582]"
-                                  }`}
+                                    }`}
                                 >
                                   <p className="border-b boder-white text-center">
                                     {dt.date.substring(0, 3)}
@@ -487,16 +479,15 @@ const FoodDetails = () => {
                             {dates.map((dt) => (
                               <Link key={dt}>
                                 <div
-                                onClick={() => {
+                                  onClick={() => {
                                     setBookingtime("Dinner Last Call");
                                     setBookingtimeDet(dt.dinnerlastcall.starts)
                                     selectedTable(dt);
                                   }}
-                                  className={`relative mb-2 text-white p-3  ${
-                                    dt.isclosed
+                                  className={`relative mb-2 text-white p-3  ${dt.isclosed
                                       ? "bg-slate-300 cursor-default"
                                       : "bg-[#265582]"
-                                  }`}
+                                    }`}
                                 >
                                   <p className="border-b boder-white text-center">
                                     {dt.date.substring(0, 3)}
@@ -561,27 +552,24 @@ const FoodDetails = () => {
                 </div>
                 <div
                   onClick={() => setActiveTab3(1)}
-                  className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${
-                    activeTab3 === 1 && "border-b border-black"
-                  }`}
+                  className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 1 && "border-b border-black"
+                    }`}
                 >
                   <FaMapMarkerAlt className="text-[#c7a77b] text-2xl" />
                   <p>How to find us</p>
                 </div>
                 <div
                   onClick={() => setActiveTab3(2)}
-                  className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${
-                    activeTab3 === 2 && "border-b border-black"
-                  }`}
+                  className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 2 && "border-b border-black"
+                    }`}
                 >
                   <FaBookOpen className="text-[#c7a77b] text-2xl" />
                   <p>Sample menu</p>
                 </div>
                 <div
                   onClick={() => setActiveTab3(3)}
-                  className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${
-                    activeTab3 === 3 && "border-b border-black"
-                  }`}
+                  className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 3 && "border-b border-black"
+                    }`}
                 >
                   <BiSolidContact className="text-[#c7a77b] text-2xl" />
                   <p>Contacts</p>
@@ -651,21 +639,19 @@ const FoodDetails = () => {
                 <div className="pt-5">
                   <TabList className="flex justify-center text-center">
                     <Tab
-                      className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${
-                        activeTab === 0
+                      className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${activeTab === 0
                           ? "font-semibold border-black"
                           : "font-normal"
-                      }`}
+                        }`}
                       onClick={() => setActiveTab(0)}
                     >
                       Lunch
                     </Tab>
                     <Tab
-                      className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${
-                        activeTab === 1
+                      className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${activeTab === 1
                           ? "font-semibold border-black"
                           : "font-normal"
-                      }`}
+                        }`}
                       onClick={() => setActiveTab(1)}
                     >
                       Dinner
@@ -677,9 +663,8 @@ const FoodDetails = () => {
                       <p>2-4 people</p>
                       <div className="grid grid-cols-4 gap-2 pt-2">
                         <div
-                          className={`relative mb-2 text-white p-3 ${
-                            selected ? "bg-slate-300" : "bg-[#265582]"
-                          }`}
+                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
+                            }`}
                         >
                           <p className="border-b boder-white text-center">
                             Tue
@@ -691,9 +676,8 @@ const FoodDetails = () => {
                           </p>
                         </div>
                         <div
-                          className={`relative mb-2 text-white p-3 ${
-                            selected ? "bg-slate-300" : "bg-[#265582]"
-                          }`}
+                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
+                            }`}
                         >
                           <p className="border-b boder-white text-center">
                             Tue
@@ -705,9 +689,8 @@ const FoodDetails = () => {
                           </p>
                         </div>
                         <div
-                          className={`relative mb-2 text-white p-3 ${
-                            selected ? "bg-slate-300" : "bg-[#265582]"
-                          }`}
+                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
+                            }`}
                         >
                           <p className="border-b boder-white text-center">
                             Tue
@@ -719,9 +702,8 @@ const FoodDetails = () => {
                           </p>
                         </div>
                         <div
-                          className={`relative mb-2 text-white p-3 ${
-                            selected ? "bg-slate-300" : "bg-[#265582]"
-                          }`}
+                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
+                            }`}
                         >
                           <p className="border-b boder-white text-center">
                             Tue
@@ -734,9 +716,8 @@ const FoodDetails = () => {
                         </div>
                         <div
                           selected
-                          className={`relative mb-2 text-white p-3 ${
-                            selected ? "bg-slate-300" : "bg-[#265582]"
-                          }`}
+                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
+                            }`}
                         >
                           <p className="border-b boder-white text-center">
                             Tue
@@ -748,9 +729,8 @@ const FoodDetails = () => {
                           </p>
                         </div>
                         <div
-                          className={`relative mb-2 text-white p-3 ${
-                            selected ? "bg-slate-300" : "bg-[#265582]"
-                          }`}
+                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
+                            }`}
                         >
                           <p className="border-b boder-white text-center">
                             Tue
@@ -762,9 +742,8 @@ const FoodDetails = () => {
                           </p>
                         </div>
                         <div
-                          className={`relative mb-2 text-white p-3 ${
-                            selected ? "bg-slate-300" : "bg-[#265582]"
-                          }`}
+                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
+                            }`}
                         >
                           <p className="border-b boder-white text-center">
                             Tue
@@ -889,117 +868,53 @@ const FoodDetails = () => {
             )}
           </div>
           <div
-            className={`${
-              foodData?.description?.length > 30 ? "pt-72" : "pt-20"
-            }`}
+            className={`${foodData?.description?.length > 30 ? "pt-72" : "pt-20"
+              }`}
           >
             <h1 className="text-[#265582] text-5xl font-semibold pb-2">
               What people say
             </h1>
             <div className="pb-9 border-b">
               <div className="flex gap-4 text-xl items-center">
-                <div className="flex gap-1">
-                  <FaStar className="text-yellow-400" />
-                  <FaStar className="text-yellow-400" />
-                  <FaStar className="text-yellow-400" />
-                  <FaRegStar className="text-slate-400" />
-                  <FaRegStar className="text-slate-400" />
-                </div>
-                <p className="text-slate-500 cursor-pointer hover:border-b border-slate-400">
-                  24 reviews
+                <p className="text-slate-500 cursor-pointer hover:border-b border-slate-400 mt-4">
+                  {foodData?.reviews.length} Reviews
                 </p>
               </div>
             </div>
-            <div className="py-5 border-b mb-">
-              <Link to={"/profile/update"} className="avatar absolute">
-                <div className="w-14 rounded-full">
-                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                </div>
-              </Link>
-              <div>
-                <div className="pl-[70px]">
-                  <div className="flex gap-3 items-center">
-                    <p className="text-xl font-semibold">Elina Gilbert</p>
-                    <div className="flex gap-1">
-                      <FaStar className="text-yellow-400" />
-                      <FaStar className="text-yellow-400" />
-                      <FaStar className="text-yellow-400" />
-                      <FaRegStar className="text-slate-400" />
-                      <FaRegStar className="text-slate-400" />
+            {
+              foodData?.reviews?.map((rev, index) => (
+                <div key={rev._id} className="py-5 border-b mb-">
+                  <Link className="avatar absolute">
+                    <div className="w-14 rounded-full">
+                      <img src={`${rev?.clientImage}`} />
                     </div>
-                  </div>
-                  <p className="text-slate-500">
-                    Dined at Elixiba on 28 Apr 2024
-                  </p>
-                </div>
-                <p className="pt-5 text-justify">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit,
-                  dignissimos, ratione incidunt explicabo deleniti corporis
-                  maiores cum nobis cupiditate tenetur maxime sed cumque harum
-                  totam culpa vero eos sequi saepe.
-                </p>
-              </div>
-            </div>
-            <div className="py-5 border-b mb-">
-              <Link to={"/profile/update"} className="avatar absolute">
-                <div className="w-14 rounded-full">
-                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                </div>
-              </Link>
-              <div>
-                <div className="pl-[70px]">
-                  <div className="flex gap-3 items-center">
-                    <p className="text-xl font-semibold">Stefan Salvator</p>
-                    <div className="flex gap-1">
-                      <FaStar className="text-yellow-400" />
-                      <FaStar className="text-yellow-400" />
-                      <FaStar className="text-yellow-400" />
-                      <FaStar className="text-yellow-400" />
-                      <FaStar className="text-yellow-400" />
+                  </Link>
+                  <div>
+                    <div className="pl-[70px]">
+                      <div className="flex gap-3 items-center">
+                        <p className="text-xl font-semibold">{rev?.clientName}</p>
+                        <div className="flex gap-1">
+                          {[...Array(5)].map((star, i) => (
+                            <FaStar
+                              key={i}
+                              color={i < rev.rating ? '#ffc107' : '#e4e5e9'}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-slate-500">
+                        Dined at {foodData?.name} on {rev?.date}
+                      </p>
                     </div>
+                    <p className="pt-5 text-justify">
+                      {rev?.desc}
+                    </p>
                   </div>
-                  <p className="text-slate-500">
-                    Dined at Elixiba on 28 Apr 2024
-                  </p>
                 </div>
-                <p className="pt-5 text-justify">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit,
-                  dignissimos, ratione incidunt explicabo deleniti corporis
-                  maiores cum nobis cupiditate tenetur maxime sed cumque harum
-                  totam culpa vero eos sequi saepe.
-                </p>
-              </div>
-            </div>
-            <div className="py-5 border-b mb-">
-              <Link to={"/profile/update"} className="avatar absolute">
-                <div className="w-14 rounded-full">
-                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                </div>
-              </Link>
-              <div>
-                <div className="pl-[70px]">
-                  <div className="flex gap-3 items-center">
-                    <p className="text-xl font-semibold">Stefan Salvator</p>
-                    <div className="flex gap-1">
-                      <FaStar className="text-yellow-400" />
-                      <FaStar className="text-yellow-400" />
-                      <FaRegStar className="text-slate-400" />
-                      <FaRegStar className="text-slate-400" />
-                      <FaRegStar className="text-slate-400" />
-                    </div>
-                  </div>
-                  <p className="text-slate-500">
-                    Dined at Elixiba on 28 Apr 2024
-                  </p>
-                </div>
-                <p className="pt-5 text-justify">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit,
-                  dignissimos, ratione incidunt explicabo deleniti corporis
-                  maiores cum nobis cupiditate tenetur maxime sed cumque harum
-                  totam culpa vero eos sequi saepe.
-                </p>
-              </div>
-            </div>
+
+              ))
+            }
+
           </div>
           <div>
             <div className={`flex justify-between items-center pt-20`}>
