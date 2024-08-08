@@ -56,6 +56,7 @@ const Booking = () => {
                     date: table.date,
                     tableType: bookingTime,
                     time: bookingTimeDet,
+                    cost: (user?.user?.role==='restaurant-employee')?5:10,
                     specialConditions: foodData.specialconditions // Send only necessary data
                 })
             });
@@ -185,7 +186,7 @@ const Booking = () => {
                         <h5 className="py-5 text-2xl font-semibold">{foodData?.name}</h5>
                         <div>
                             <p>
-                                <span className="text-slate-400">Booking fee: </span>$10
+                                <span className="text-slate-400">Booking fee: </span>{(user?.user?.role==='restaurant-employee')?"5$":"$10"} 
                             </p>
                             <p>
                                 <span className="text-slate-400">Discount: </span>50% of the

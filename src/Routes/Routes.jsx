@@ -33,6 +33,7 @@ import RestaurantBuilderForAdmin from "../Pages/Dashboard/RestaurantBuilder/Rest
 import AddTableForAdmin from "../Pages/Dashboard/AddTable/AddTableForAdmin";
 import ViewReservationsForAdmin from "../Pages/Dashboard/ViewReservations/ViewReservationsForAdmin";
 import DashboardRA from "../Pages/AdminDashboard/DashboardRA";
+import ViewEmployeesForAdmin from "../Pages/Dashboard/ViewEmployees/ViewEmployeesForAdmin";
 
 export const router = createBrowserRouter([
   {
@@ -180,10 +181,10 @@ export const router = createBrowserRouter([
         path: "/dashboard/adminRestaurant/addTable/:id",
         element: <AddTableForAdmin />
       },
-      // {
-      //   path: "/dashboard/restaurant/viewEmployees",
-      //   element: <ViewEmployees />
-      // },
+      {
+        path: "/dashboard/adminRestaurant/viewEmployees/:id",
+        element: <ViewEmployeesForAdmin />
+      },
     ]
   },
 ]);

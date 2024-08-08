@@ -294,7 +294,7 @@ const RestaurantBuilderForAdmin = () => {
                         <Link to={`/dashboard/adminRestaurant/addTable/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>Manage Tables</Link>
                     </li>
                     <li>
-                        <Link to={`/dashboard/adminRestaurant/restaurantBuilder/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>Basic Info</Link>
+                        <Link to={`/dashboard/adminRestaurant/viewEmployees/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>Employees</Link>
                     </li>
                 </ul>
             </div>

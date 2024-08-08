@@ -5,8 +5,10 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../../context/AuthContext";
 import axios from "axios";
+import { Link, useParams } from "react-router-dom";
 
-const ViewEmployees = () => {
+const ViewEmployeesForAdmin = () => {
+    const { id } = useParams();
 
     const { user } = useContext(AuthContext);
     const [users, setUsers] = useState([]);
@@ -24,7 +26,7 @@ const ViewEmployees = () => {
 
     const fetchRestaurantInfo = async () => {
         try {
-            const response = await axios.get(`http://localhost:4000/api/restaurant/ownercall/${user?.user?.email}`);
+            const response = await axios.get(`http://localhost:4000/api/restaurant/${id}`);
             const restaurant = response.data;
             setRestu(restaurant);
         } catch (error) {
@@ -172,6 +174,22 @@ const ViewEmployees = () => {
     return (
         <div>
             <ToastContainer />
+            <div className=" pt-16">
+                <ul className='flex justify-center gap-6'>
+                    <li>
+                        <Link to={`/dashboard/adminRestaurant/restaurantBuilder/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>Basic Info</Link>
+                    </li>
+                    <li>
+                        <Link to={`/dashboard/adminRestaurant/viewReservations/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>View Reservation</Link>
+                    </li>
+                    <li>
+                        <Link to={`/dashboard/adminRestaurant/addTable/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>Manage Tables</Link>
+                    </li>
+                    <li>
+                        <Link to={`/dashboard/adminRestaurant/viewEmployees/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>Employees</Link>
+                    </li>
+                </ul>
+            </div>
             <div className="text-right">
                 <button
                     className="btn bg-orange-400"
@@ -319,4 +337,4 @@ const ViewEmployees = () => {
     );
 };
 
-export default ViewEmployees;
+export default ViewEmployeesForAdmin;

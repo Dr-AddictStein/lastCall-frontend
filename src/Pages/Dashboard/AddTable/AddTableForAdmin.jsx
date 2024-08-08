@@ -11,7 +11,7 @@ import { Link, useParams } from 'react-router-dom';
 const AddTableForAdmin = () => {
 
     const { user } = useContext(AuthContext);
-    const {id} = useParams();
+    const { id } = useParams();
 
 
     const [date, setDate] = useState(new Date());
@@ -22,7 +22,7 @@ const AddTableForAdmin = () => {
     const [dinnerLastCall, setDinnerLastCall] = useState({ starts: '10:00 pm', accomodations: '' });
     const [restaurantId, setRestaurantId] = useState('');
     const [tables, setTables] = useState([]);
-    const [restu,setRestu]=useState(null);
+    const [restu, setRestu] = useState(null);
 
     useEffect(() => {
         // Fetch restaurant info to get the restaurant ID and tables
@@ -155,21 +155,21 @@ const AddTableForAdmin = () => {
         <div className='flex flex-col justify-center items-center text-black pt-20'>
             <Toaster />
             <div className=" pt-16 mb-10">
-        <ul className='flex justify-center gap-6'>
-          <li>
-            <Link to={`/dashboard/adminRestaurant/restaurantBuilder/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>Basic Info</Link>
-          </li>
-          <li>
-            <Link to={`/dashboard/adminRestaurant/viewReservations/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>View Reservation</Link>
-          </li>
-          <li>
-            <Link to={`/dashboard/adminRestaurant/addTable/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>Manage Tables</Link>
-          </li>
-          <li>
-            <Link to={`/dashboard/adminRestaurant/restaurantBuilder/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>Basic Info</Link>
-          </li>
-        </ul>
-      </div>
+                <ul className='flex justify-center gap-6'>
+                    <li>
+                        <Link to={`/dashboard/adminRestaurant/restaurantBuilder/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>Basic Info</Link>
+                    </li>
+                    <li>
+                        <Link to={`/dashboard/adminRestaurant/viewReservations/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>View Reservation</Link>
+                    </li>
+                    <li>
+                        <Link to={`/dashboard/adminRestaurant/addTable/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>Manage Tables</Link>
+                    </li>
+                    <li>
+                        <Link to={`/dashboard/adminRestaurant/viewEmployees/${restu?._id}`} className='bg-white text-black px-4 py-2 rounded font-semibold'>Employees</Link>
+                    </li>
+                </ul>
+            </div>
             <div className='flex space-x-4'>
                 <Calendar onChange={pickDate} value={date} />
                 <div className='flex flex-col space-y-2'>
