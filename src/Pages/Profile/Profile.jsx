@@ -5,17 +5,9 @@ const Profile = () => {
         <div className="w-11/12 lg:w-3/4 mx-auto">
             <div className="grid grid-cols-4 gap-8">
                 <div>
-                    <ul className="flex flex-col gap-5 font-semibold cursor-pointer">
+                    <ul className="flex flex-col justify-center h-[30vh] gap-5 font-semibold cursor-pointer">
                         {/* Close button */}
                         {/* Sidebar navigation items */}
-                        <li className="w-full border-b pb-2">
-                            <NavLink
-                                to="/profile/mybookings"
-                                className=""
-                            >
-                                My Bookings
-                            </NavLink>
-                        </li>
                         <li className="w-full border-b pb-2">
                             <NavLink
                                 to="/profile/update"
@@ -25,33 +17,21 @@ const Profile = () => {
                         </li>
                         <li className="w-full border-b pb-2">
                             <NavLink
-                                to="/dashboard/admin/restaurants"
+                                to="/profile/pastbookings"
+                                className=""
                             >
-                                Account Balance
+                                Past Reservations
                             </NavLink>
                         </li>
                         <li className="w-full border-b pb-2">
                             <NavLink
-                                to="/dashboard/admin/users"
+                                to="/profile/upcomingbookings"
+                                className=""
                             >
-                                Payment Cards
+                                Upcoming Reservations
                             </NavLink>
                         </li>
-                        <li className="w-full border-b pb-2">
-                            <NavLink
-                                to="/dashboard/admin/users"
-                            >
-                                Subscriptions
-                            </NavLink>
-                        </li>
-                        <li className="w-full border-b pb-2">
-                            <NavLink
-                                to="/dashboard/admin/users"
-                            >
-                                Promo Code
-                            </NavLink>
-                        </li>
-                        {/* Divider and back to home link */}
+                        
                     </ul>
                 </div>
                 <div

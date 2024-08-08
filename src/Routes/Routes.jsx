@@ -16,7 +16,6 @@ import NewCastle from "../Pages/NewCastle/NewCastle";
 import FoodDetails from "../Pages/FoodDetails/FoodDetails";
 import AdminDashboard from "../Pages/AdminDashboard/AdminDashboard";
 import Profile from "../Pages/Profile/Profile";
-import MyBookings from "../Pages/Profile/MyBookings/MyBookings";
 import UpdateProfile from "../Pages/Profile/UpdateProfile/UpdateProfile";
 import RestaurantBuilder from "../Pages/Dashboard/RestaurantBuilder/RestaurantBuilder";
 import ViewReservations from "../Pages/Dashboard/ViewReservations/ViewReservations";
@@ -34,6 +33,8 @@ import AddTableForAdmin from "../Pages/Dashboard/AddTable/AddTableForAdmin";
 import ViewReservationsForAdmin from "../Pages/Dashboard/ViewReservations/ViewReservationsForAdmin";
 import DashboardRA from "../Pages/AdminDashboard/DashboardRA";
 import ViewEmployeesForAdmin from "../Pages/Dashboard/ViewEmployees/ViewEmployeesForAdmin";
+import PastBookings from "../Pages/Profile/MyBookings/PastBookings";
+import UpcomingBookings from "../Pages/Profile/MyBookings/UpcomingBookings";
 
 export const router = createBrowserRouter([
   {
@@ -105,8 +106,12 @@ export const router = createBrowserRouter([
         element: <Profile />,
         children: [
           {
-            path: "/profile/mybookings",
-            element: <MyBookings />,
+            path: "/profile/pastbookings",
+            element: <PastBookings />,
+          },
+          {
+            path: "/profile/upcomingbookings",
+            element: <UpcomingBookings />,
           },
           {
             path: "/profile/update",
