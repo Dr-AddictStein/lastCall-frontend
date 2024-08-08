@@ -28,7 +28,7 @@ const Booking = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [paymentMethod, setPaymentMethod] = useState('newCard');
-    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(true);
     const [numberOfPeople, setNumberOfPeople] = useState(2); // Default to 2 people
 
     const handleCheckboxChange = () => setIsChecked(!isChecked);
@@ -162,15 +162,6 @@ const Booking = () => {
                                 onClick={() => setNumberOfPeople(4)}>
                                 4
                             </div>
-                        </div>
-                        <div className="flex gap-2 pt-3">
-                            <input
-                                type="checkbox"
-                                name="leaveReview"
-                                id="leaveReview"
-                                onClick={handleCheckboxChange}
-                            />
-                            <p>I would like to leave a review after dining</p>
                         </div>
                     </div>
                 </div>

@@ -175,11 +175,11 @@ const FoodDetails = () => {
               <FaStar className="text-yellow-400" />
               <FaStar className="text-yellow-400" />
               <FaStar className="text-yellow-400" />
-              <FaRegStar className="text-slate-400" />
-              <FaRegStar className="text-slate-400" />
+              <FaStar className="text-yellow-400" />
+              <FaStar className="text-yellow-400" />
             </div>
             <p className="text-slate-500 cursor-pointer hover:border-b border-slate-400">
-              24 reviews
+              {foodData?.reviews.length} Reviews
             </p>
           </div>
         </div>
@@ -321,8 +321,8 @@ const FoodDetails = () => {
                       <TabList className="flex justify-center text-center">
                         <Tab
                           className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${activeTab === 0
-                              ? "font-semibold border-black"
-                              : "font-normal"
+                            ? "font-semibold border-black"
+                            : "font-normal"
                             }`}
                           onClick={() => setActiveTab(0)}
                         >
@@ -330,8 +330,8 @@ const FoodDetails = () => {
                         </Tab>
                         <Tab
                           className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${activeTab === 1
-                              ? "font-semibold border-black"
-                              : "font-normal"
+                            ? "font-semibold border-black"
+                            : "font-normal"
                             }`}
                           onClick={() => setActiveTab(1)}
                         >
@@ -339,8 +339,8 @@ const FoodDetails = () => {
                         </Tab>
                         <Tab
                           className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${activeTab === 2
-                              ? "font-semibold border-black"
-                              : "font-normal"
+                            ? "font-semibold border-black"
+                            : "font-normal"
                             }`}
                           onClick={() => setActiveTab(2)}
                         >
@@ -348,8 +348,8 @@ const FoodDetails = () => {
                         </Tab>
                         <Tab
                           className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${activeTab === 3
-                              ? "font-semibold border-black"
-                              : "font-normal"
+                            ? "font-semibold border-black"
+                            : "font-normal"
                             }`}
                           onClick={() => setActiveTab(3)}
                         >
@@ -368,8 +368,8 @@ const FoodDetails = () => {
                                     selectedTable(dt);
                                   }}
                                   className={`relative mb-2 text-white p-3  ${dt.isclosed
-                                      ? "bg-slate-300 cursor-default"
-                                      : "bg-[#265582]"
+                                    ? "bg-slate-300 cursor-default"
+                                    : "bg-[#265582]"
                                     }`}
                                 >
                                   <p className="border-b boder-white text-center">
@@ -407,8 +407,8 @@ const FoodDetails = () => {
                                     selectedTable(dt);
                                   }}
                                   className={`relative mb-2 text-white p-3  ${dt.isclosed
-                                      ? "bg-slate-300 cursor-default"
-                                      : "bg-[#265582]"
+                                    ? "bg-slate-300 cursor-default"
+                                    : "bg-[#265582]"
                                     }`}
                                 >
                                   <p className="border-b boder-white text-center">
@@ -446,8 +446,8 @@ const FoodDetails = () => {
                                     selectedTable(dt);
                                   }}
                                   className={`relative mb-2 text-white p-3  ${dt.isclosed
-                                      ? "bg-slate-300 cursor-default"
-                                      : "bg-[#265582]"
+                                    ? "bg-slate-300 cursor-default"
+                                    : "bg-[#265582]"
                                     }`}
                                 >
                                   <p className="border-b boder-white text-center">
@@ -485,8 +485,8 @@ const FoodDetails = () => {
                                     selectedTable(dt);
                                   }}
                                   className={`relative mb-2 text-white p-3  ${dt.isclosed
-                                      ? "bg-slate-300 cursor-default"
-                                      : "bg-[#265582]"
+                                    ? "bg-slate-300 cursor-default"
+                                    : "bg-[#265582]"
                                     }`}
                                 >
                                   <p className="border-b boder-white text-center">
@@ -640,8 +640,8 @@ const FoodDetails = () => {
                   <TabList className="flex justify-center text-center">
                     <Tab
                       className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${activeTab === 0
-                          ? "font-semibold border-black"
-                          : "font-normal"
+                        ? "font-semibold border-black"
+                        : "font-normal"
                         }`}
                       onClick={() => setActiveTab(0)}
                     >
@@ -649,8 +649,8 @@ const FoodDetails = () => {
                     </Tab>
                     <Tab
                       className={`font-semibold text-xl cursor-pointer border-b-2 w-full pb-2 ${activeTab === 1
-                          ? "font-semibold border-black"
-                          : "font-normal"
+                        ? "font-semibold border-black"
+                        : "font-normal"
                         }`}
                       onClick={() => setActiveTab(1)}
                     >

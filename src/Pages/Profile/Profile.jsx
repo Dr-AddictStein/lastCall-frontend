@@ -2,8 +2,8 @@ import { NavLink, Outlet } from "react-router-dom";
 
 const Profile = () => {
     return (
-        <div className="w-11/12 lg:w-3/4 mx-auto">
-            <div className="grid grid-cols-4 gap-8">
+        <div className="w-11/12 lg:[90%] mx-auto">
+            <div className="grid grid-cols-4 gap-5">
                 <div>
                     <ul className="flex flex-col justify-center h-[30vh] gap-5 font-semibold cursor-pointer">
                         {/* Close button */}

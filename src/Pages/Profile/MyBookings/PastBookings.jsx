@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../../context/AuthContext';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 const PastBookings = () => {
   const { user } = useContext(AuthContext);
@@ -34,7 +35,7 @@ const PastBookings = () => {
   }, [user]);
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container  py-10">
       <h2 className="text-center text-3xl font-semibold mb-6">Past Reservations</h2>
       {filteredReservations.length > 0 ? (
         <div className="overflow-x-auto">
@@ -61,7 +62,9 @@ const PastBookings = () => {
                   <td className="py-2 px-4 border-b">{reservation.tableType}</td>
                   <td className="py-2 px-4 border-b">{reservation.reservedForPhone}</td>
                   <td className="py-2 px-4 border-b">{reservation.reservedForMail}</td>
-                  <td className="py-2 px-4 border-b">{reservation.leaveReview ? 'Yes' : 'No'}</td>
+                  <td className="py-2 px-4 border-b">
+                    <Link to={`/reviewPosting/${reservation?.restaurant?._id}`} className='px-2 py-2 bg-red-400 text-white font-semibold rounded'>Post Review</Link>
+                  </td>
                 </tr>
               ))}
             </tbody>
