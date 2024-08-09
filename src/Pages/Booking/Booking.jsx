@@ -204,8 +204,8 @@ const Booking = () => {
                 </div>
             </form>
             <div className="text-slate-400 pb-10">
-                <h5 className="pt-20 text-2xl font-semibold pb-4">Conditions</h5>
-                <ol className="list-decimal list-inside text-lg text-justify">
+                <h5 className="pt-20 text-xl font-semibold pb-4">Conditions</h5>
+                <ol className="list-decimal list-inside text-base text-justify">
                 <li>
                         Your reservation confirmation will be delivered to you by email. Present the reservation confirmation (on your phone or printed out) at the specified restaurant on the date and time of your booking.
                     </li>
