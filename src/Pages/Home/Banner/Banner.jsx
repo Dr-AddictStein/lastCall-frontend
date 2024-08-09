@@ -11,7 +11,7 @@ function Banner({ cities, regions }) {
   const [selectedDate, setSelectedDate] = useState('All Dates');
   const [selectedRegion, setSelectedRegion] = useState('Select a Region');
   const [selectedCity, setSelectedCity] = useState('Select a City');
-  const [selectedMeal, setSelectedMeal] = useState('Time');
+  const [selectedMeal, setSelectedMeal] = useState('Meal');
 
   const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
   const [isRegionDropdownOpen, setIsRegionDropdownOpen] = useState(false);

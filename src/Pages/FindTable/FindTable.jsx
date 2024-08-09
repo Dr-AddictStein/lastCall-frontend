@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import bannerImg from "../../assets/images/Banner/banner.webp";
 import { SlCalender } from "react-icons/sl";
 import { CiLocationOn, CiStar } from "react-icons/ci";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaStar } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 function FindTable() {
@@ -31,8 +31,13 @@ function FindTable() {
         fetch(url)
             .then((res) => res.json())
             .then((data) => {
-                setRestaurants(data);
-                console.log("Restaurants", data);
+                const filteredData = data.filter(restaurant => {
+                    const matchesCity = selectedCity !== 'Select a City' ? restaurant.city === selectedCity : true;
+                    const matchesRegion = true;
+                    return matchesCity && matchesRegion;
+                });
+                setRestaurants(filteredData);
+                console.log("Filtered Restaurants", filteredData);
             })
             .catch((error) => console.log(error));
     };
@@ -51,13 +56,33 @@ function FindTable() {
             const day = daysOfWeek[nextDate.getDay()];
             const date = nextDate.getDate();
             const month = monthNames[nextDate.getMonth()];
+            const year = nextDate.getFullYear();
+
+            const formattedDate = `${day} ${date} ${month} ${year}`;
+
             datesArray.push({
                 day,
                 date,
                 month,
+                year,
+                formattedDate,
             });
         }
         setDates(datesArray);
+    };
+
+    const getMealTime = (meal) => {
+        switch (meal) {
+            case 'Meal':
+            case 'Breakfast':
+                return '8:00 AM';
+            case 'Lunch':
+                return '12:00 PM';
+            case 'Dinner':
+                return '9:00 PM';
+            default:
+                return 'Time Unavailable';
+        }
     };
 
     useEffect(() => {
@@ -165,7 +190,7 @@ function FindTable() {
                                     <span className="flex items-center gap-2 border-r-2 border-black pr-5">
                                         <CiLocationOn />
                                         <p>
-                                            {restaurant?.city}, {restaurant?.region}
+                                            {restaurant?.city}
                                         </p>
                                     </span>
                                     <span className="pl-5">
@@ -175,32 +200,38 @@ function FindTable() {
                                 </p>
                                 <p className="flex gap-2 items-center text-2xl">
                                     <span className="flex">
-                                        <CiStar className="text-slate-500" />
-                                        <CiStar className="text-slate-500" />
-                                        <CiStar className="text-slate-500" />
-                                        <CiStar className="text-slate-500" />
-                                        <CiStar className="text-slate-500" />
+                                        <FaStar className="text-yellow-400" />
+                                        <FaStar className="text-yellow-400" />
+                                        <FaStar className="text-yellow-400" />
+                                        <FaStar className="text-yellow-400" />
+                                        <FaStar className="text-yellow-400" />
                                     </span>
-                                    0 reviews
+                                    {restaurant.reviews.length} reviews
                                 </p>
                                 <div id="dates" className="flex text-center flex-wrap">
-                                    {dates.map((date, index) => (
-                                        <div
-                                            key={index}
-                                            className={`px-2 lg:px-3 py-2 border-r ${index >= 3 ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'}`}
-                                        >
-                                            <p className="my-2">{date.day}</p><hr />
-                                            <p className="mt-3">{date.date} {date.month}</p>
-                                            {index >= 3 && (
-                                                <>
-                                                    <p className="mb-3">1:30PM</p>
-                                                    <span className="absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
-                                                        50% off
-                                                    </span>
-                                                </>
-                                            )}
-                                        </div>
-                                    ))}
+                                    {dates.map((date, index) => {
+                                        const hasTableForDate = restaurant.tables.some(t => t.date === date.formattedDate);
+                                        const mealTime = getMealTime(selectedMeal); // Get the correct meal time
+
+                                        return (
+                                            <div
+                                                key={index}
+                                                className={`px-2 lg:px-3 py-2 border-r ${hasTableForDate ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'
+                                                    }`}
+                                            >
+                                                <p className="my-2">{date.day}</p><hr />
+                                                <p className="mt-3">{date.date} {date.month}</p>
+                                                {hasTableForDate && (
+                                                    <>
+                                                        <p className="mb-3">{mealTime}</p>
+                                                        <span className="absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
+                                                            50% off
+                                                        </span>
+                                                    </>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         </div>

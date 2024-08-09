@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import bannerImg from "../../assets/images/Banner/banner.webp";
 import { SlCalender } from "react-icons/sl";
 import { CiLocationOn, CiStar } from "react-icons/ci";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaStar } from "react-icons/fa";
 import { LuUtensilsCrossed } from "react-icons/lu";
 import { useEffect, useState } from "react";
 
@@ -11,7 +11,7 @@ function NewCastle() {
   const [restaurants, setRestaurants] = useState([]);
   const [dates, setDates] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedMeal, setSelectedMeal] = useState("Time");
+  const [selectedMeal, setSelectedMeal] = useState("Meal");
   const [selectedDate, setSelectedDate] = useState("All Dates");
   const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
   const [isMealDropdownOpen, setIsMealDropdownOpen] = useState(false);
@@ -95,6 +95,19 @@ function NewCastle() {
 
   const handleCategoryChange = (category) => {
     setSelectedCategory((prevCategory) => (prevCategory === category ? "" : category));
+  };
+
+  const getMealTime = () => {
+    switch (selectedMeal) {
+      case "Breakfast":
+        return "8:00 AM";
+      case "Lunch":
+        return "12:00 PM";
+      case "Dinner":
+        return "9:00 PM";
+      default:
+        return "8:00 AM"; // Default time for "Meal" or undefined meal
+    }
   };
 
   return (
@@ -251,7 +264,7 @@ function NewCastle() {
                   <span className="flex items-center gap-2 border-r-2 border-black pr-5">
                     <CiLocationOn />
                     <p>
-                      {restaurant?.city}, {restaurant?.region}
+                      {restaurant?.city}
                     </p>
                   </span>
                   <span className="pl-5">
@@ -261,13 +274,13 @@ function NewCastle() {
                 </p>
                 <p className="flex gap-2 items-center text-2xl">
                   <span className="flex">
-                    <CiStar className="text-slate-500" />
-                    <CiStar className="text-slate-500" />
-                    <CiStar className="text-slate-500" />
-                    <CiStar className="text-slate-500" />
-                    <CiStar className="text-slate-500" />
+                    <FaStar className="text-yellow-400" />
+                    <FaStar className="text-yellow-400" />
+                    <FaStar className="text-yellow-400" />
+                    <FaStar className="text-yellow-400" />
+                    <FaStar className="text-yellow-400" />
                   </span>
-                  0 reviews
+                  {restaurant.reviews.length} reviews
                 </p>
                 <div id="dates" className="flex text-center flex-wrap">
                   {dates.map((date, index) => {
@@ -285,7 +298,7 @@ function NewCastle() {
                         <p className="mt-3">{date.date} {date.month.substring(0, 3)}</p>
                         {databaseDate && (
                           <>
-                            <p className="mb-3">1:30PM</p>
+                            <p className="mb-3">{getMealTime()}</p>
                             <span className="absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
                               50% off
                             </span>

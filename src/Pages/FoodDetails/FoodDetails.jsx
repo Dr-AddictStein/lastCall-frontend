@@ -25,26 +25,64 @@ const FoodDetails = () => {
   const [foodData, setFoodData] = useState(null);
   const [dates, setDates] = useState([]);
   const foodDetails = id;
-  console.log(foodDetails);
-  // const url = `http://localhost:4000/api/restaurant/${foodDetails}`;
 
   const parseDateString = (dateString) => {
     const [dayOfWeek, day, month, year] = dateString.split(" ");
-    const monthIndex = new Date(Date.parse(month + " 1, 2024")).getMonth();
-    return new Date(year, monthIndex, day);
+    const monthIndex = new Date(Date.parse(`${month} 1, ${year}`)).getMonth();
+    const date = new Date(year, monthIndex, parseInt(day));
+
+    // Convert the date back to the desired format
+    const formattedDate = date.toDateString(); // This returns the date in the format "Tue Jul 20 2027"
+    return formattedDate;
+  };
+
+  const getUpcoming7Days = () => {
+    const upcomingDays = [];
+    const today = new Date();
+
+    for (let i = 0; i < 7; i++) {
+      const nextDay = new Date(today);
+      nextDay.setDate(today.getDate() + i);
+      upcomingDays.push(nextDay);
+    }
+
+    return upcomingDays;
   };
 
   const filterDatesFromToday = (dateArray) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const filtered = dateArray
-      .filter((dateString) => {
-        const dateDex = parseDateString(dateString.date);
-        dateDex.setHours(0, 0, 0, 0); // Set the time to 00:00:00 for comparison
-        return dateDex >= today;
-      })
-      .slice(0, 7);
+    const upcoming7Days = getUpcoming7Days();
+
+    const filtered = upcoming7Days.map((day) => {
+      const formattedDate = day.toDateString(); // Get date as "Tue Jul 20 2027"
+
+      const foundDate = dateArray.find((dateObj) => {
+        const dateDex = parseDateString(dateObj.date);
+        return dateDex === formattedDate; // Compare the formatted date strings
+      });
+
+      if (foundDate) {
+        return {
+          date: formattedDate,
+          isclosed: foundDate.isclosed || false, // Use the value from the database or default to false
+          breakfast: foundDate.breakfast || { starts: "N/A", accomodations: "N/A" },
+          lunch: foundDate.lunch || { starts: "N/A", accomodations: "N/A" },
+          dinnerfirstcall: foundDate.dinnerfirstcall || { starts: "N/A", accomodations: "N/A" },
+          dinnerlastcall: foundDate.dinnerlastcall || { starts: "N/A", accomodations: "N/A" },
+        };
+      } else {
+        return {
+          date: formattedDate,
+          isclosed: true,
+          breakfast: { starts: "N/A", accomodations: "N/A" },
+          lunch: { starts: "N/A", accomodations: "N/A" },
+          dinnerfirstcall: { starts: "N/A", accomodations: "N/A" },
+          dinnerlastcall: { starts: "N/A", accomodations: "N/A" },
+        };
+      }
+    });
 
     return filtered;
   };
@@ -74,58 +112,6 @@ const FoodDetails = () => {
     console.log("OPOPOPOPOPOPOP", dates);
   }, [foodData]);
 
-  const slides = [
-    {
-      img: "https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg",
-      title: "MoneyPenny",
-      subtitle: "Australian, Fussion, Pub Food",
-      days: ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"],
-      dates: ["25", "26", "27", "28", "28", "30", "1"],
-    },
-    {
-      img: "https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg",
-      title: "Another Restaurant",
-      subtitle: "Italian, Fine Dining",
-      days: ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"],
-      dates: ["25", "26", "27", "28", "28", "30", "1"],
-    },
-    {
-      img: "https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg",
-      title: "Another Restaurant",
-      subtitle: "Italian, Fine Dining",
-      days: ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"],
-      dates: ["25", "26", "27", "28", "28", "30", "1"],
-    },
-    {
-      img: "https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg",
-      title: "Another Restaurant",
-      subtitle: "Italian, Fine Dining",
-      days: ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"],
-      dates: ["25", "26", "27", "28", "28", "30", "1"],
-    },
-    {
-      img: "https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg",
-      title: "Another Restaurant",
-      subtitle: "Italian, Fine Dining",
-      days: ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"],
-      dates: ["25", "26", "27", "28", "28", "30", "1"],
-    },
-    {
-      img: "https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg",
-      title: "Another Restaurant",
-      subtitle: "Italian, Fine Dining",
-      days: ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"],
-      dates: ["25", "26", "27", "28", "28", "30", "1"],
-    },
-    {
-      img: "https://zahramediagroup.com/wp-content/uploads/2021/09/Blog-september.jpg",
-      title: "Third Place",
-      subtitle: "Fast Food, Burgers",
-      days: ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"],
-      dates: ["25", "26", "27", "28", "28", "30", "1"],
-    },
-  ];
-
   const handlePrev = () => {
     setCurrentSlide((prevSlide) =>
       prevSlide === 0 ? slides.length - 1 : prevSlide - 1
@@ -139,12 +125,10 @@ const FoodDetails = () => {
   };
 
   const [table, selectedTable] = useState(null);
-
   const [bookingTime, setBookingtime] = useState(null);
   const [bookingTimeDet, setBookingtimeDet] = useState(null);
 
   const sentToBooking = () => {
-
     if (table === null) return;
 
     navigate("/booking", {
@@ -155,8 +139,7 @@ const FoodDetails = () => {
         bookingTimeDet,
       },
     });
-
-  }
+  };
 
   useEffect(() => {
     sentToBooking();
@@ -243,7 +226,6 @@ const FoodDetails = () => {
               <dialog id="my_modal_3" className="modal w-full">
                 <div className="modal-box max-w-[100vw] h-[100vh]">
                   <form method="dialog">
-                    {/* if there is a button in form, it will close the modal */}
                     <button className="btn btn-sm btn-circle z-10 bg-white border border-red-600 text-red-600 hover:border-red-600 hover:bg-white btn-ghost absolute right-2 top-2">
                       ✕
                     </button>
@@ -360,16 +342,18 @@ const FoodDetails = () => {
                         <TabPanel>
                           <div className="grid grid-cols-4 gap-2 pt-2">
                             {dates.map((dt) => (
-                              <Link key={dt}>
+                              <Link key={dt.date}>
                                 <div
                                   onClick={() => {
-                                    setBookingtime("Breakfast");
-                                    setBookingtimeDet(dt.breakfast.starts)
-                                    selectedTable(dt);
+                                    if (!dt.isclosed) {
+                                      setBookingtime("Breakfast");
+                                      setBookingtimeDet(dt.breakfast?.starts || "N/A");
+                                      selectedTable(dt);
+                                    }
                                   }}
                                   className={`relative mb-2 text-white p-3  ${dt.isclosed
                                     ? "bg-slate-300 cursor-default"
-                                    : "bg-[#265582]"
+                                    : "bg-[#265582] cursor-pointer"
                                     }`}
                                 >
                                   <p className="border-b boder-white text-center">
@@ -379,11 +363,13 @@ const FoodDetails = () => {
                                     {dt.date.substring(4, 10)}
                                   </p>
                                   <p className="text-center">
-                                    {dt.breakfast.starts}
+                                    {dt.breakfast?.starts || "N/A"}
                                   </p>
-                                  <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                                    50% off
-                                  </p>
+                                  {!dt.isclosed && (
+                                    <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                      50% off
+                                    </p>
+                                  )}
                                 </div>
                               </Link>
                             ))}
@@ -399,16 +385,18 @@ const FoodDetails = () => {
                         <TabPanel>
                           <div className="grid grid-cols-4 gap-2 pt-2">
                             {dates.map((dt) => (
-                              <Link key={dt}>
+                              <Link key={dt.date}>
                                 <div
                                   onClick={() => {
-                                    setBookingtime("Lunch");
-                                    setBookingtimeDet(dt.lunch.starts)
-                                    selectedTable(dt);
+                                    if (!dt.isclosed) {
+                                      setBookingtime("Lunch");
+                                      setBookingtimeDet(dt.lunch?.starts || "N/A");
+                                      selectedTable(dt);
+                                    }
                                   }}
                                   className={`relative mb-2 text-white p-3  ${dt.isclosed
                                     ? "bg-slate-300 cursor-default"
-                                    : "bg-[#265582]"
+                                    : "bg-[#265582] cursor-pointer"
                                     }`}
                                 >
                                   <p className="border-b boder-white text-center">
@@ -418,11 +406,13 @@ const FoodDetails = () => {
                                     {dt.date.substring(4, 10)}
                                   </p>
                                   <p className="text-center">
-                                    {dt.lunch.starts}
+                                    {dt.lunch?.starts || "N/A"}
                                   </p>
-                                  <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                                    50% off
-                                  </p>
+                                  {!dt.isclosed && (
+                                    <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                      50% off
+                                    </p>
+                                  )}
                                 </div>
                               </Link>
                             ))}
@@ -438,16 +428,18 @@ const FoodDetails = () => {
                         <TabPanel>
                           <div className="grid grid-cols-4 gap-2 pt-2">
                             {dates.map((dt) => (
-                              <Link key={dt}>
+                              <Link key={dt.date}>
                                 <div
                                   onClick={() => {
-                                    setBookingtime("Dinner First Call");
-                                    setBookingtimeDet(dt.dinnerfirstcall.starts)
-                                    selectedTable(dt);
+                                    if (!dt.isclosed) {
+                                      setBookingtime("Dinner First Call");
+                                      setBookingtimeDet(dt.dinnerfirstcall?.starts || "N/A");
+                                      selectedTable(dt);
+                                    }
                                   }}
                                   className={`relative mb-2 text-white p-3  ${dt.isclosed
                                     ? "bg-slate-300 cursor-default"
-                                    : "bg-[#265582]"
+                                    : "bg-[#265582] cursor-pointer"
                                     }`}
                                 >
                                   <p className="border-b boder-white text-center">
@@ -457,11 +449,13 @@ const FoodDetails = () => {
                                     {dt.date.substring(4, 10)}
                                   </p>
                                   <p className="text-center">
-                                    {dt.dinnerfirstcall.starts}
+                                    {dt.dinnerfirstcall?.starts || "N/A"}
                                   </p>
-                                  <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                                    50% off
-                                  </p>
+                                  {!dt.isclosed && (
+                                    <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                      50% off
+                                    </p>
+                                  )}
                                 </div>
                               </Link>
                             ))}
@@ -477,16 +471,18 @@ const FoodDetails = () => {
                         <TabPanel>
                           <div className="grid grid-cols-4 gap-2 pt-2">
                             {dates.map((dt) => (
-                              <Link key={dt}>
+                              <Link key={dt.date}>
                                 <div
                                   onClick={() => {
-                                    setBookingtime("Dinner Last Call");
-                                    setBookingtimeDet(dt.dinnerlastcall.starts)
-                                    selectedTable(dt);
+                                    if (!dt.isclosed) {
+                                      setBookingtime("Dinner Last Call");
+                                      setBookingtimeDet(dt.dinnerlastcall?.starts || "N/A");
+                                      selectedTable(dt);
+                                    }
                                   }}
                                   className={`relative mb-2 text-white p-3  ${dt.isclosed
                                     ? "bg-slate-300 cursor-default"
-                                    : "bg-[#265582]"
+                                    : "bg-[#265582] cursor-pointer"
                                     }`}
                                 >
                                   <p className="border-b boder-white text-center">
@@ -496,11 +492,13 @@ const FoodDetails = () => {
                                     {dt.date.substring(4, 10)}
                                   </p>
                                   <p className="text-center">
-                                    {dt.dinnerlastcall.starts}
+                                    {dt.dinnerlastcall?.starts || "N/A"}
                                   </p>
-                                  <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                                    50% off
-                                  </p>
+                                  {!dt.isclosed && (
+                                    <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                      50% off
+                                    </p>
+                                  )}
                                 </div>
                               </Link>
                             ))}
@@ -662,98 +660,38 @@ const FoodDetails = () => {
                       <p className="text-xl font-semibold pt-5">Lunch</p>
                       <p>2-4 people</p>
                       <div className="grid grid-cols-4 gap-2 pt-2">
-                        <div
-                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
-                            }`}
-                        >
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">25 Jun</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
-                        <div
-                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
-                            }`}
-                        >
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">26 Jun</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
-                        <div
-                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
-                            }`}
-                        >
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">27 Jun</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
-                        <div
-                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
-                            }`}
-                        >
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">28 Jun</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
-                        <div
-                          selected
-                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
-                            }`}
-                        >
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">29 Jun</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
-                        <div
-                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
-                            }`}
-                        >
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">30 Jun</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
-                        <div
-                          className={`relative mb-2 text-white p-3 ${selected ? "bg-slate-300" : "bg-[#265582]"
-                            }`}
-                        >
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">1 Jul</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
+                        {dates.map((dt) => (
+                          <Link key={dt.date}>
+                            <div
+                              onClick={() => {
+                                if (!dt.isclosed) {
+                                  setBookingtime("Lunch");
+                                  setBookingtimeDet(dt.lunch?.starts || "N/A");
+                                  selectedTable(dt);
+                                }
+                              }}
+                              className={`relative mb-2 text-white p-3  ${dt.isclosed
+                                ? "bg-slate-300 cursor-default"
+                                : "bg-[#265582] cursor-pointer"
+                                }`}
+                            >
+                              <p className="border-b boder-white text-center">
+                                {dt.date.substring(0, 3)}
+                              </p>
+                              <p className="text-center">
+                                {dt.date.substring(4, 10)}
+                              </p>
+                              <p className="text-center">
+                                {dt.lunch?.starts || "N/A"}
+                              </p>
+                              {!dt.isclosed && (
+                                <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                  50% off
+                                </p>
+                              )}
+                            </div>
+                          </Link>
+                        ))}
                       </div>
                       <div
                         className="pt-5 flex cursor-pointer text-[#265582] font-semibold items-center text-xl justify-between"
@@ -767,76 +705,38 @@ const FoodDetails = () => {
                       <p className="text-xl font-semibold pt-5">Last Call</p>
                       <p>2-4 people</p>
                       <div className="grid grid-cols-4 gap-2 pt-2">
-                        <div className="bg-[#265582] relative mb-2 text-white p-3">
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">25 Jun</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
-                        <div className="bg-[#265582] relative mb-2 text-white p-3">
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">26 Jun</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
-                        <div className="bg-[#265582] relative mb-2 text-white p-3">
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">27 Jun</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
-                        <div className="bg-[#265582] relative mb-2 text-white p-3">
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">28 Jun</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
-                        <div className="bg-[#265582] relative mb-2 text-white p-3">
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">29 Jun</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
-                        <div className="bg-[#265582] relative mb-2 text-white p-3">
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">30 Jun</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
-                        <div className="bg-[#265582] relative mb-2 text-white p-3">
-                          <p className="border-b boder-white text-center">
-                            Tue
-                          </p>
-                          <p className="text-center">1 Jul</p>
-                          <p className="text-center">5:30 pm</p>
-                          <p className="absolute text-sm px-1 bg-[#c7a77b]">
-                            50% off
-                          </p>
-                        </div>
+                        {dates.map((dt) => (
+                          <Link key={dt.date}>
+                            <div
+                              onClick={() => {
+                                if (!dt.isclosed) {
+                                  setBookingtime("Dinner");
+                                  setBookingtimeDet(dt.dinnerlastcall?.starts || "N/A");
+                                  selectedTable(dt);
+                                }
+                              }}
+                              className={`relative mb-2 text-white p-3  ${dt.isclosed
+                                ? "bg-slate-300 cursor-default"
+                                : "bg-[#265582] cursor-pointer"
+                                }`}
+                            >
+                              <p className="border-b boder-white text-center">
+                                {dt.date.substring(0, 3)}
+                              </p>
+                              <p className="text-center">
+                                {dt.date.substring(4, 10)}
+                              </p>
+                              <p className="text-center">
+                                {dt.dinnerlastcall?.starts || "N/A"}
+                              </p>
+                              {!dt.isclosed && (
+                                <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                  50% off
+                                </p>
+                              )}
+                            </div>
+                          </Link>
+                        ))}
                       </div>
                       <div className="pt-5 flex cursor-pointer text-[#265582] font-semibold items-center text-xl justify-between">
                         <p>Special Conditions</p>
@@ -860,8 +760,8 @@ const FoodDetails = () => {
                   Table reservations:
                 </p>
                 <ul className="py-5 list-disc ml-5">
-                  {foodData?.specialconditions.map((spcond) => {
-                    <li>{spcond}</li>;
+                  {foodData?.specialconditions?.map((spcond) => {
+                    return <li key={spcond}>{spcond}</li>;
                   })}
                 </ul>
               </div>
@@ -881,91 +781,36 @@ const FoodDetails = () => {
                 </p>
               </div>
             </div>
-            {
-              foodData?.reviews?.map((rev, index) => (
-                <div key={rev._id} className="py-5 border-b mb-">
-                  <Link className="avatar absolute">
-                    <div className="w-14 rounded-full">
-                      <img src={`${rev?.clientImage}`} />
-                    </div>
-                  </Link>
-                  <div>
-                    <div className="pl-[70px]">
-                      <div className="flex gap-3 items-center">
-                        <p className="text-xl font-semibold">{rev?.clientName}</p>
-                        <div className="flex gap-1">
-                          {[...Array(5)].map((star, i) => (
-                            <FaStar
-                              key={i}
-                              color={i < rev.rating ? '#ffc107' : '#e4e5e9'}
-                            />
-                          ))}
-                        </div>
+            {foodData?.reviews?.map((rev, index) => (
+              <div key={rev._id} className="py-5 border-b mb-">
+                <Link className="avatar absolute">
+                  <div className="w-14 rounded-full">
+                    <img src={`${rev?.clientImage}`} />
+                  </div>
+                </Link>
+                <div>
+                  <div className="pl-[70px]">
+                    <div className="flex gap-3 items-center">
+                      <p className="text-xl font-semibold">{rev?.clientName}</p>
+                      <div className="flex gap-1">
+                        {[...Array(5)].map((star, i) => (
+                          <FaStar
+                            key={i}
+                            color={i < rev.rating ? '#ffc107' : '#e4e5e9'}
+                          />
+                        ))}
                       </div>
-                      <p className="text-slate-500">
-                        Dined at {foodData?.name} on {rev?.date}
-                      </p>
                     </div>
-                    <p className="pt-5 text-justify">
-                      {rev?.desc}
+                    <p className="text-slate-500">
+                      Dined at {foodData?.name} on {rev?.date}
                     </p>
                   </div>
-                </div>
-
-              ))
-            }
-
-          </div>
-          <div>
-            <div className={`flex justify-between items-center pt-20`}>
-              <h1 className="text-[#265582] text-5xl font-semibold pb-5">
-                Nearby Newcastle restaurants
-              </h1>
-              <div className="flex gap-2 text-5xl text-[#265582]">
-                <FaAngleLeft onClick={handlePrev} className="cursor-pointer" />
-                <FaAngleRight onClick={handleNext} className="cursor-pointer" />
-              </div>
-            </div>
-            <div id="carousel-component" className="">
-              <div className="overflow-hidden w-full">
-                <div
-                  className="flex transition-transform duration-500"
-                  style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-                >
-                  {slides.map((slide, index) => (
-                    <div key={index} className="w-full px-2">
-                      <img
-                        className="w-[300px] h-[300px] object-cover"
-                        src={slide.img}
-                        alt={slide.title}
-                      />
-                      <div className="px-4 py-2">
-                        <h2 className="text-lg font-semibold text-[#265582]">
-                          {slide.title}
-                        </h2>
-                        <p className="text-slate-500">{slide.subtitle}</p>
-                        <div className="overflow-x-auto">
-                          <table className="table table-xs mt-5">
-                            <tbody>
-                              <tr>
-                                {slide.days.map((day, i) => (
-                                  <td key={i}>{day}</td>
-                                ))}
-                              </tr>
-                              <tr>
-                                {slide.dates.map((date, i) => (
-                                  <td key={i}>{date}</td>
-                                ))}
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                  <p className="pt-5 text-justify">
+                    {rev?.desc}
+                  </p>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
