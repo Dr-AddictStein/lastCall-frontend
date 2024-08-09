@@ -3,8 +3,6 @@ import bannerImg from "../../assets/images/Banner/banner.webp";
 import { SlCalender } from "react-icons/sl";
 import { CiLocationOn, CiStar } from "react-icons/ci";
 import { FaArrowRight } from "react-icons/fa";
-import { IoLocation } from "react-icons/io5";
-import { TfiMenuAlt } from "react-icons/tfi";
 import { LuUtensilsCrossed } from "react-icons/lu";
 import { useEffect, useState } from "react";
 
@@ -13,7 +11,21 @@ function NewCastle() {
   const [restaurants, setRestaurants] = useState([]);
   const [dates, setDates] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const cityName = useParams();
+  const [selectedMeal, setSelectedMeal] = useState("Time");
+  const [selectedDate, setSelectedDate] = useState("All Dates");
+  const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
+  const [isMealDropdownOpen, setIsMealDropdownOpen] = useState(false);
+  const { city } = useParams();
+
+  const handleMealClick = (meal) => {
+    setSelectedMeal(meal);
+    setIsMealDropdownOpen(false);
+  };
+
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+    setIsDateDropdownOpen(false);
+  };
 
   const categories = [
     "American", "Asian", "Barbeque", "Brunch", "Burgers", "Cafe", "Chinese", "Desserts",
@@ -28,7 +40,7 @@ function NewCastle() {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        const filteredData = data?.filter(restaurant => restaurant?.city === cityName?.city);
+        const filteredData = data?.filter(restaurant => restaurant?.city === city);
         setRestaurants(filteredData);
       })
       .catch((error) => console.log(error));
@@ -48,10 +60,13 @@ function NewCastle() {
       const day = daysOfWeek[nextDate.getDay()];
       const date = nextDate.getDate();
       const month = monthNames[nextDate.getMonth()];
+      const year = nextDate.getFullYear();
       datesArray.push({
         day,
         date,
         month,
+        year,
+        fullDate: nextDate.toISOString().split('T')[0], // Store full date in yyyy-mm-dd format
       });
     }
     setDates(datesArray);
@@ -62,13 +77,25 @@ function NewCastle() {
     generateDates();
   }, []);
 
-  const filteredRestaurants = selectedCategory
-    ? restaurants.filter(restaurant => restaurant.category.includes(selectedCategory))
-    : restaurants;
+  const filteredRestaurants = restaurants
+    .filter(restaurant => {
+      // Filter by category
+      const categoryMatch = selectedCategory
+        ? restaurant.category.includes(selectedCategory)
+        : true;
 
-    const handleCategoryChange = (category) => {
-      setSelectedCategory((prevCategory) => (prevCategory === category ? "" : category));
-    };
+      // Filter by selected date
+      const dateMatch = selectedDate === "All Dates" || restaurant.tables.some(table => {
+        const tableDate = new Date(table.date).toISOString().split('T')[0];
+        return tableDate === selectedDate;
+      });
+
+      return categoryMatch && dateMatch;
+    });
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory((prevCategory) => (prevCategory === category ? "" : category));
+  };
 
   return (
     <div className="mb-20">
@@ -91,7 +118,6 @@ function NewCastle() {
           </div>
         </div>
       </div>
-      {/* Vejal */}
       <div className="lg:relative hidden lg:block text-white max-w-screen-2xl mx-auto lg:px-32">
         <div className="relative lg:absolute flex flex-col lg:flex-row items-center lg:justify-between -top-96 text-5xl text-red-600 custom-gap">
           <div className="lg:w-1/2 text-white">
@@ -136,93 +162,69 @@ function NewCastle() {
       </div>
 
       {/* DropDown section */}
-      <div className="lg:relative flex justify-center">
-        <div className="lg:absolute grid grid-cols-1 items-center justify-center rounded lg:grid-cols-4 text-black lg:-bottom-8 w-full max-w-screen-lg mx-auto gap-4">
-          <div className="dropdown bg-white shadow-lg py-4 rounded w-full lg:w-60 md:px-10">
+      <form className="lg:relative flex justify-center">
+        <div className="lg:absolute grid grid-cols-1 items-center justify-center rounded lg:grid-cols-2 text-black lg:-bottom-8 w-1/4 max-w-screen-lg mx-auto gap-4">
+          <div className="dropdown bg-white shadow-lg py-4 rounded w-full lg:w-60 md:px-2">
             <div
               tabIndex={0}
               role="button"
-              className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
+              className="m-1 relative flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
+              onClick={() => setIsDateDropdownOpen(!isDateDropdownOpen)}
             >
-              <SlCalender className="text-blue-900" /> All Dates
+              <SlCalender className="text-blue-900 absolute left-0" /> {selectedDate === "All Dates" ? selectedDate : new Date(selectedDate).toDateString()}
             </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left"
-            >
-              {dates.map((date, index) => (
-                <li key={index} className="hover:bg-gray-200 p-3">
-                  <a>{`${date.day} ${date.date} ${date.month}`}</a>
-                </li>
-              ))}
-            </ul>
+            {isDateDropdownOpen && (
+              <ul
+                tabIndex={0}
+                className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left"
+              >
+                {dates.map((date, index) => (
+                  <li key={index} className="hover:bg-blue-900 hover:text-white cursor-pointer p-3" onClick={() => handleDateClick(date.fullDate)}>
+                    <a>{`${date.day} ${date.date} ${date.month}`}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
-          <div className="dropdown bg-white shadow-lg py-4 rounded w-full lg:w-60 md:px-10">
+          <div className="dropdown bg-white shadow-lg py-4 rounded w-full lg:w-60 md:px-2">
             <div
               tabIndex={0}
               role="button"
               className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
-            >
-              <IoLocation className="text-blue-900" /> All of NewCastles
-            </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left"
-            >
-              <li className="hover:bg-gray-200 bg-blue-950 text-white p-3">
-                <Link>Coocks Hill</Link>
-              </li>
-              <li className="hover:bg-gray-200 p-3">
-                <Link>New Castle CBD</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="dropdown bg-white shadow-lg py-4 rounded w-full lg:w-60 md:px-10">
-            <div
-              tabIndex={0}
-              role="button"
-              className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
-            >
-              <TfiMenuAlt className="text-blue-900" /> Dinner
-            </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left"
-            >
-              <li className="hover:bg-gray-200 bg-blue-950 text-white p-3">
-                <Link>Top Rated</Link>
-              </li>
-              <li className="hover:bg-gray-200 p-3">
-                <Link>A to Z</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="dropdown bg-white shadow-lg py-4 rounded w-full lg:w-60 md:px-10">
-            <div
-              tabIndex={0}
-              role="button"
-              className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
+              onClick={() => setIsMealDropdownOpen(!isMealDropdownOpen)}
             >
               <LuUtensilsCrossed className="text-blue-900" />
-              Lunch
+              {selectedMeal}
             </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left"
-            >
-              <li className="hover:bg-gray-200 bg-blue-950 text-white p-3">
-                <Link>Lunch</Link>
-              </li>
-              <li className="hover:bg-gray-200 p-3">
-                <Link>Dinner</Link>
-              </li>
-              <li className="hover:bg-gray-200 p-3">
-                <Link>Breakfast</Link>
-              </li>
-            </ul>
+            {isMealDropdownOpen && (
+              <ul
+                tabIndex={0}
+                className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
+              >
+                <li
+                  className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                  onClick={() => handleMealClick('Breakfast')}
+                >
+                  <p>Breakfast</p>
+                </li>
+                <li
+                  className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                  onClick={() => handleMealClick('Lunch')}
+                >
+                  <p>Lunch</p>
+                </li>
+                <li
+                  className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                  onClick={() => handleMealClick('Dinner')}
+                >
+                  <p>Dinner</p>
+                </li>
+
+              </ul>
+            )}
           </div>
         </div>
-      </div>
+      </form>
       {/* Banner End */}
       {/* Calender section */}
       <div className="flex flex-col lg:flex-row mt-20 justify-between custom-screen max-w-screen-2xl mx-auto">
@@ -268,23 +270,30 @@ function NewCastle() {
                   0 reviews
                 </p>
                 <div id="dates" className="flex text-center flex-wrap">
-                  {dates.map((date, index) => (
-                    <div
-                      key={index}
-                      className={`px-2 lg:px-3 py-2 border-r ${index >= 3 ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'}`}
-                    >
-                      <p className="my-2">{date.day}</p><hr />
-                      <p className="mt-3">{date.date} {date.month}</p>
-                      {index >= 3 && (
-                        <>
-                          <p className="mb-3">1:30PM</p>
-                          <span className="absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
-                            50% off
-                          </span>
-                        </>
-                      )}
-                    </div>
-                  ))}
+                  {dates.map((date, index) => {
+                    const databaseDate = restaurant.tables.find(t => {
+                      const tableDate = new Date(t.date).toISOString().split('T')[0];
+                      return tableDate === date.fullDate;
+                    });
+
+                    return (
+                      <div
+                        key={index}
+                        className={`px-2 lg:px-3 py-2 border-r ${databaseDate ? 'bg-[#265582]  text-white relative' : 'bg-white'}`}
+                      >
+                        <p className="my-2">{date.day}</p><hr />
+                        <p className="mt-3">{date.date} {date.month.substring(0, 3)}</p>
+                        {databaseDate && (
+                          <>
+                            <p className="mb-3">1:30PM</p>
+                            <span className="absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
+                              50% off
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -307,4 +316,5 @@ function NewCastle() {
     </div>
   );
 }
+
 export default NewCastle;
