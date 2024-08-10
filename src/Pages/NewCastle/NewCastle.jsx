@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import bannerImg from "../../assets/images/Banner/banner.webp";
+import bannerImg from "../../assets/images/Banner/banner-modified.webp";
 import { SlCalender } from "react-icons/sl";
 import { CiLocationOn, CiStar } from "react-icons/ci";
 import { FaArrowRight, FaStar } from "react-icons/fa";
@@ -16,6 +16,7 @@ function NewCastle() {
   const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
   const [isMealDropdownOpen, setIsMealDropdownOpen] = useState(false);
   const { city } = useParams();
+  const [mainCity,setMainCity] = useState("");
 
   const handleMealClick = (meal) => {
     setSelectedMeal(meal);
@@ -73,6 +74,7 @@ function NewCastle() {
   };
 
   useEffect(() => {
+    setMainCity(city);
     fetchRestaurant();
     generateDates();
   }, []);
@@ -113,36 +115,24 @@ function NewCastle() {
   return (
     <div className="mb-20">
       <div
-        className="hero h-full bg-center bg-cover object-cover bg-no-repeat lg:h-[70vh]"
+        className="hero h-full bg-center bg-cover object-cover bg-no-repeat lg:h-[50vh]"
         style={{
           backgroundImage: `url(${bannerImg})`,
         }}
       >
-        <div className="bg-opacity-95"></div>
-        <div className="hero-content text-neutral-content">
-          <div className="block lg:hidden mt-16 text-white">
-            <Link to={"/newCastle"}>
-              <p className="cursor-pointer">NewCastle</p>
-            </Link>
-            <h2 className="text-3xl lg:text-5xl font-bold mt-10 mb-5">
-              Newcastle Restaurants
-            </h2>
-            <p className="mb-5">Dine early, save money</p>
-          </div>
-        </div>
       </div>
-      <div className="lg:relative hidden lg:block text-white max-w-screen-2xl mx-auto lg:px-32">
-        <div className="relative lg:absolute flex flex-col lg:flex-row items-center lg:justify-between -top-96 text-5xl text-red-600 custom-gap">
-          <div className="lg:w-1/2 text-white">
-            <Link to={"/newCastle"}>
-              <p>NewCastle</p>
-            </Link>
+      <div className="lg:relative hidden lg:block text-white max-w-screen-lg mx-auto ">
+        <div className="relative lg:absolute flex flex-col lg:flex-row items-center lg:justify-between top-[-350px] text-5xl text-red-600 custom-gap">
+          <div className="lg:w-[90%] text-slate-200">
+            <div >
+              <p>{mainCity}</p>
+            </div>
             <h2 className="text-5xl font-bold mt-10 mb-5">
-              Newcastle Restaurants
+              {mainCity} Restaurants
             </h2>
-            <p className="mb-5">Dine early, save money</p>
+            <p className="mb-5 text-xl">Dine early, save money</p>
           </div>
-          <div className="relative lg:w-1/2">
+          <div className="relative ">
             <div className="absolute right-0 lg:right-auto lg:-top-36 transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-200 rounded-lg shadow-lg"></div>
             <div className="absolute right-0 lg:right-auto lg:-top-36 transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-50 rotate-3 rounded-lg shadow-lg"></div>
             <div className="absolute right-0 lg:right-auto lg:-top-44 transform -translate-x-1/2 lg:translate-x-0 w-96 z-10 px-6 pt-10 text-center rounded-lg">

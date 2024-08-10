@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import bannerImg from "../../assets/images/Banner/banner.webp";
+import bannerImg from "../../assets/images/Banner/banner-modified.webp";
 import { SlCalender } from "react-icons/sl";
 import { CiLocationOn, CiStar } from "react-icons/ci";
 import { FaArrowRight, FaStar } from "react-icons/fa";
@@ -106,27 +106,17 @@ function FindTable() {
                 }}
             >
                 <div className="bg-opacity-95"></div>
-                <div className="hero-content text-neutral-content">
-                    <div className="block lg:hidden mt-16 text-white">
-                        <Link to={"/newCastle"}>
-                            <p className="cursor-pointer">NewCastle</p>
-                        </Link>
-                        <h2 className="text-3xl lg:text-5xl font-bold mt-10 mb-5">
-                            Newcastle Restaurants
-                        </h2>
-                        <p className="mb-5">Dine early, save money</p>
-                    </div>
-                </div>
+                
             </div>
             {/* Vejal */}
             <div className="lg:relative hidden lg:block text-white max-w-screen-2xl mx-auto lg:px-32">
                 <div className="relative lg:absolute flex flex-col lg:flex-row items-center lg:justify-between -top-96 text-5xl text-red-600 custom-gap">
                     <div className="lg:w-1/2 text-white">
                         <Link to={"/newCastle"}>
-                            <p>NewCastle</p>
+                            <p>{selectedCity==="Select a City"?"":`${selectedCity}`}</p>
                         </Link>
                         <h2 className="text-5xl font-bold mt-10 mb-5">
-                            Newcastle Restaurants
+                        {selectedCity==="Select a City"?"All":`${selectedCity}`} Restaurants
                         </h2>
                         <p className="mb-5">Dine early, save money</p>
                     </div>
