@@ -140,7 +140,7 @@ function NewCastle() {
                 Early bird dining
               </h2>
               <p className="text-black text-xl">
-                Book the first table at Newcastle restaurants and get 50% off
+                Book the first table at {mainCity} restaurants and get 50% off
                 the food bill for two, three, or four people!
               </p>
 
