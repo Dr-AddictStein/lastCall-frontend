@@ -206,7 +206,13 @@ function Banner({ cities, regions }) {
                       className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
                       onClick={() => handleMealClick('Dinner First Call')}
                     >
-                      <p>Dinner</p>
+                      <p>Dinner First Call</p>
+                    </li>
+                    <li
+                      className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                      onClick={() => handleMealClick('Dinner Last Call')}
+                    >
+                      <p>Dinner Last Call</p>
                     </li>
 
                   </ul>

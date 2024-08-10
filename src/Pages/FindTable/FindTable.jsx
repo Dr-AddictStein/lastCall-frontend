@@ -76,16 +76,28 @@ function FindTable() {
             .then((res) => res.json())
             .then((data) => {
                 setGlobalRestaurants(data);
+
+                console.log("Filtered Restaurants", data);
                 const filteredData = data.filter(restaurant => {
-                    const matchesCity = selectedCity !== 'Select a City' ? restaurant.city === selectedCity : true;
+                    const matchesCity = selectedCity2 !== 'Select a City' ? restaurant.city === selectedCity2 : true;
                     const matchesRegion = true;
-                    return matchesCity && matchesRegion;
+                    const matchesMeal = true;
+
+                    const hasTableForDate = selectedDate2 !== "All Dates" ? restaurant.tables.some(table => table.date === selectedDate2) : true;
+
+                    return matchesCity && matchesRegion && matchesMeal && hasTableForDate;
                 });
+
                 setRestaurants(filteredData);
-                console.log("Filtered Restaurants", filteredData);
             })
             .catch((error) => console.log(error));
     };
+
+    // Use effect to re-fetch and filter data whenever selection changes
+    useEffect(() => {
+        console.log("ZZZZZZZ", selectedDate2, selectedRegion2, selectedCity2, selectedMeal2)
+        fetchRestaurant();
+    }, [selectedDate2, selectedRegion2, selectedCity2, selectedMeal2]);
 
     const generateDates = () => {
         const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -114,16 +126,26 @@ function FindTable() {
     const getMealTime = (meal) => {
         switch (meal) {
             case 'Meal':
+                return '8:00 AM'; // Default to Breakfast time
             case 'Breakfast':
                 return '8:00 AM';
             case 'Lunch':
                 return '12:00 PM';
-            case 'Dinner':
+            case 'Dinner First Call':
+                return '7:00 PM';
+            case 'Dinner Last Call':
                 return '9:00 PM';
             default:
                 return 'Time Unavailable';
         }
     };
+
+    useEffect(() => {
+        const mealTime = getMealTime(selectedMeal2);
+        console.log("Meal Time Updated:", mealTime);
+        // You can perform any additional logic here if needed
+        // e.g., re-fetching data, updating other states, etc.
+    }, [selectedMeal2]);
 
     useEffect(() => {
         fetchRestaurant();
@@ -162,7 +184,7 @@ function FindTable() {
     return (
         <div className="mb-20">
             <div
-                className="hero h-full bg-center bg-cover object-cover bg-no-repeat lg:h-[70vh]"
+                className="hero h-full bg-center bg-cover object-cover bg-no-repeat lg:h-[60vh]"
                 style={{
                     backgroundImage: `url(${bannerImg})`,
                 }}
@@ -172,7 +194,7 @@ function FindTable() {
             </div>
             {/* Vejal */}
             <div className="lg:relative hidden lg:block text-white max-w-screen-2xl mx-auto lg:px-32">
-                <div className="relative lg:absolute flex flex-col lg:flex-row items-center lg:justify-between -top-96 text-5xl text-red-600 custom-gap">
+                <div className="relative lg:absolute flex flex-col lg:flex-row items-center lg:justify-between top-[-450px] text-5xl text-red-600 custom-gap">
                     <div className="relative">
                         <div className="absolute left-[450px] transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-200 rounded-lg shadow-lg"></div>
                         <div className="absolute left-[450px] transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-50 rotate-3 rounded-lg shadow-lg"></div>
@@ -214,7 +236,7 @@ function FindTable() {
                                 {isDateDropdownOpen && (
                                     <ul
                                         tabIndex={0}
-                                        className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-[310px] mt-10 overflow-y-auto max-h-40 text-left "
+                                        className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-[310px] mt-10 overflow-y-auto max-h-40 text-left text-lg"
                                     >
                                         {dates.map((date, index) => (
                                             <li
@@ -240,7 +262,7 @@ function FindTable() {
                                 {isRegionDropdownOpen && (
                                     <ul
                                         tabIndex={0}
-                                        className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
+                                        className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left text-lg "
                                     >
                                         {regions.map((region, index) => (
                                             <li
@@ -266,7 +288,7 @@ function FindTable() {
                                 {isCityDropdownOpen && (
                                     <ul
                                         tabIndex={0}
-                                        className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
+                                        className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left text-lg "
                                     >
                                         {cities.map((city, index) => (
                                             <li
@@ -292,7 +314,7 @@ function FindTable() {
                                 {isMealDropdownOpen && (
                                     <ul
                                         tabIndex={0}
-                                        className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left "
+                                        className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left text-lg "
                                     >
                                         <li
                                             className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
@@ -371,7 +393,7 @@ function FindTable() {
                                 <div id="dates" className="flex text-center flex-wrap">
                                     {dates.map((date, index) => {
                                         const hasTableForDate = restaurant.tables.some(t => t.date === date);
-                                        const mealTime = getMealTime(selectedMeal); // Get the correct meal time
+                                        const mealTime = getMealTime(selectedMeal2); // Recalculate meal time
 
                                         return (
                                             <div
@@ -379,8 +401,8 @@ function FindTable() {
                                                 className={`px-2 lg:px-3 py-2 border-r ${hasTableForDate ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'
                                                     }`}
                                             >
-                                                <p className="my-2">{date.slice(0, 4)}</p><hr />
-                                                <p className="mt-3">{date.slice(5, 10)}</p>
+                                                <p className="my-2">{date.slice(0, 3)}</p><hr />
+                                                <p className="mt-3">{date.slice(4, 10)}</p>
                                                 {hasTableForDate && (
                                                     <>
                                                         <p className="mb-3">{mealTime}</p>
