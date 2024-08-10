@@ -105,10 +105,12 @@ function NewCastle() {
         return "8:00 AM";
       case "Lunch":
         return "12:00 PM";
-      case "Dinner":
+      case "Dinner First Call":
+        return "7:00 PM";
+      case "Dinner Last Call":
         return "9:00 PM";
       default:
-        return "8:00 AM"; // Default time for "Meal" or undefined meal
+        return "8:00 AM";
     }
   };
 
@@ -218,9 +220,15 @@ function NewCastle() {
                 </li>
                 <li
                   className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
-                  onClick={() => handleMealClick('Dinner')}
+                  onClick={() => handleMealClick('Dinner First Call')}
                 >
-                  <p>Dinner</p>
+                  <p>Dinner First Call</p>
+                </li>
+                <li
+                  className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                  onClick={() => handleMealClick('Dinner Last Call')}
+                >
+                  <p>Dinner Last Call</p>
                 </li>
 
               </ul>
@@ -282,10 +290,10 @@ function NewCastle() {
                     return (
                       <div
                         key={index}
-                        className={`px-2 lg:px-3 py-2 border-r ${databaseDate ? 'bg-[#265582]  text-white relative' : 'bg-white'}`}
+                        className={`px-2 lg:px-3 py-2 border-r ${databaseDate ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'}`}
                       >
                         <p className="my-2">{date.day}</p><hr />
-                        <p className="mt-3">{date.date} {date.month.substring(0, 3)}</p>
+                        <p className="mt-3">{date.date} {date.month}</p>
                         {databaseDate && (
                           <>
                             <p className="mb-3">{getMealTime()}</p>
