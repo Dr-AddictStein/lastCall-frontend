@@ -29,7 +29,6 @@ function FindTable() {
             .then(res => res.json())
             .then(data => {
                 setCities(data);
-                // console.log('cities', data);
             })
             .catch(error => console.log(error));
     };
@@ -39,11 +38,9 @@ function FindTable() {
             .then(res => res.json())
             .then(data => {
                 setRegions(data);
-                // console.log('regions', data);
             })
             .catch(error => console.log(error));
     };
-
 
     const categories = [
         "American", "Asian", "Barbeque", "Brunch", "Burgers", "Cafe", "Chinese", "Desserts",
@@ -66,7 +63,7 @@ function FindTable() {
         setSelectedCity(selectedCity)
         setSelectedMeal(selectedMeal)
         setSelectedRegion(selectedRegion)
-    }, [])
+    }, [selectedDate, selectedRegion, selectedCity, selectedMeal]);
 
     const [globalRestaurants, setGlobalRestaurants] = useState([]);
 
@@ -77,7 +74,6 @@ function FindTable() {
             .then((data) => {
                 setGlobalRestaurants(data);
 
-                console.log("Filtered Restaurants", data);
                 const filteredData = data.filter(restaurant => {
                     const matchesCity = selectedCity2 !== 'Select a City' ? restaurant.city === selectedCity2 : true;
                     const matchesRegion = true;
@@ -93,9 +89,7 @@ function FindTable() {
             .catch((error) => console.log(error));
     };
 
-    // Use effect to re-fetch and filter data whenever selection changes
     useEffect(() => {
-        console.log("ZZZZZZZ", selectedDate2, selectedRegion2, selectedCity2, selectedMeal2)
         fetchRestaurant();
     }, [selectedDate2, selectedRegion2, selectedCity2, selectedMeal2]);
 
@@ -120,38 +114,40 @@ function FindTable() {
             datesArray.push(formattedDate);
         }
         setDates(datesArray);
-        console.log("🚀 ~ generateDates ~ datesArray:", datesArray)
     };
 
     const getMealTime = (table, meal) => {
         switch (meal) {
             case 'Meal':
-                return table.breakfast?.starts || 'Time Unavailable'; // Default to Breakfast time
+                return table.breakfast && parseInt(table.breakfast.accomodations) > 0 
+                    ? table.breakfast.starts 
+                    : 'Time Unavailable';
             case 'Breakfast':
-                return table.breakfast?.starts || 'Time Unavailable';
+                return table.breakfast && parseInt(table.breakfast.accomodations) > 0 
+                    ? table.breakfast.starts 
+                    : 'Time Unavailable';
             case 'Lunch':
-                return table.lunch?.starts || 'Time Unavailable';
+                return table.lunch && parseInt(table.lunch.accomodations) > 0 
+                    ? table.lunch.starts 
+                    : 'Time Unavailable';
             case 'Dinner First Call':
-                return table.dinnerfirstcall?.starts || 'Time Unavailable';
+                return table.dinnerfirstcall && parseInt(table.dinnerfirstcall.accomodations) > 0 
+                    ? table.dinnerfirstcall.starts 
+                    : 'Time Unavailable';
             case 'Dinner Last Call':
-                return table.dinnerlastcall?.starts || 'Time Unavailable';
+                return table.dinnerlastcall && parseInt(table.dinnerlastcall.accomodations) > 0 
+                    ? table.dinnerlastcall.starts 
+                    : 'Time Unavailable';
             default:
                 return 'Time Unavailable';
         }
     };
 
     useEffect(() => {
-        const mealTime = getMealTime(selectedMeal2);
-        console.log("Meal Time Updated:", mealTime);
-        // You can perform any additional logic here if needed
-        // e.g., re-fetching data, updating other states, etc.
-    }, [selectedMeal2]);
-
-    useEffect(() => {
         fetchRestaurant();
         generateDates();
         fetchCities();
-        fetchRegions()
+        fetchRegions();
     }, []);
 
     useEffect(() => {
@@ -192,7 +188,7 @@ function FindTable() {
                 <div className="bg-opacity-95"></div>
 
             </div>
-            {/* Vejal */}
+            {/* Main Section */}
             <div className="lg:relative hidden lg:block text-white max-w-screen-2xl mx-auto lg:px-32">
                 <div className="relative lg:absolute flex flex-col lg:flex-row items-center lg:justify-between top-[-450px] text-5xl text-red-600 custom-gap">
                     <div className="relative">
@@ -398,21 +394,21 @@ function FindTable() {
                                 </p>
                                 <div id="dates" className="flex text-center flex-wrap">
                                     {dates.map((date, index) => {
-                                        // Find the table for the specific date
                                         const table = restaurant.tables.find(t => t.date === date);
-
                                         const hasTableForDate = table !== undefined;
-                                        const mealTime = hasTableForDate ? getMealTime(table, selectedMeal2) : 'Time Unavailable'; // Get the correct meal time
+
+                                        const mealTime = hasTableForDate ? getMealTime(table, selectedMeal2) : 'Time Unavailable';
+                                        const isMealAvailable = mealTime !== 'Time Unavailable';
 
                                         return (
                                             <div
                                                 key={index}
-                                                className={`px-3 lg:px-3 py-2 border-r w-[100px] ${hasTableForDate ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'
+                                                className={`px-3 lg:px-3 py-2 border-r w-[100px] ${isMealAvailable ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'
                                                     }`}
                                             >
                                                 <p className="my-2">{date.slice(0, 3)}</p><hr />
                                                 <p className="mt-3">{date.slice(4, 10)}</p>
-                                                {hasTableForDate && (
+                                                {isMealAvailable && (
                                                     <>
                                                         <p className="mb-3">{mealTime}</p>
                                                         <span className="absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
