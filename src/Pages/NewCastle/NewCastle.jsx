@@ -16,7 +16,7 @@ function NewCastle() {
   const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
   const [isMealDropdownOpen, setIsMealDropdownOpen] = useState(false);
   const { city } = useParams();
-  const [mainCity,setMainCity] = useState("");
+  const [mainCity, setMainCity] = useState("");
 
   const handleMealClick = (meal) => {
     setSelectedMeal(meal);
@@ -54,10 +54,11 @@ function NewCastle() {
     ];
     const today = new Date();
     const datesArray = [];
-
+  
     for (let i = 0; i < 7; i++) {
       const nextDate = new Date(today);
       nextDate.setDate(today.getDate() + i);
+      nextDate.setHours(0, 0, 0, 0); // Set time to midnight to avoid timezone issues
       const day = daysOfWeek[nextDate.getDay()];
       const date = nextDate.getDate();
       const month = monthNames[nextDate.getMonth()];
@@ -79,38 +80,40 @@ function NewCastle() {
     generateDates();
   }, []);
 
-  const filteredRestaurants = restaurants
-    .filter(restaurant => {
-      // Filter by category
-      const categoryMatch = selectedCategory
-        ? restaurant.category.includes(selectedCategory)
-        : true;
-
-      // Filter by selected date
-      const dateMatch = selectedDate === "All Dates" || restaurant.tables.some(table => {
-        const tableDate = new Date(table.date).toISOString().split('T')[0];
-        return tableDate === selectedDate;
+  const filteredRestaurants = restaurants.filter((restaurant) => {
+    // Filter by category
+    const categoryMatch = selectedCategory
+      ? restaurant.category.includes(selectedCategory)
+      : true;
+  
+    // Filter by selected date
+    const dateMatch =
+      selectedDate === "All Dates" ||
+      restaurant.tables.some((table) => {
+        const tableDate = new Date(table.date);
+        tableDate.setHours(0, 0, 0, 0); // Set time to midnight to match the comparison date
+        const tableDateString = tableDate.toISOString().split("T")[0];
+        return tableDateString === selectedDate;
       });
+  
+    return categoryMatch && dateMatch;
+  });
 
-      return categoryMatch && dateMatch;
-    });
-
-  const handleCategoryChange = (category) => {
-    setSelectedCategory((prevCategory) => (prevCategory === category ? "" : category));
-  };
-
-  const getMealTime = () => {
+  const getMealTime = (table) => {
+    console.log("Unga", table);
     switch (selectedMeal) {
-      case "Breakfast":
-        return "8:00 AM";
-      case "Lunch":
-        return "12:00 PM";
-      case "Dinner First Call":
-        return "7:00 PM";
-      case "Dinner Last Call":
-        return "9:00 PM";
+      case 'Meal':
+        return table.breakfast?.starts || 'Time Unavailable'; // Default to Breakfast time
+      case 'Breakfast':
+        return table.breakfast?.starts || 'Time Unavailable';
+      case 'Lunch':
+        return table.lunch?.starts || 'Time Unavailable';
+      case 'Dinner First Call':
+        return table.dinnerfirstcall?.starts || 'Time Unavailable';
+      case 'Dinner Last Call':
+        return table.dinnerlastcall?.starts || 'Time Unavailable';
       default:
-        return "8:00 AM";
+        return 'Time Unavailable';
     }
   };
 
@@ -282,21 +285,25 @@ function NewCastle() {
                 </p>
                 <div id="dates" className="flex text-center flex-wrap">
                   {dates.map((date, index) => {
-                    const databaseDate = restaurant.tables.find(t => {
+                    // Find the table for the specific date
+                    const table = restaurant.tables.find(t => {
                       const tableDate = new Date(t.date).toISOString().split('T')[0];
                       return tableDate === date.fullDate;
                     });
 
+                    const hasTableForDate = table !== undefined;
+                    const mealTime = hasTableForDate ? getMealTime(table) : 'Time Unavailable'; // Get the correct meal time
+
                     return (
                       <div
                         key={index}
-                        className={`px-2 lg:px-3 py-2 border-r ${databaseDate ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'}`}
+                        className={`px-2 lg:px-3 py-2 border-r ${hasTableForDate ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'}`}
                       >
                         <p className="my-2">{date.day}</p><hr />
                         <p className="mt-3">{date.date} {date.month}</p>
-                        {databaseDate && (
+                        {hasTableForDate && (
                           <>
-                            <p className="mb-3">{getMealTime()}</p>
+                            <p className="mb-3">{mealTime}</p>
                             <span className="absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
                               50% off
                             </span>

@@ -123,18 +123,18 @@ function FindTable() {
         console.log("🚀 ~ generateDates ~ datesArray:", datesArray)
     };
 
-    const getMealTime = (meal) => {
+    const getMealTime = (table, meal) => {
         switch (meal) {
             case 'Meal':
-                return '8:00 AM'; // Default to Breakfast time
+                return table.breakfast?.starts || 'Time Unavailable'; // Default to Breakfast time
             case 'Breakfast':
-                return '8:00 AM';
+                return table.breakfast?.starts || 'Time Unavailable';
             case 'Lunch':
-                return '12:00 PM';
+                return table.lunch?.starts || 'Time Unavailable';
             case 'Dinner First Call':
-                return '7:00 PM';
+                return table.dinnerfirstcall?.starts || 'Time Unavailable';
             case 'Dinner Last Call':
-                return '9:00 PM';
+                return table.dinnerlastcall?.starts || 'Time Unavailable';
             default:
                 return 'Time Unavailable';
         }
@@ -200,10 +200,10 @@ function FindTable() {
                         <div className="absolute left-[450px] transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-50 rotate-3 rounded-lg shadow-lg"></div>
                         <div className="absolute left-[450px] transform -translate-x-1/2 lg:translate-x-0 w-96 z-10 px-6 pt-10 text-center rounded-lg">
                             <h2 className="text-blue-950 text-4xl mb-4 font-bold">
-                                Early bird dining
+                                Restaurant Search
                             </h2>
                             <p className="text-black text-xl">
-                                Book the first table at {selectedCity} restaurants and get 50% off
+                                Book a reservation at {selectedCity2} restaurants and get 50% off
                                 the food bill for two, three, or four people!
                             </p>
 
@@ -332,7 +332,13 @@ function FindTable() {
                                             className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
                                             onClick={() => handleMealClick('Dinner First Call')}
                                         >
-                                            <p>Dinner</p>
+                                            <p>Dinner First Call</p>
+                                        </li>
+                                        <li
+                                            className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                                            onClick={() => handleMealClick('Dinner Last Call')}
+                                        >
+                                            <p>Dinner Last Call</p>
                                         </li>
 
                                     </ul>
@@ -392,13 +398,16 @@ function FindTable() {
                                 </p>
                                 <div id="dates" className="flex text-center flex-wrap">
                                     {dates.map((date, index) => {
-                                        const hasTableForDate = restaurant.tables.some(t => t.date === date);
-                                        const mealTime = getMealTime(selectedMeal2); // Recalculate meal time
+                                        // Find the table for the specific date
+                                        const table = restaurant.tables.find(t => t.date === date);
+
+                                        const hasTableForDate = table !== undefined;
+                                        const mealTime = hasTableForDate ? getMealTime(table, selectedMeal2) : 'Time Unavailable'; // Get the correct meal time
 
                                         return (
                                             <div
                                                 key={index}
-                                                className={`px-2 lg:px-3 py-2 border-r ${hasTableForDate ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'
+                                                className={`px-3 lg:px-3 py-2 border-r w-[100px] ${hasTableForDate ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'
                                                     }`}
                                             >
                                                 <p className="my-2">{date.slice(0, 3)}</p><hr />

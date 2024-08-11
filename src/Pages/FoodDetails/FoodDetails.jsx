@@ -31,8 +31,7 @@ const FoodDetails = () => {
     const monthIndex = new Date(Date.parse(`${month} 1, ${year}`)).getMonth();
     const date = new Date(year, monthIndex, parseInt(day));
 
-    // Convert the date back to the desired format
-    const formattedDate = date.toDateString(); // This returns the date in the format "Tue Jul 20 2027"
+    const formattedDate = date.toDateString(); 
     return formattedDate;
   };
 
@@ -56,21 +55,26 @@ const FoodDetails = () => {
     const upcoming7Days = getUpcoming7Days();
 
     const filtered = upcoming7Days.map((day) => {
-      const formattedDate = day.toDateString(); // Get date as "Tue Jul 20 2027"
+      const formattedDate = day.toDateString(); 
 
       const foundDate = dateArray.find((dateObj) => {
         const dateDex = parseDateString(dateObj.date);
-        return dateDex === formattedDate; // Compare the formatted date strings
+        return dateDex === formattedDate; 
       });
 
       if (foundDate) {
         return {
           date: formattedDate,
-          isclosed: foundDate.isclosed || false, // Use the value from the database or default to false
+          isclosed: foundDate.isclosed || false,
           breakfast: foundDate.breakfast || { starts: "N/A", accomodations: "N/A" },
           lunch: foundDate.lunch || { starts: "N/A", accomodations: "N/A" },
           dinnerfirstcall: foundDate.dinnerfirstcall || { starts: "N/A", accomodations: "N/A" },
           dinnerlastcall: foundDate.dinnerlastcall || { starts: "N/A", accomodations: "N/A" },
+          
+          isBreakfastActive: foundDate.breakfast && parseInt(foundDate.breakfast.accomodations) > 0,
+          isLunchActive: foundDate.lunch && parseInt(foundDate.lunch.accomodations) > 0,
+          isDinnerFirstCallActive: foundDate.dinnerfirstcall && parseInt(foundDate.dinnerfirstcall.accomodations) > 0,
+          isDinnerLastCallActive: foundDate.dinnerlastcall && parseInt(foundDate.dinnerlastcall.accomodations) > 0,
         };
       } else {
         return {
@@ -80,6 +84,10 @@ const FoodDetails = () => {
           lunch: { starts: "N/A", accomodations: "N/A" },
           dinnerfirstcall: { starts: "N/A", accomodations: "N/A" },
           dinnerlastcall: { starts: "N/A", accomodations: "N/A" },
+          isBreakfastActive: false,
+          isLunchActive: false,
+          isDinnerFirstCallActive: false,
+          isDinnerLastCallActive: false,
         };
       }
     });
@@ -345,13 +353,13 @@ const FoodDetails = () => {
                               <Link key={dt.date}>
                                 <div
                                   onClick={() => {
-                                    if (!dt.isclosed) {
+                                    if (!dt.isclosed && dt.isBreakfastActive) {
                                       setBookingtime("Breakfast");
                                       setBookingtimeDet(dt.breakfast?.starts || "N/A");
                                       selectedTable(dt);
                                     }
                                   }}
-                                  className={`relative mb-2 text-white p-3  ${dt.isclosed
+                                  className={`relative mb-2 text-white p-3  ${dt.isclosed || !dt.isBreakfastActive
                                     ? "bg-slate-300 cursor-default"
                                     : "bg-[#265582] cursor-pointer"
                                     }`}
@@ -365,7 +373,7 @@ const FoodDetails = () => {
                                   <p className="text-center">
                                     {dt.breakfast?.starts || "N/A"}
                                   </p>
-                                  {!dt.isclosed && (
+                                  {!dt.isclosed && dt.isBreakfastActive && (
                                     <p className="absolute text-sm px-1 bg-[#c7a77b]">
                                       50% off
                                     </p>
@@ -388,13 +396,13 @@ const FoodDetails = () => {
                               <Link key={dt.date}>
                                 <div
                                   onClick={() => {
-                                    if (!dt.isclosed) {
+                                    if (!dt.isclosed && dt.isLunchActive) {
                                       setBookingtime("Lunch");
                                       setBookingtimeDet(dt.lunch?.starts || "N/A");
                                       selectedTable(dt);
                                     }
                                   }}
-                                  className={`relative mb-2 text-white p-3  ${dt.isclosed
+                                  className={`relative mb-2 text-white p-3  ${dt.isclosed || !dt.isLunchActive
                                     ? "bg-slate-300 cursor-default"
                                     : "bg-[#265582] cursor-pointer"
                                     }`}
@@ -408,7 +416,7 @@ const FoodDetails = () => {
                                   <p className="text-center">
                                     {dt.lunch?.starts || "N/A"}
                                   </p>
-                                  {!dt.isclosed && (
+                                  {!dt.isclosed && dt.isLunchActive && (
                                     <p className="absolute text-sm px-1 bg-[#c7a77b]">
                                       50% off
                                     </p>
@@ -431,13 +439,13 @@ const FoodDetails = () => {
                               <Link key={dt.date}>
                                 <div
                                   onClick={() => {
-                                    if (!dt.isclosed) {
+                                    if (!dt.isclosed && dt.isDinnerFirstCallActive) {
                                       setBookingtime("Dinner First Call");
                                       setBookingtimeDet(dt.dinnerfirstcall?.starts || "N/A");
                                       selectedTable(dt);
                                     }
                                   }}
-                                  className={`relative mb-2 text-white p-3  ${dt.isclosed
+                                  className={`relative mb-2 text-white p-3  ${dt.isclosed || !dt.isDinnerFirstCallActive
                                     ? "bg-slate-300 cursor-default"
                                     : "bg-[#265582] cursor-pointer"
                                     }`}
@@ -451,7 +459,7 @@ const FoodDetails = () => {
                                   <p className="text-center">
                                     {dt.dinnerfirstcall?.starts || "N/A"}
                                   </p>
-                                  {!dt.isclosed && (
+                                  {!dt.isclosed && dt.isDinnerFirstCallActive && (
                                     <p className="absolute text-sm px-1 bg-[#c7a77b]">
                                       50% off
                                     </p>
@@ -474,13 +482,13 @@ const FoodDetails = () => {
                               <Link key={dt.date}>
                                 <div
                                   onClick={() => {
-                                    if (!dt.isclosed) {
+                                    if (!dt.isclosed && dt.isDinnerLastCallActive) {
                                       setBookingtime("Dinner Last Call");
                                       setBookingtimeDet(dt.dinnerlastcall?.starts || "N/A");
                                       selectedTable(dt);
                                     }
                                   }}
-                                  className={`relative mb-2 text-white p-3  ${dt.isclosed
+                                  className={`relative mb-2 text-white p-3  ${dt.isclosed || !dt.isDinnerLastCallActive
                                     ? "bg-slate-300 cursor-default"
                                     : "bg-[#265582] cursor-pointer"
                                     }`}
@@ -494,7 +502,7 @@ const FoodDetails = () => {
                                   <p className="text-center">
                                     {dt.dinnerlastcall?.starts || "N/A"}
                                   </p>
-                                  {!dt.isclosed && (
+                                  {!dt.isclosed && dt.isDinnerLastCallActive && (
                                     <p className="absolute text-sm px-1 bg-[#c7a77b]">
                                       50% off
                                     </p>
@@ -664,13 +672,13 @@ const FoodDetails = () => {
                           <Link key={dt.date}>
                             <div
                               onClick={() => {
-                                if (!dt.isclosed) {
+                                if (!dt.isclosed && dt.isLunchActive) {
                                   setBookingtime("Lunch");
                                   setBookingtimeDet(dt.lunch?.starts || "N/A");
                                   selectedTable(dt);
                                 }
                               }}
-                              className={`relative mb-2 text-white p-3  ${dt.isclosed
+                              className={`relative mb-2 text-white p-3  ${dt.isclosed || !dt.isLunchActive
                                 ? "bg-slate-300 cursor-default"
                                 : "bg-[#265582] cursor-pointer"
                                 }`}
@@ -684,7 +692,7 @@ const FoodDetails = () => {
                               <p className="text-center">
                                 {dt.lunch?.starts || "N/A"}
                               </p>
-                              {!dt.isclosed && (
+                              {!dt.isclosed && dt.isLunchActive && (
                                 <p className="absolute text-sm px-1 bg-[#c7a77b]">
                                   50% off
                                 </p>
@@ -709,13 +717,13 @@ const FoodDetails = () => {
                           <Link key={dt.date}>
                             <div
                               onClick={() => {
-                                if (!dt.isclosed) {
-                                  setBookingtime("Dinner");
+                                if (!dt.isclosed && dt.isDinnerLastCallActive) {
+                                  setBookingtime("Dinner Last Call");
                                   setBookingtimeDet(dt.dinnerlastcall?.starts || "N/A");
                                   selectedTable(dt);
                                 }
                               }}
-                              className={`relative mb-2 text-white p-3  ${dt.isclosed
+                              className={`relative mb-2 text-white p-3  ${dt.isclosed || !dt.isDinnerLastCallActive
                                 ? "bg-slate-300 cursor-default"
                                 : "bg-[#265582] cursor-pointer"
                                 }`}
@@ -729,7 +737,7 @@ const FoodDetails = () => {
                               <p className="text-center">
                                 {dt.dinnerlastcall?.starts || "N/A"}
                               </p>
-                              {!dt.isclosed && (
+                              {!dt.isclosed && dt.isDinnerLastCallActive && (
                                 <p className="absolute text-sm px-1 bg-[#c7a77b]">
                                   50% off
                                 </p>
