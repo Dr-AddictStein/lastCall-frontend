@@ -13,16 +13,18 @@ const UpcomingBookings = () => {
     try {
       const response = await axios.get('http://localhost:4000/api/reservation');
       const data = response.data;
-
+  
       // Filter reservations for the logged-in user
       const userReservations = data.filter(reservation => reservation.reservedForMail === user?.user?.email);
-
+  
       // Further filter reservations to only include future reservations
       const upcomingReservations = userReservations.filter(reservation => {
-        const reservationDateTime = moment(`${reservation.date} ${reservation.time}`, 'ddd DD MMMM YYYY h:mm a');
-        return reservationDateTime.isAfter(moment());
+        const reservationDateTime = moment(reservation.date, 'ddd MMM DD YYYY'); // Adjust the format to match your database date format
+        return reservationDateTime.isAfter(moment(), 'day'); // Compare with the current date, ignoring the time part
       });
-
+  
+      console.log("Upcoming Reservations:", upcomingReservations);
+  
       setFilteredReservations(upcomingReservations);
     } catch (error) {
       console.error('Error fetching reservations:', error);
