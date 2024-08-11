@@ -9,10 +9,16 @@ import { useEffect, useState } from "react";
 function NewCastle() {
   const [isHover, setIsHover] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
+  const [mainrestaurants, setmainRestaurants] = useState([]);
   const [dates, setDates] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedMeal, setSelectedMeal] = useState("Meal");
-  const [selectedDate, setSelectedDate] = useState("All Dates");
+  const [selectedMeal, setSelectedMeal] = useState("Breakfast");
+  
+  // Set initial selected date to today's date
+  const today = new Date();
+  const formattedToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  const [selectedDate, setSelectedDate] = useState(formattedToday);
+  
   const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
   const [isMealDropdownOpen, setIsMealDropdownOpen] = useState(false);
   const { city } = useParams();
@@ -21,11 +27,6 @@ function NewCastle() {
   const handleMealClick = (meal) => {
     setSelectedMeal(meal);
     setIsMealDropdownOpen(false);
-  };
-
-  const handleDateClick = (date) => {
-    setSelectedDate(date);
-    setIsDateDropdownOpen(false);
   };
 
   const categories = [
@@ -42,6 +43,7 @@ function NewCastle() {
       .then((res) => res.json())
       .then((data) => {
         const filteredData = data?.filter(restaurant => restaurant?.city === city);
+        setmainRestaurants(filteredData)
         setRestaurants(filteredData);
       })
       .catch((error) => console.log(error));
@@ -54,23 +56,29 @@ function NewCastle() {
     ];
     const today = new Date();
     const datesArray = [];
-  
+    
     for (let i = 0; i < 7; i++) {
-      const nextDate = new Date(today);
-      nextDate.setDate(today.getDate() + i);
+      const nextDate = new Date(today.getTime()); // Create a new Date object based on the current time
+      nextDate.setDate(today.getDate() + i); // Add 'i' days to the current date
       nextDate.setHours(0, 0, 0, 0); // Set time to midnight to avoid timezone issues
+  
       const day = daysOfWeek[nextDate.getDay()];
       const date = nextDate.getDate();
       const month = monthNames[nextDate.getMonth()];
       const year = nextDate.getFullYear();
+  
+      // Manually construct the full date string in yyyy-mm-dd format
+      const fullDate = `${year}-${String(nextDate.getMonth() + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+  
       datesArray.push({
         day,
         date,
         month,
         year,
-        fullDate: nextDate.toISOString().split('T')[0], // Store full date in yyyy-mm-dd format
+        fullDate, // Use the manually constructed date string
       });
     }
+  
     setDates(datesArray);
   };
 
@@ -80,29 +88,81 @@ function NewCastle() {
     generateDates();
   }, [city]);
 
+  useEffect(() => {
+    // This effect will run whenever the selectedDate or selectedMeal changes
+    // and filter the restaurant list accordingly.
+    filterRestaurants();
+  }, [selectedDate, selectedMeal, selectedCategory]); // Add selectedCategory if you want it to trigger filtering too
+
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
   };
 
-  const filteredRestaurants = restaurants.filter((restaurant) => {
-    // Filter by category
-    const categoryMatch = selectedCategory
-      ? restaurant.category.includes(selectedCategory)
-      : true;
-  
-    // Filter by selected date
-    const dateMatch =
-      selectedDate === "All Dates" ||
-      restaurant.tables.some((table) => {
-        const tableDate = new Date(table.date);
-        tableDate.setHours(0, 0, 0, 0); // Set time to midnight to match the comparison date
-        const tableDateString = tableDate.toISOString().split("T")[0];
-        return tableDateString === selectedDate;
-      });
-  
-    return categoryMatch && dateMatch;
-  });
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+    setIsDateDropdownOpen(false);
+  };
 
+  const filterRestaurants = () => {
+    const filteredRestaurants = restaurants.filter((restaurant) => {
+      // Filter by category
+      const categoryMatch = selectedCategory
+        ? restaurant.category.includes(selectedCategory)
+        : true;
+  
+      // Filter by selected date
+      const dateMatch =
+        selectedDate === "All Dates" ||
+        restaurant.tables.some((table) => {
+          const tableDate = new Date(table.date);
+          tableDate.setHours(0, 0, 0, 0); // Set time to midnight to ensure consistent comparison
+          const tableDateString = tableDate.toISOString().split("T")[0];
+          return tableDateString === selectedDate;
+        });
+  
+      // Filter by meal type
+      const mealMatch =
+        restaurant.tables.some((table) => {
+          const mealTime = getMealTime(table);
+          return mealTime !== 'Time Unavailable';
+        });
+  
+      return categoryMatch && dateMatch && mealMatch;
+    });
+  
+    // Additional filtering: Remove restaurants that do not have accommodations on the selected date and meal
+    const finalFilteredRestaurants = filteredRestaurants.filter((restaurant) => {
+      return restaurant.tables.some((table) => {
+        const tableDate = new Date(table.date).toISOString().split('T')[0];
+        const mealTime = getMealTime(table);
+  
+        if (tableDate === selectedDate && mealTime !== 'Time Unavailable') {
+          // Check if there are available accommodations for the selected meal on the selected date
+          switch (selectedMeal) {
+            case 'Breakfast':
+              return parseInt(table.breakfast?.accommodations || 0) > 0;
+            case 'Lunch':
+              return parseInt(table.lunch?.accommodations || 0) > 0;
+            case 'Dinner First Call':
+              return parseInt(table.dinnerfirstcall?.accommodations || 0) > 0;
+            case 'Dinner Last Call':
+              return parseInt(table.dinnerlastcall?.accommodations || 0) > 0;
+            default:
+              return false;
+          }
+        }
+  
+        return false;
+      });
+    });
+  
+    if (finalFilteredRestaurants.length === 0) {
+      // If no restaurants match, reset to show all restaurants to avoid an empty list
+      setRestaurants(filteredRestaurants);
+    } else {
+      setRestaurants(finalFilteredRestaurants);
+    }
+  };
   const getMealTime = (table) => {
     switch (selectedMeal) {
       case 'Meal':
@@ -192,7 +252,7 @@ function NewCastle() {
               className="m-1 relative flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
               onClick={() => setIsDateDropdownOpen(!isDateDropdownOpen)}
             >
-              <SlCalender className="text-blue-900 absolute left-0" /> {selectedDate === "All Dates" ? selectedDate : new Date(selectedDate).toDateString()}
+              {selectedDate === "All Dates" ? selectedDate : new Date(selectedDate).toDateString()}
             </div>
             {isDateDropdownOpen && (
               <ul
@@ -256,7 +316,7 @@ function NewCastle() {
       {/* Calender section */}
       <div className="flex flex-col lg:flex-row mt-20 justify-between custom-screen max-w-screen-2xl mx-auto">
         <div className="mr-3">
-          {filteredRestaurants.map((restaurant) => (
+          {restaurants.map((restaurant) => (
             <div
               key={restaurant._id}
               className="flex flex-col md:flex-row lg:flex-row gap-8 my-5"
