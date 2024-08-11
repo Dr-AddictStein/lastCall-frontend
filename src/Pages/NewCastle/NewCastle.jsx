@@ -78,7 +78,11 @@ function NewCastle() {
     setMainCity(city);
     fetchRestaurant();
     generateDates();
-  }, []);
+  }, [city]);
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+  };
 
   const filteredRestaurants = restaurants.filter((restaurant) => {
     // Filter by category
@@ -100,18 +104,27 @@ function NewCastle() {
   });
 
   const getMealTime = (table) => {
-    console.log("Unga", table);
     switch (selectedMeal) {
       case 'Meal':
-        return table.breakfast?.starts || 'Time Unavailable'; // Default to Breakfast time
+        return table.breakfast && parseInt(table.breakfast.accomodations) > 0 
+          ? table.breakfast.starts 
+          : 'Time Unavailable';
       case 'Breakfast':
-        return table.breakfast?.starts || 'Time Unavailable';
+        return table.breakfast && parseInt(table.breakfast.accomodations) > 0 
+          ? table.breakfast.starts 
+          : 'Time Unavailable';
       case 'Lunch':
-        return table.lunch?.starts || 'Time Unavailable';
+        return table.lunch && parseInt(table.lunch.accomodations) > 0 
+          ? table.lunch.starts 
+          : 'Time Unavailable';
       case 'Dinner First Call':
-        return table.dinnerfirstcall?.starts || 'Time Unavailable';
+        return table.dinnerfirstcall && parseInt(table.dinnerfirstcall.accomodations) > 0 
+          ? table.dinnerfirstcall.starts 
+          : 'Time Unavailable';
       case 'Dinner Last Call':
-        return table.dinnerlastcall?.starts || 'Time Unavailable';
+        return table.dinnerlastcall && parseInt(table.dinnerlastcall.accomodations) > 0 
+          ? table.dinnerlastcall.starts 
+          : 'Time Unavailable';
       default:
         return 'Time Unavailable';
     }
@@ -293,15 +306,16 @@ function NewCastle() {
 
                     const hasTableForDate = table !== undefined;
                     const mealTime = hasTableForDate ? getMealTime(table) : 'Time Unavailable'; // Get the correct meal time
+                    const isMealAvailable = mealTime !== 'Time Unavailable';
 
                     return (
                       <div
                         key={index}
-                        className={`px-2 lg:px-3 py-2 border-r ${hasTableForDate ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'}`}
+                        className={`px-2 lg:px-3 py-2 border-r ${isMealAvailable ? 'bg-blue-900 hover:bg-blue-950 text-white relative' : 'bg-slate-400'}`}
                       >
                         <p className="my-2">{date.day}</p><hr />
                         <p className="mt-3">{date.date} {date.month}</p>
-                        {hasTableForDate && (
+                        {isMealAvailable && (
                           <>
                             <p className="mb-3">{mealTime}</p>
                             <span className="absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">

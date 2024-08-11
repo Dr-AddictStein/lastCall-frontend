@@ -212,10 +212,10 @@ function Navbar() {
                 </li> :
                 <div className="flex gap-3 items-center mr-5">
                   <button className="mx-2 px-3 bg-transparent py-3 rounded-3xl text-base font-semibold hover:bg-slate-200 hover:text-black" onClick={logout}>Logout</button>
-                  <Link to={'/profile/update'} className="avatar">
-                    <div className="w-12 rounded-full border">
-                      <img src={user.user.image} />
-                    </div>
+                  <Link to="/profile/update" className="hidden lg:block ">
+                    <button className="btn btn-outline rounded-full bg-white text-black">
+                      Profile
+                    </button>
                   </Link>
                 </div>}
             </ul>
