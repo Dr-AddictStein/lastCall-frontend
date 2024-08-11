@@ -31,7 +31,7 @@ const FoodDetails = () => {
     const monthIndex = new Date(Date.parse(`${month} 1, ${year}`)).getMonth();
     const date = new Date(year, monthIndex, parseInt(day));
 
-    const formattedDate = date.toDateString(); 
+    const formattedDate = date.toDateString();
     return formattedDate;
   };
 
@@ -55,11 +55,11 @@ const FoodDetails = () => {
     const upcoming7Days = getUpcoming7Days();
 
     const filtered = upcoming7Days.map((day) => {
-      const formattedDate = day.toDateString(); 
+      const formattedDate = day.toDateString();
 
       const foundDate = dateArray.find((dateObj) => {
         const dateDex = parseDateString(dateObj.date);
-        return dateDex === formattedDate; 
+        return dateDex === formattedDate;
       });
 
       if (foundDate) {
@@ -70,7 +70,7 @@ const FoodDetails = () => {
           lunch: foundDate.lunch || { starts: "N/A", accomodations: "N/A" },
           dinnerfirstcall: foundDate.dinnerfirstcall || { starts: "N/A", accomodations: "N/A" },
           dinnerlastcall: foundDate.dinnerlastcall || { starts: "N/A", accomodations: "N/A" },
-          
+
           isBreakfastActive: foundDate.breakfast && parseInt(foundDate.breakfast.accomodations) > 0,
           isLunchActive: foundDate.lunch && parseInt(foundDate.lunch.accomodations) > 0,
           isDinnerFirstCallActive: foundDate.dinnerfirstcall && parseInt(foundDate.dinnerfirstcall.accomodations) > 0,
@@ -359,7 +359,7 @@ const FoodDetails = () => {
                                       selectedTable(dt);
                                     }
                                   }}
-                                  className={`relative mb-2 text-white p-3  ${dt.isclosed || !dt.isBreakfastActive
+                                  className={`relative mb-2 text-white p-3 h-[130px]  ${dt.isclosed || !dt.isBreakfastActive
                                     ? "bg-slate-300 cursor-default"
                                     : "bg-[#265582] cursor-pointer"
                                     }`}
@@ -374,7 +374,7 @@ const FoodDetails = () => {
                                     {dt.breakfast?.starts || "N/A"}
                                   </p>
                                   {!dt.isclosed && dt.isBreakfastActive && (
-                                    <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                    <p className="absolute bottom-0 text-sm px-1 bg-[#c7a77b]">
                                       50% off
                                     </p>
                                   )}
@@ -402,7 +402,7 @@ const FoodDetails = () => {
                                       selectedTable(dt);
                                     }
                                   }}
-                                  className={`relative mb-2 text-white p-3  ${dt.isclosed || !dt.isLunchActive
+                                  className={`relative mb-2 text-white p-3 h-[130px]  ${dt.isclosed || !dt.isLunchActive
                                     ? "bg-slate-300 cursor-default"
                                     : "bg-[#265582] cursor-pointer"
                                     }`}
@@ -417,7 +417,7 @@ const FoodDetails = () => {
                                     {dt.lunch?.starts || "N/A"}
                                   </p>
                                   {!dt.isclosed && dt.isLunchActive && (
-                                    <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                    <p className="absolute bottom-0 text-sm px-1 bg-[#c7a77b]">
                                       50% off
                                     </p>
                                   )}
@@ -445,7 +445,7 @@ const FoodDetails = () => {
                                       selectedTable(dt);
                                     }
                                   }}
-                                  className={`relative mb-2 text-white p-3  ${dt.isclosed || !dt.isDinnerFirstCallActive
+                                  className={`relative mb-2 text-white p-3 h-[130px]  ${dt.isclosed || !dt.isDinnerFirstCallActive
                                     ? "bg-slate-300 cursor-default"
                                     : "bg-[#265582] cursor-pointer"
                                     }`}
@@ -460,7 +460,7 @@ const FoodDetails = () => {
                                     {dt.dinnerfirstcall?.starts || "N/A"}
                                   </p>
                                   {!dt.isclosed && dt.isDinnerFirstCallActive && (
-                                    <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                    <p className="absolute bottom-0 text-sm px-1 bg-[#c7a77b]">
                                       50% off
                                     </p>
                                   )}
@@ -488,7 +488,7 @@ const FoodDetails = () => {
                                       selectedTable(dt);
                                     }
                                   }}
-                                  className={`relative mb-2 text-white p-3  ${dt.isclosed || !dt.isDinnerLastCallActive
+                                  className={`relative mb-2 text-white p-3 h-[130px] ${dt.isclosed || !dt.isDinnerLastCallActive
                                     ? "bg-slate-300 cursor-default"
                                     : "bg-[#265582] cursor-pointer"
                                     }`}
@@ -503,7 +503,7 @@ const FoodDetails = () => {
                                     {dt.dinnerlastcall?.starts || "N/A"}
                                   </p>
                                   {!dt.isclosed && dt.isDinnerLastCallActive && (
-                                    <p className="absolute text-sm px-1 bg-[#c7a77b]">
+                                    <p className="absolute bottom-0  text-sm px-1 bg-[#c7a77b]">
                                       50% off
                                     </p>
                                   )}
@@ -557,71 +557,56 @@ const FoodDetails = () => {
                   <p>{foodData?.category[0]}</p>
                 </div>
                 <div
-                  onClick={() => setActiveTab3(1)}
-                  className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 1 && "border-b border-black"
-                    }`}
-                >
-                  <FaMapMarkerAlt className="text-[#c7a77b] text-2xl" />
-                  <p>How to find us</p>
-                </div>
-                <div
-                  onClick={() => setActiveTab3(2)}
-                  className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 2 && "border-b border-black"
-                    }`}
-                >
-                  <FaBookOpen className="text-[#c7a77b] text-2xl" />
-                  <p>Sample menu</p>
-                </div>
-                <div
                   onClick={() => setActiveTab3(3)}
                   className={`cursor-pointer font-semibold text-xl pb-1 flex gap-1 items-center ${activeTab3 === 3 && "border-b border-black"
                     }`}
                 >
                   <BiSolidContact className="text-[#c7a77b] text-2xl" />
-                  <p>Contacts</p>
+                  <p>Contact</p>
                 </div>
               </div>
               <div className="pb-3">
-                {activeTab3 === 1 && (
-                  <div>
-                    <h4 className="text-2xl font-semibold">How to find us</h4>
-                  </div>
-                )}
-                {activeTab3 === 2 && (
-                  <div>
-                    <h4 className="text-2xl font-semibold">Sample Menu</h4>
-                  </div>
-                )}
                 {activeTab3 === 3 && (
                   <div>
-                    <h4 className="text-2xl font-semibold">Contact us</h4>
                     <div className="pt-3">
                       <div className="grid grid-cols-3 w-1/2 gap-8">
                         <div>
                           <p className="font-semibold text-lg">Address:</p>
                           <p>
-                            There will go very very long long long long long
-                            long long address
+                            {foodData?.city}
                           </p>
                         </div>
                         <div>
                           <p className="font-semibold text-lg">Phone:</p>
-                          <p>016465657878544</p>
+                          <p>{foodData?.phone}</p>
                         </div>
                         <div>
-                          <p className="font-semibold text-lg">Website:</p>
-                          <Link>Click here to view</Link>
+                          <p className="font-semibold text-lg">Email:</p>
+                          <p>{foodData?.email}</p>
                         </div>
                       </div>
                       <div>
                         <p className="font-semibold text-lg pt-8">
                           Open hours:
                         </p>
-                        <div>
-                          <p>Mon - Tue : Closed</p>
-                          <p>Wed - Thu : 12pm - 3pm // 4pm - 8pm</p>
-                          <p>Fri - Sat: 12pm - 3pm // 4pm - 9pm</p>
-                          <p>Sun: 12pm - 3pm // 4pm - 8pm</p>
+                        <div className="flex gap-2">
+                          <div className="">
+                            <p>Sun: </p>
+                            <p>Mon: </p>
+                            <p>Tue: </p>
+                            <p>Wed: </p>
+                            <p>Thu: </p>
+                            <p>Fri: </p>
+                            <p>Sat: </p>
+                          </div>
+                          <div className="">
+                            {
+                              foodData?.operatinghours.map((op) => (
+                                <p key={op}>{op}</p>
+                              ))
+                            }
+                          </div>
+
                         </div>
                       </div>
                     </div>
@@ -723,7 +708,7 @@ const FoodDetails = () => {
                                   selectedTable(dt);
                                 }
                               }}
-                              className={`relative mb-2 text-white p-3  ${dt.isclosed || !dt.isDinnerLastCallActive
+                              className={`relative mb-2 text-white p-3   ${dt.isclosed || !dt.isDinnerLastCallActive
                                 ? "bg-slate-300 cursor-default"
                                 : "bg-[#265582] cursor-pointer"
                                 }`}

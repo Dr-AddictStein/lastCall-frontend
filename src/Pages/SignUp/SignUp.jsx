@@ -169,11 +169,6 @@ function SignUp() {
                   <FaFacebook className="text-xl mr-2" /> Continue with Facebook
                 </button>
               </p>
-              <p className="mb-2">
-                <button className="btn signup-btn btn-apple">
-                  <FaApple className="text-xl mr-2" /> Continue with Apple
-                </button>
-              </p>
             </div>
           </div>
         </div>
