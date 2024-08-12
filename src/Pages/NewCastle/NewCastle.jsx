@@ -70,6 +70,7 @@ function NewCastle() {
 
       // Manually construct the full date string in yyyy-mm-dd format
       const fullDate = `${year}-${String(nextDate.getMonth() + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+      console.log("AAA",date,fullDate)
 
       datesArray.push({
         day,
@@ -111,54 +112,83 @@ function NewCastle() {
         ? restaurant.category.includes(selectedCategory)
         : true;
 
-      // Filter by selected date
-      const dateMatch =
-        selectedDate === "All Dates" ||
-        restaurant.tables.some((table) => {
-          const tableDate = new Date(table.date);
+       
+        let okay=false;
+        console.log("Date $ Meal",selectedDate,selectedMeal)
+      
+        for(let i=0;i<restaurant.tables.length;i++){
+          const tableDate = new Date(restaurant.tables[i].date);
           tableDate.setHours(0, 0, 0, 0); // Set time to midnight to ensure consistent comparison
           const tableDateString = tableDate.toISOString().split("T")[0];
-          return tableDateString === selectedDate;
-        });
-
-      // Filter by meal type
-      const mealMatch =
-        selectedMeal === "Meal" ||
-        restaurant.tables.some((table) => {
-          const mealTime = getMealTime(table);
-          return mealTime !== "Time Unavailable";
-        });
-
-      return categoryMatch && dateMatch && mealMatch;
-    });
-
-    const finalFilteredRestaurants = filteredRestaurants.filter((restaurant) => {
-      if (selectedDate === "All Dates" || selectedMeal === "Meal") return true;
-
-      return restaurant.tables.some((table) => {
-        const tableDate = new Date(table.date).toISOString().split("T")[0];
-        const mealTime = getMealTime(table);
-
-        if (tableDate === selectedDate && mealTime !== "Time Unavailable") {
-          switch (selectedMeal) {
-            case "Breakfast":
-              return parseInt(table.breakfast?.accommodations || 0) > 0;
-            case "Lunch":
-              return parseInt(table.lunch?.accommodations || 0) > 0;
-            case "Dinner First Call":
-              return parseInt(table.dinnerfirstcall?.accommodations || 0) > 0;
-            case "Dinner Last Call":
-              return parseInt(table.dinnerlastcall?.accommodations || 0) > 0;
-            default:
-              return false;
+          if(tableDateString !== selectedDate && selectedDate!=="All Dates"){
+            continue;
+          }
+          
+          
+          
+          console.log("Here -> Date $ Meal",tableDateString,selectedDate)
+          if(selectedMeal==="Meal" || selectedMeal==="BreakFast"){
+            if(restaurant.tables[i].breakfast.accomodations && parseInt(restaurant.tables[i].breakfast.accomodations)>0){
+              okay=true;
+              break;
+            }
+            else{
+              break;
+            }
+          }
+          else if(selectedMeal==="Meal" || selectedMeal==="Lunch"){
+            if(restaurant.tables[i].lunch.accomodations && parseInt(restaurant.tables[i].lunch.accomodations)>0){
+              okay=true;
+              break;
+            }
+            else{
+              break;
+            }
+          }
+          else if(selectedMeal==="Meal" || selectedMeal==="Dinner First Call"){
+            if(restaurant.tables[i].dinnerfirstcall.accomodations && parseInt(restaurant.tables[i].dinnerfirstcall.accomodations)>0){
+              okay=true;
+              break;
+            }
+            else{
+              break;
+            }
+          }
+          else if(selectedMeal==="Meal" || selectedMeal==="Dinner Last Call"){
+            if(restaurant.tables[i].dinnerlastcall.accomodations && parseInt(restaurant.tables[i].dinnerlastcall.accomodations)>0){
+              okay=true;
+              break;
+            }
+            else{
+              break;
+            }
           }
         }
 
-        return false;
-      });
+      // Filter by selected date
+      // const dateMatch =
+      //   selectedDate === "All Dates" ||
+      //   restaurant.tables.some((table) => {
+      //     const tableDate = new Date(table.date);
+      //     tableDate.setHours(0, 0, 0, 0); // Set time to midnight to ensure consistent comparison
+      //     const tableDateString = tableDate.toISOString().split("T")[0];
+      //     return tableDateString === selectedDate;
+      //   });
+
+      // // Filter by meal type
+      // const mealMatch =
+      //   selectedMeal === "Meal" ||
+      //   restaurant.tables.some((table) => {
+      //     const mealTime = getMealTime(table);
+      //     return mealTime !== "Time Unavailable";
+      //   });
+
+      return categoryMatch && okay;
     });
 
-    setRestaurants(finalFilteredRestaurants.length === 0 ? restaurants : finalFilteredRestaurants);
+    
+
+    setRestaurants(filteredRestaurants);
   };
 
   const getMealTime = (table) => {
@@ -358,8 +388,16 @@ function NewCastle() {
                   {dates.map((date, index) => {
                     // Find the table for the specific date
                     const table = restaurant.tables.find(t => {
-                      const tableDate = new Date(t.date).toISOString().split('T')[0];
-                      return tableDate === date.fullDate;
+                      const tableDate = new Date(t.date);
+                      
+                      // Add one day to the table date
+                      tableDate.setDate(tableDate.getDate() );
+                    
+                      // Manually format the table date without using toISOString
+                      const tableDateString = `${tableDate.getFullYear()}-${String(tableDate.getMonth() + 1).padStart(2, '0')}-${String(tableDate.getDate()).padStart(2, '0')}`;
+                      
+                      
+                      return tableDateString === date.fullDate;
                     });
 
                     const hasTableForDate = table !== undefined;
@@ -391,6 +429,13 @@ function NewCastle() {
         </div>
         {/* Aside section */}
         <div className="hidden md:hidden lg:block border-l pl-24">
+          <button className="bg-red-400 text-3xl text-white rounded-lg px-4 py-2 mb-6 " onClick={()=>{
+            setSelectedCategory("");
+            setSelectedDate("All Dates");
+            setSelectedMeal("Meal");
+            setRestaurants(mainrestaurants)
+            console.log("Here")
+          }}>Reset Filters</button>
           <div className="">
             <p className='text-center font-semibold'>Category</p>
             <ul className="p-2 z-[1] w-48">
