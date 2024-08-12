@@ -12,13 +12,14 @@ function NewCastle() {
   const [mainrestaurants, setmainRestaurants] = useState([]);
   const [dates, setDates] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedMeal, setSelectedMeal] = useState("Breakfast");
-  
+  const [selectedMeal, setSelectedMeal] = useState("Meal");
+
   // Set initial selected date to today's date
   const today = new Date();
   const formattedToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-  const [selectedDate, setSelectedDate] = useState(formattedToday);
-  
+  // const [selectedDate, setSelectedDate] = useState(formattedToday);
+  const [selectedDate, setSelectedDate] = useState("All Dates");
+
   const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
   const [isMealDropdownOpen, setIsMealDropdownOpen] = useState(false);
   const { city } = useParams();
@@ -43,7 +44,7 @@ function NewCastle() {
       .then((res) => res.json())
       .then((data) => {
         const filteredData = data?.filter(restaurant => restaurant?.city === city);
-        setmainRestaurants(filteredData)
+        setmainRestaurants(filteredData);
         setRestaurants(filteredData);
       })
       .catch((error) => console.log(error));
@@ -56,20 +57,20 @@ function NewCastle() {
     ];
     const today = new Date();
     const datesArray = [];
-    
+
     for (let i = 0; i < 7; i++) {
       const nextDate = new Date(today.getTime()); // Create a new Date object based on the current time
       nextDate.setDate(today.getDate() + i); // Add 'i' days to the current date
       nextDate.setHours(0, 0, 0, 0); // Set time to midnight to avoid timezone issues
-  
+
       const day = daysOfWeek[nextDate.getDay()];
       const date = nextDate.getDate();
       const month = monthNames[nextDate.getMonth()];
       const year = nextDate.getFullYear();
-  
+
       // Manually construct the full date string in yyyy-mm-dd format
       const fullDate = `${year}-${String(nextDate.getMonth() + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
-  
+
       datesArray.push({
         day,
         date,
@@ -78,7 +79,7 @@ function NewCastle() {
         fullDate, // Use the manually constructed date string
       });
     }
-  
+
     setDates(datesArray);
   };
 
@@ -109,7 +110,7 @@ function NewCastle() {
       const categoryMatch = selectedCategory
         ? restaurant.category.includes(selectedCategory)
         : true;
-  
+
       // Filter by selected date
       const dateMatch =
         selectedDate === "All Dates" ||
@@ -119,71 +120,68 @@ function NewCastle() {
           const tableDateString = tableDate.toISOString().split("T")[0];
           return tableDateString === selectedDate;
         });
-  
+
       // Filter by meal type
       const mealMatch =
+        selectedMeal === "Meal" ||
         restaurant.tables.some((table) => {
           const mealTime = getMealTime(table);
-          return mealTime !== 'Time Unavailable';
+          return mealTime !== "Time Unavailable";
         });
-  
+
       return categoryMatch && dateMatch && mealMatch;
     });
-  
-    // Additional filtering: Remove restaurants that do not have accommodations on the selected date and meal
+
     const finalFilteredRestaurants = filteredRestaurants.filter((restaurant) => {
+      if (selectedDate === "All Dates" || selectedMeal === "Meal") return true;
+
       return restaurant.tables.some((table) => {
-        const tableDate = new Date(table.date).toISOString().split('T')[0];
+        const tableDate = new Date(table.date).toISOString().split("T")[0];
         const mealTime = getMealTime(table);
-  
-        if (tableDate === selectedDate && mealTime !== 'Time Unavailable') {
-          // Check if there are available accommodations for the selected meal on the selected date
+
+        if (tableDate === selectedDate && mealTime !== "Time Unavailable") {
           switch (selectedMeal) {
-            case 'Breakfast':
+            case "Breakfast":
               return parseInt(table.breakfast?.accommodations || 0) > 0;
-            case 'Lunch':
+            case "Lunch":
               return parseInt(table.lunch?.accommodations || 0) > 0;
-            case 'Dinner First Call':
+            case "Dinner First Call":
               return parseInt(table.dinnerfirstcall?.accommodations || 0) > 0;
-            case 'Dinner Last Call':
+            case "Dinner Last Call":
               return parseInt(table.dinnerlastcall?.accommodations || 0) > 0;
             default:
               return false;
           }
         }
-  
+
         return false;
       });
     });
-  
-    if (finalFilteredRestaurants.length === 0) {
-      // If no restaurants match, reset to show all restaurants to avoid an empty list
-      setRestaurants(filteredRestaurants);
-    } else {
-      setRestaurants(finalFilteredRestaurants);
-    }
+
+    setRestaurants(finalFilteredRestaurants.length === 0 ? restaurants : finalFilteredRestaurants);
   };
+
   const getMealTime = (table) => {
     switch (selectedMeal) {
       case 'Meal':
-        return table.breakfast && parseInt(table.breakfast.accomodations) > 0 
-          ? table.breakfast.starts 
+        return table.breakfast && parseInt(table.breakfast.accomodations) > 0
+          ? table.breakfast.starts
           : 'Time Unavailable';
       case 'Breakfast':
-        return table.breakfast && parseInt(table.breakfast.accomodations) > 0 
-          ? table.breakfast.starts 
+        return table.breakfast && parseInt(table.breakfast.accomodations) > 0
+          ? table.breakfast.starts
           : 'Time Unavailable';
       case 'Lunch':
-        return table.lunch && parseInt(table.lunch.accomodations) > 0 
-          ? table.lunch.starts 
+        return table.lunch && parseInt(table.lunch.accomodations) > 0
+          ? table.lunch.starts
           : 'Time Unavailable';
       case 'Dinner First Call':
-        return table.dinnerfirstcall && parseInt(table.dinnerfirstcall.accomodations) > 0 
-          ? table.dinnerfirstcall.starts 
+        return table.dinnerfirstcall && parseInt(table.dinnerfirstcall.accomodations) > 0
+          ? table.dinnerfirstcall.starts
           : 'Time Unavailable';
       case 'Dinner Last Call':
-        return table.dinnerlastcall && parseInt(table.dinnerlastcall.accomodations) > 0 
-          ? table.dinnerlastcall.starts 
+        return table.dinnerlastcall && parseInt(table.dinnerlastcall.accomodations) > 0
+          ? table.dinnerlastcall.starts
           : 'Time Unavailable';
       default:
         return 'Time Unavailable';
@@ -252,7 +250,7 @@ function NewCastle() {
               className="m-1 relative flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
               onClick={() => setIsDateDropdownOpen(!isDateDropdownOpen)}
             >
-              {selectedDate === "All Dates" ? selectedDate : new Date(selectedDate).toDateString()}
+              {selectedDate === "All Dates" ? "All Dates" : new Date(selectedDate).toDateString()}
             </div>
             {isDateDropdownOpen && (
               <ul
