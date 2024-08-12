@@ -22,23 +22,27 @@ function Banner({ cities, regions }) {
 
   useEffect(() => {
     const generateDates = () => {
-      const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
       const monthNames = [
-        'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+          "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
       ];
       const today = new Date();
       const datesArray = [];
 
-      for (let i = 0; i <= 7; i++) {
-        const nextDate = new Date(today);
-        nextDate.setDate(today.getDate() + i);
-        const day = daysOfWeek[nextDate.getDay()];
-        const date = nextDate.getDate();
-        const month = monthNames[nextDate.getMonth()];
-        datesArray.push(`${day} ${date} ${month}`);
+      for (let i = 0; i < 7; i++) {
+          const nextDate = new Date(today);
+          nextDate.setDate(today.getDate() + i);
+          const day = daysOfWeek[nextDate.getDay()];
+          const date = nextDate.getDate();
+          const month = monthNames[nextDate.getMonth()];
+          const year = nextDate.getFullYear();
+
+          const formattedDate = `${day} ${date} ${month} ${year}`;
+
+          datesArray.push(formattedDate);
       }
       setDates(datesArray);
-    };
+  };
 
     generateDates();
   }, []);

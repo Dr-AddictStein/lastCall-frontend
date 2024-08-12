@@ -130,7 +130,7 @@ function NewCastle() {
   }
 
   const filterRestaurants = () => {
-    const filteredRestaurants = restaurants.filter((restaurant) => {
+    const filteredRestaurants = mainrestaurants.filter((restaurant) => {
       // Filter by category
       const categoryMatch = selectedCategory
         ? restaurant.category.includes(selectedCategory)
@@ -156,7 +156,7 @@ function NewCastle() {
 
         console.log("Date $ Meal", selectedDate, selectedMeal, restaurant.tables[i].date)
 
-        if (selectedMeal === "Meal" || selectedMeal === "BreakFast") {
+        if (selectedMeal === "Meal" || selectedMeal === "Breakfast") {
           if (restaurant.tables[i].breakfast.accomodations && parseInt(restaurant.tables[i].breakfast.accomodations) > 0) {
             okay = true;
             break;

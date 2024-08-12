@@ -14,15 +14,27 @@ function FindTable() {
     const [cities, setCities] = useState([]);
     const [regions, setRegions] = useState([]);
 
-    const [selectedDate2, setSelectedDate] = useState('All Dates');
-    const [selectedRegion2, setSelectedRegion] = useState('Select a Region');
-    const [selectedCity2, setSelectedCity] = useState('Select a City');
-    const [selectedMeal2, setSelectedMeal] = useState('Meal');
+    const [selectedDate2, setSelectedDate] = useState('');
+    const [selectedRegion2, setSelectedRegion] = useState('');
+    const [selectedCity2, setSelectedCity] = useState('');
+    const [selectedMeal2, setSelectedMeal] = useState('');
 
     const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
     const [isRegionDropdownOpen, setIsRegionDropdownOpen] = useState(false);
     const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
     const [isMealDropdownOpen, setIsMealDropdownOpen] = useState(false);
+
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const handleCategoryChange = (category) => {
+        setSelectedCategory(category);
+    };
+    
+    useEffect(()=>{
+        let dex = restaurants.filter((rest)=>{
+            return rest.category.includes(selectedCategory);
+        })
+        setRestaurants(dex);
+    },[selectedCategory])
 
     const fetchCities = () => {
         fetch('http://localhost:4000/api/city')
@@ -58,40 +70,139 @@ function FindTable() {
         selectedMeal,
     } = location.state || {};
 
-    useEffect(() => {
+    const setAll = () => {
         setSelectedDate(selectedDate)
         setSelectedCity(selectedCity)
         setSelectedMeal(selectedMeal)
         setSelectedRegion(selectedRegion)
-    }, [selectedDate, selectedRegion, selectedCity, selectedMeal]);
+    }
+
+    const [trig, setTrig] = useState(false);
+
+    useEffect(() => {
+        setAll();
+        setTrig(true);
+    }, []);
 
     const [globalRestaurants, setGlobalRestaurants] = useState([]);
+    const formo = (dateString) => {
+        const date = new Date(dateString);
 
+        // Array of weekday names
+        const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        // Array of month names
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June", "July", "August",
+            "September", "October", "November", "December"
+        ];
+
+        // Extract day, date, month, and year
+        const dayName = daysOfWeek[date.getDay()];
+        const dayNumber = date.getDate();
+        const monthName = monthNames[date.getMonth()];
+        const year = date.getFullYear();
+
+        // Construct the desired format
+        const formattedDate = `${dayName} ${dayNumber} ${monthName} ${year}`;
+
+        return formattedDate;
+    }
+
+    const filterRestaurants = () => {
+        const filteredData = globalRestaurants.filter(restaurant => {
+
+            const categoryMatch = selectedCategory
+                ? restaurant.category.includes(selectedCategory)
+                : true;
+
+
+            const matchesCity = selectedCity2 !== 'Select a City' ? restaurant.city === selectedCity2 : true;
+            const matchesRegion = selectedRegion2 !== 'Select a Region' ? restaurant.region === selectedRegion2 : true;
+            let okay = false;
+            for (let i = 0; i < restaurant.tables.length; i++) {
+
+                if (restaurant.tables[i].isclosed) {
+                    continue;
+                }
+
+                const tableDate = new Date(restaurant.tables[i].date);
+                tableDate.setHours(0, 0, 0, 0); // Set time to midnight to ensure consistent comparison
+                const tableDateString = restaurant.tables[i].date;
+                // const tableDateString = tableDate.toISOString().split("T")[0];
+                if (tableDateString !== formo(selectedDate2) && selectedDate2 !== "All Dates") {
+                    continue;
+                }
+
+
+                console.log("Date $ Meal", selectedDate2, selectedMeal2, restaurant.tables[i].date)
+
+                if (selectedMeal2 === "Meal" || selectedMeal2 === "Breakfast") {
+                    if (restaurant.tables[i].breakfast.accomodations && parseInt(restaurant.tables[i].breakfast.accomodations) > 0) {
+                        okay = true;
+                        break;
+                    }
+                    else {
+                        break;
+                    }
+                }
+                else if (selectedMeal2 === "Meal" || selectedMeal2 === "Lunch") {
+                    if (restaurant.tables[i].lunch.accomodations && parseInt(restaurant.tables[i].lunch.accomodations) > 0) {
+                        // console.log("Here -> Date $ Meal",tableDateString,selectedDate,restaurant.name,parseInt(restaurant.tables[i].lunch.accomodations))
+                        okay = true;
+                        break;
+                    }
+                    else {
+                        break;
+                    }
+                }
+                else if (selectedMeal2 === "Meal" || selectedMeal2 === "Dinner First Call") {
+                    if (restaurant.tables[i].dinnerfirstcall.accomodations && parseInt(restaurant.tables[i].dinnerfirstcall.accomodations) > 0) {
+                        okay = true;
+                        break;
+                    }
+                    else {
+                        break;
+                    }
+                }
+                else if (selectedMeal2 === "Meal" || selectedMeal2 === "Dinner Last Call") {
+                    if (restaurant.tables[i].dinnerlastcall.accomodations && parseInt(restaurant.tables[i].dinnerlastcall.accomodations) > 0) {
+                        okay = true;
+                        break;
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
+
+            console.log("Testing...:", okay);
+            return matchesCity && matchesRegion && okay && categoryMatch;
+        });
+
+        console.log("AAAAAAAAAAAAA", filteredData);
+
+        setRestaurants(filteredData);
+    }
     const fetchRestaurant = () => {
+        console.log("Selected Date:", selectedDate2);
+        console.log("Selected Region:", selectedRegion2);
+        console.log("Selected City:", selectedCity2);
+        console.log("Selected Meal:", selectedMeal2);
         const url = `http://localhost:4000/api/restaurant`;
         fetch(url)
             .then((res) => res.json())
             .then((data) => {
                 setGlobalRestaurants(data);
-
-                const filteredData = data.filter(restaurant => {
-                    const matchesCity = selectedCity2 !== 'Select a City' ? restaurant.city === selectedCity2 : true;
-                    const matchesRegion = true;
-                    const matchesMeal = true;
-
-                    const hasTableForDate = selectedDate2 !== "All Dates" ? restaurant.tables.some(table => table.date === selectedDate2) : true;
-
-                    return matchesCity && matchesRegion && matchesMeal && hasTableForDate;
-                });
-
-                setRestaurants(filteredData);
             })
             .catch((error) => console.log(error));
     };
 
     useEffect(() => {
-        fetchRestaurant();
-    }, [selectedDate2, selectedRegion2, selectedCity2, selectedMeal2]);
+        filterRestaurants();
+    }, [globalRestaurants])
+
+
 
     const generateDates = () => {
         const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -119,24 +230,24 @@ function FindTable() {
     const getMealTime = (table, meal) => {
         switch (meal) {
             case 'Meal':
-                return table.breakfast && parseInt(table.breakfast.accomodations) > 0 
-                    ? table.breakfast.starts 
+                return table.breakfast && parseInt(table.breakfast.accomodations) > 0
+                    ? table.breakfast.starts
                     : 'Time Unavailable';
             case 'Breakfast':
-                return table.breakfast && parseInt(table.breakfast.accomodations) > 0 
-                    ? table.breakfast.starts 
+                return table.breakfast && parseInt(table.breakfast.accomodations) > 0
+                    ? table.breakfast.starts
                     : 'Time Unavailable';
             case 'Lunch':
-                return table.lunch && parseInt(table.lunch.accomodations) > 0 
-                    ? table.lunch.starts 
+                return table.lunch && parseInt(table.lunch.accomodations) > 0
+                    ? table.lunch.starts
                     : 'Time Unavailable';
             case 'Dinner First Call':
-                return table.dinnerfirstcall && parseInt(table.dinnerfirstcall.accomodations) > 0 
-                    ? table.dinnerfirstcall.starts 
+                return table.dinnerfirstcall && parseInt(table.dinnerfirstcall.accomodations) > 0
+                    ? table.dinnerfirstcall.starts
                     : 'Time Unavailable';
             case 'Dinner Last Call':
-                return table.dinnerlastcall && parseInt(table.dinnerlastcall.accomodations) > 0 
-                    ? table.dinnerlastcall.starts 
+                return table.dinnerlastcall && parseInt(table.dinnerlastcall.accomodations) > 0
+                    ? table.dinnerlastcall.starts
                     : 'Time Unavailable';
             default:
                 return 'Time Unavailable';
@@ -144,18 +255,12 @@ function FindTable() {
     };
 
     useEffect(() => {
-        fetchRestaurant();
         generateDates();
         fetchCities();
         fetchRegions();
+        fetchRestaurant();
     }, []);
 
-    useEffect(() => {
-        console.log("Selected Date:", selectedDate);
-        console.log("Selected Region:", selectedRegion);
-        console.log("Selected City:", selectedCity);
-        console.log("Selected Meal:", selectedMeal);
-    }, [selectedDate, selectedRegion, selectedCity, selectedMeal]);
 
     const handleDateClick = (date) => {
         setSelectedDate(date);
@@ -341,6 +446,11 @@ function FindTable() {
                                 )}
                             </div>
                         </form>
+                        <div className="mt-2 bg-red-400 rounded-md text-center text-white py-1 font-semibold hover:bg-red-500">
+                            <button className='w-full' onClick={() => {
+                                filterRestaurants();
+                            }}>Search</button>
+                        </div>
 
                     </div>
                 </div>
@@ -426,12 +536,21 @@ function FindTable() {
                 </div>
                 {/* Aside section */}
                 <div className="hidden md:hidden lg:block border-l pl-24">
+                    <button className="bg-red-400 text-3xl text-white rounded-lg px-4 py-2 mb-6 " onClick={() => {
+                        setSelectedCategory("");
+                        setSelectedDate("All Dates");
+                        setSelectedMeal("Meal");
+                        setSelectedCity("Select a City");
+                        setSelectedRegion("Select a Region");
+                        setRestaurants(globalRestaurants)
+                        console.log("Here")
+                    }}>Reset Filters</button>
                     <div className="">
                         <p className='text-center font-semibold'>Category</p>
                         <ul className="p-2 z-[1] w-48">
                             {categories.map(category => (
                                 <li key={category} className="flex justify-between">
-                                    <span>{category}</span> <input type="checkbox" />
+                                    <span>{category}</span> <input type="checkbox" checked={selectedCategory === category} onChange={() => handleCategoryChange(category)} />
                                 </li>
                             ))}
                         </ul>
