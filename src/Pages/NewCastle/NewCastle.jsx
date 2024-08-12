@@ -70,7 +70,7 @@ function NewCastle() {
 
       // Manually construct the full date string in yyyy-mm-dd format
       const fullDate = `${year}-${String(nextDate.getMonth() + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
-      console.log("AAA",date,fullDate)
+      console.log("AAA", date, fullDate)
 
       datesArray.push({
         day,
@@ -105,6 +105,30 @@ function NewCastle() {
     setIsDateDropdownOpen(false);
   };
 
+  const formo = (dateString) => {
+    const date = new Date(dateString);
+
+    // Array of weekday names
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    // Array of month names
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June", "July", "August",
+      "September", "October", "November", "December"
+    ];
+
+    // Extract day, date, month, and year
+    const dayName = daysOfWeek[date.getDay()];
+    const dayNumber = date.getDate();
+    const monthName = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+
+    // Construct the desired format
+    const formattedDate = `${dayName} ${dayNumber} ${monthName} ${year}`;
+
+    return formattedDate;
+  }
+
   const filterRestaurants = () => {
     const filteredRestaurants = restaurants.filter((restaurant) => {
       // Filter by category
@@ -112,58 +136,64 @@ function NewCastle() {
         ? restaurant.category.includes(selectedCategory)
         : true;
 
-       
-        let okay=false;
-        console.log("Date $ Meal",selectedDate,selectedMeal)
-      
-        for(let i=0;i<restaurant.tables.length;i++){
-          const tableDate = new Date(restaurant.tables[i].date);
-          tableDate.setHours(0, 0, 0, 0); // Set time to midnight to ensure consistent comparison
-          const tableDateString = tableDate.toISOString().split("T")[0];
-          if(tableDateString !== selectedDate && selectedDate!=="All Dates"){
-            continue;
+
+      let okay = false;
+
+      for (let i = 0; i < restaurant.tables.length; i++) {
+
+        if(restaurant.tables[i].isclosed){
+          continue;
+        }
+
+        const tableDate = new Date(restaurant.tables[i].date);
+        tableDate.setHours(0, 0, 0, 0); // Set time to midnight to ensure consistent comparison
+        const tableDateString = restaurant.tables[i].date;
+        // const tableDateString = tableDate.toISOString().split("T")[0];
+        if (tableDateString !== formo(selectedDate) && selectedDate !== "All Dates") {
+          continue;
+        }
+
+
+        console.log("Date $ Meal", selectedDate, selectedMeal, restaurant.tables[i].date)
+
+        if (selectedMeal === "Meal" || selectedMeal === "BreakFast") {
+          if (restaurant.tables[i].breakfast.accomodations && parseInt(restaurant.tables[i].breakfast.accomodations) > 0) {
+            okay = true;
+            break;
           }
-          
-          
-          
-          console.log("Here -> Date $ Meal",tableDateString,selectedDate)
-          if(selectedMeal==="Meal" || selectedMeal==="BreakFast"){
-            if(restaurant.tables[i].breakfast.accomodations && parseInt(restaurant.tables[i].breakfast.accomodations)>0){
-              okay=true;
-              break;
-            }
-            else{
-              break;
-            }
-          }
-          else if(selectedMeal==="Meal" || selectedMeal==="Lunch"){
-            if(restaurant.tables[i].lunch.accomodations && parseInt(restaurant.tables[i].lunch.accomodations)>0){
-              okay=true;
-              break;
-            }
-            else{
-              break;
-            }
-          }
-          else if(selectedMeal==="Meal" || selectedMeal==="Dinner First Call"){
-            if(restaurant.tables[i].dinnerfirstcall.accomodations && parseInt(restaurant.tables[i].dinnerfirstcall.accomodations)>0){
-              okay=true;
-              break;
-            }
-            else{
-              break;
-            }
-          }
-          else if(selectedMeal==="Meal" || selectedMeal==="Dinner Last Call"){
-            if(restaurant.tables[i].dinnerlastcall.accomodations && parseInt(restaurant.tables[i].dinnerlastcall.accomodations)>0){
-              okay=true;
-              break;
-            }
-            else{
-              break;
-            }
+          else {
+            break;
           }
         }
+        else if (selectedMeal === "Meal" || selectedMeal === "Lunch") {
+          if (restaurant.tables[i].lunch.accomodations && parseInt(restaurant.tables[i].lunch.accomodations) > 0) {
+            // console.log("Here -> Date $ Meal",tableDateString,selectedDate,restaurant.name,parseInt(restaurant.tables[i].lunch.accomodations))
+            okay = true;
+            break;
+          }
+          else {
+            break;
+          }
+        }
+        else if (selectedMeal === "Meal" || selectedMeal === "Dinner First Call") {
+          if (restaurant.tables[i].dinnerfirstcall.accomodations && parseInt(restaurant.tables[i].dinnerfirstcall.accomodations) > 0) {
+            okay = true;
+            break;
+          }
+          else {
+            break;
+          }
+        }
+        else if (selectedMeal === "Meal" || selectedMeal === "Dinner Last Call") {
+          if (restaurant.tables[i].dinnerlastcall.accomodations && parseInt(restaurant.tables[i].dinnerlastcall.accomodations) > 0) {
+            okay = true;
+            break;
+          }
+          else {
+            break;
+          }
+        }
+      }
 
       // Filter by selected date
       // const dateMatch =
@@ -186,7 +216,7 @@ function NewCastle() {
       return categoryMatch && okay;
     });
 
-    
+
 
     setRestaurants(filteredRestaurants);
   };
@@ -389,14 +419,14 @@ function NewCastle() {
                     // Find the table for the specific date
                     const table = restaurant.tables.find(t => {
                       const tableDate = new Date(t.date);
-                      
+
                       // Add one day to the table date
-                      tableDate.setDate(tableDate.getDate() );
-                    
+                      tableDate.setDate(tableDate.getDate());
+
                       // Manually format the table date without using toISOString
                       const tableDateString = `${tableDate.getFullYear()}-${String(tableDate.getMonth() + 1).padStart(2, '0')}-${String(tableDate.getDate()).padStart(2, '0')}`;
-                      
-                      
+
+
                       return tableDateString === date.fullDate;
                     });
 
@@ -429,7 +459,7 @@ function NewCastle() {
         </div>
         {/* Aside section */}
         <div className="hidden md:hidden lg:block border-l pl-24">
-          <button className="bg-red-400 text-3xl text-white rounded-lg px-4 py-2 mb-6 " onClick={()=>{
+          <button className="bg-red-400 text-3xl text-white rounded-lg px-4 py-2 mb-6 " onClick={() => {
             setSelectedCategory("");
             setSelectedDate("All Dates");
             setSelectedMeal("Meal");

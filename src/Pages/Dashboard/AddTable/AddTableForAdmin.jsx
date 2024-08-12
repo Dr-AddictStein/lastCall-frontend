@@ -355,7 +355,7 @@ const AddTableForAdmin = () => {
                 </div>
             </dialog>
             <div className='mt-8 w-full'>
-                <h2 className='text-2xl mb-4 text-white text-center font-semibold'>Upcoming Tables</h2>
+                <h2 className='text-2xl mb-4 text-white text-center font-semibold'>Upcoming Tables for {restu?.name}</h2>
                 <div className='flex flex-wrap justify-center'>
                     {upcomingTables.map((date) => (
                         <div key={date} className='bg-white shadow-md rounded-lg p-4 m-4 w-full md:w-1/2 lg:w-1/3'>
