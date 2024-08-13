@@ -451,12 +451,12 @@ function FindTable() {
                             <div className="bg-red-400  flex justify-center items-center rounded ml-[-7px]">
                                 <div className="py-4 flex justify-center">
                                     <button
-                                        className="bg-red-400 px-10 py-4 text-white font-bold cursor-pointer"
+                                        className="bg-red-400 px-10 py-4 text-white font-bold cursor-pointer text-lg"
                                         onClick={() => {
                                             filterRestaurants();
                                         }}
                                     >
-                                        Search
+                                        Find a table
                                     </button>
                                 </div>
                             </div>
