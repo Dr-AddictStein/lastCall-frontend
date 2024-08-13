@@ -57,6 +57,7 @@ const Booking = () => {
                     tableType: bookingTime,
                     time: bookingTimeDet,
                     cost: (user?.user?.role==='restaurant-employee')?5:10,
+                    allowDiscount:(user?.user?.role==='restaurant-employee')?false:true,
                     specialConditions: foodData.specialconditions // Send only necessary data
                 })
             });
@@ -177,7 +178,7 @@ const Booking = () => {
                         <h5 className="py-5 text-2xl font-semibold">{foodData?.name}</h5>
                         <div>
                             <p>
-                                <span className="text-slate-400">Booking fee: </span>{(user?.user?.role==='restaurant-employee')?"5$":"$10"} 
+                                <span className="text-slate-400">Booking fee: </span>{(user?.user?.role==='restaurant-employee')?"$5":"$10"} 
                             </p>
                             <p>
                                 <span className="text-slate-400">Discount: </span>50% of the
@@ -205,7 +206,7 @@ const Booking = () => {
             </form>
             <div className="text-slate-400 pb-10">
                 <h5 className="pt-20 text-xl font-semibold pb-4">Conditions</h5>
-                <ol className="list-decimal list-inside text-base text-justify">
+                <ol className="list-decimal list-inside text-sm text-justify">
                 <li>
                         Your reservation confirmation will be delivered to you by email. Present the reservation confirmation (on your phone or printed out) at the specified restaurant on the date and time of your booking.
                     </li>
