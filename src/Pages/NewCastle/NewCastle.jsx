@@ -261,22 +261,22 @@ function NewCastle() {
         <div className="relative lg:absolute flex flex-col lg:flex-row items-center lg:justify-between top-[-350px] text-5xl text-red-600 custom-gap">
           <div className="lg:w-[90%] text-slate-200">
             <div >
-              <p>{mainCity}</p>
+              {/* <p>{mainCity}</p> */}
             </div>
             <h2 className="text-5xl font-bold mt-10 mb-5">
               {mainCity} Restaurants
             </h2>
-            <p className="mb-5 text-xl">Dine early, save money</p>
+            {/* <p className="mb-5 text-xl">Dine early, save money</p> */}
           </div>
-          <div className="relative ">
+          <div className="relative top-20">
             <div className="absolute right-0 lg:right-auto lg:-top-36 transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-200 rounded-lg shadow-lg"></div>
             <div className="absolute right-0 lg:right-auto lg:-top-36 transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-50 rotate-3 rounded-lg shadow-lg"></div>
-            <div className="absolute right-0 lg:right-auto lg:-top-44 transform -translate-x-1/2 lg:translate-x-0 w-96 z-10 px-6 pt-10 text-center rounded-lg">
+            <div className="absolute right-0 lg:right-auto lg:-top-44 transform -translate-x-1/2 lg:translate-x-0 w-96 z-10 px-6 pt-12 text-center rounded-lg">
               <h2 className="text-blue-950 text-4xl mb-4 font-bold">
-                Early bird dining
+                Restaurants by City
               </h2>
               <p className="text-black text-xl">
-                Book the first table at {mainCity} restaurants and get 50% off
+                Book a reservation at {mainCity} restaurants and get 50% off
                 the food bill for two, three, or four people!
               </p>
 
@@ -459,13 +459,13 @@ function NewCastle() {
         </div>
         {/* Aside section */}
         <div className="hidden md:hidden lg:block border-l pl-24">
-          <button className="bg-red-400 text-3xl text-white rounded-lg px-4 py-2 mb-6 " onClick={() => {
+          {/* <button className="bg-red-400 text-3xl text-white rounded-lg px-4 py-2 mb-6 " onClick={() => {
             setSelectedCategory("");
             setSelectedDate("All Dates");
             setSelectedMeal("Meal");
             setRestaurants(mainrestaurants)
             console.log("Here")
-          }}>Reset Filters</button>
+          }}>Reset Filters</button> */}
           <div className="">
             <p className='text-center font-semibold'>Category</p>
             <ul className="p-2 z-[1] w-48">

@@ -18,6 +18,7 @@ function FindTable() {
     const [selectedRegion2, setSelectedRegion] = useState('');
     const [selectedCity2, setSelectedCity] = useState('');
     const [selectedMeal2, setSelectedMeal] = useState('');
+    const [selectedMeal3, setSelectedMeal3] = useState('');
 
     const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
     const [isRegionDropdownOpen, setIsRegionDropdownOpen] = useState(false);
@@ -28,13 +29,13 @@ function FindTable() {
     const handleCategoryChange = (category) => {
         setSelectedCategory(category);
     };
-    
-    useEffect(()=>{
-        let dex = restaurants.filter((rest)=>{
+
+    useEffect(() => {
+        let dex = restaurants.filter((rest) => {
             return rest.category.includes(selectedCategory);
         })
         setRestaurants(dex);
-    },[selectedCategory])
+    }, [selectedCategory])
 
     const fetchCities = () => {
         fetch('http://localhost:4000/api/city')
@@ -74,6 +75,7 @@ function FindTable() {
         setSelectedDate(selectedDate)
         setSelectedCity(selectedCity)
         setSelectedMeal(selectedMeal)
+        setSelectedMeal3(selectedMeal)
         setSelectedRegion(selectedRegion)
     }
 
@@ -182,6 +184,7 @@ function FindTable() {
 
         console.log("AAAAAAAAAAAAA", filteredData);
 
+        setSelectedMeal3(selectedMeal2);
         setRestaurants(filteredData);
     }
     const fetchRestaurant = () => {
@@ -299,12 +302,12 @@ function FindTable() {
                     <div className="relative">
                         <div className="absolute left-[450px] transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-200 rounded-lg shadow-lg"></div>
                         <div className="absolute left-[450px] transform -translate-x-1/2 lg:translate-x-0 w-96 h-48 bg-slate-50 rotate-3 rounded-lg shadow-lg"></div>
-                        <div className="absolute left-[450px] transform -translate-x-1/2 lg:translate-x-0 w-96 z-10 px-6 pt-10 text-center rounded-lg">
+                        <div className="absolute left-[450px] transform -translate-x-1/2 lg:translate-x-0 w-96 z-10 px-6 pt-5 text-center rounded-lg">
                             <h2 className="text-blue-950 text-4xl mb-4 font-bold">
                                 Restaurant Search
                             </h2>
                             <p className="text-black text-xl">
-                                Book a reservation at {selectedCity2} restaurants and get 50% off
+                                Book a reservation at {selectedCity2 === "Select a City" ? "any" : `${selectedCity2}`} restaurants and get 50% off
                                 the food bill for two, three, or four people!
                             </p>
 
@@ -324,7 +327,141 @@ function FindTable() {
                                 </button>
                             </Link>
                         </div>
-                        <form className="grid grid-flow-cols-1 bg-white items-center rounded gap-2 lg:grid-cols-4 text-black mt-72">
+                        <div className="grid grid-flow-cols-1 bg-white items-center rounded gap-2 lg:grid-cols-5 text-black mt-72 ml-8">
+                            <div className="dropdown bg-white border-r py-4 rounded lg:w-60">
+                                <div
+                                    tabIndex={0}
+                                    role="button"
+                                    className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
+                                    onClick={() => setIsDateDropdownOpen(!isDateDropdownOpen)}
+                                >
+                                    <SlCalender /> {selectedDate2}
+                                </div>
+                                {isDateDropdownOpen && (
+                                    <ul
+                                        tabIndex={0}
+                                        className="dropdown-content z-[1] shadow bg-base-100 w-3/4 lg:w-60 mt-10 overflow-y-auto max-h-40 text-left text-xl"
+                                    >
+                                        {dates.map((date, index) => (
+                                            <li
+                                                key={index}
+                                                className="hover:bg-blue-900 hover:text-white cursor-pointer p-3"
+                                                onClick={() => handleDateClick(date)}
+                                            >
+                                                <p>{date}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                            <div className="dropdown bg-white border-r py-4 rounded lg:w-60">
+                                <div
+                                    tabIndex={0}
+                                    role="button"
+                                    className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
+                                    onClick={() => setIsRegionDropdownOpen(!isRegionDropdownOpen)}
+                                >
+                                    <FaRegMap /> {selectedRegion2}
+                                </div>
+                                {isRegionDropdownOpen && (
+                                    <ul
+                                        tabIndex={0}
+                                        className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left text-xl "
+                                    >
+                                        {regions.map((region, index) => (
+                                            <li
+                                                key={index}
+                                                className="hover:bg-blue-900 cursor-pointer hover:text-white p-3"
+                                                onClick={() => handleRegionClick(region)}
+                                            >
+                                                <p>{region.name}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                            <div className="dropdown bg-white border-r py-4 rounded lg:w-60">
+                                <div
+                                    tabIndex={0}
+                                    role="button"
+                                    className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
+                                    onClick={() => setIsCityDropdownOpen(!isCityDropdownOpen)}
+                                >
+                                    <PiCityLight /> {selectedCity2}
+                                </div>
+                                {isCityDropdownOpen && (
+                                    <ul
+                                        tabIndex={0}
+                                        className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left text-xl"
+                                    >
+                                        {cities.map((city, index) => (
+                                            <li
+                                                key={index}
+                                                className="hover:bg-blue-900 cursor-pointer hover:text-white p-3"
+                                                onClick={() => handleCityClick(city)}
+                                            >
+                                                <p>{city.name}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                            <div className="dropdown bg-white border-r py-4 rounded">
+                                <div
+                                    tabIndex={0}
+                                    role="button"
+                                    className="m-1 flex items-center justify-center text-xl gap-4 select focus:outline-none border-none"
+                                    onClick={() => setIsMealDropdownOpen(!isMealDropdownOpen)}
+                                >
+                                    <IoMdRestaurant /> {selectedMeal2}
+                                </div>
+                                {isMealDropdownOpen && (
+                                    <ul
+                                        tabIndex={0}
+                                        className="dropdown-content z-[1] shadow bg-base-100 w-60 mt-10 overflow-y-auto max-h-40 text-left text-xl"
+                                    >
+                                        <li
+                                            className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                                            onClick={() => handleMealClick('Breakfast')}
+                                        >
+                                            <p>Breakfast</p>
+                                        </li>
+                                        <li
+                                            className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                                            onClick={() => handleMealClick('Lunch')}
+                                        >
+                                            <p>Lunch</p>
+                                        </li>
+                                        <li
+                                            className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                                            onClick={() => handleMealClick('Dinner First Call')}
+                                        >
+                                            <p>Dinner First Call</p>
+                                        </li>
+                                        <li
+                                            className="cursor-pointer p-3 hover:bg-blue-900 hover:text-white"
+                                            onClick={() => handleMealClick('Dinner Last Call')}
+                                        >
+                                            <p>Dinner Last Call</p>
+                                        </li>
+
+                                    </ul>
+                                )}
+                            </div>
+                            <div className="bg-red-400  flex justify-center items-center rounded ml-[-7px]">
+                                <div className="py-4 flex justify-center">
+                                    <button
+                                        className="bg-red-400 px-10 py-4 text-white font-bold cursor-pointer"
+                                        onClick={() => {
+                                            filterRestaurants();
+                                        }}
+                                    >
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {/* <form className="grid grid-flow-cols-1 bg-white items-center rounded gap-2 lg:grid-cols-5 text-black mt-72">
                             <div className="dropdown bg-white border-r py-4 rounded lg:w-[310px]">
                                 <div
                                     tabIndex={0}
@@ -445,12 +582,19 @@ function FindTable() {
                                     </ul>
                                 )}
                             </div>
-                        </form>
-                        <div className="mt-2 bg-red-400 rounded-md text-center text-white py-1 font-semibold hover:bg-red-500">
+                            <div className="  border-r  rounded">
+                                <div className=" bg-red-400 rounded-md text-center h-[100px] text-white  font-semibold hover:bg-red-500">
+                                    <button className='w-full' onClick={() => {
+                                        filterRestaurants();
+                                    }}>Search</button>
+                                </div>
+                            </div>
+                        </form> */}
+                        {/* <div className="mt-2 bg-red-400 rounded-md text-center text-white py-1 font-semibold hover:bg-red-500">
                             <button className='w-full' onClick={() => {
                                 filterRestaurants();
                             }}>Search</button>
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>
@@ -507,7 +651,7 @@ function FindTable() {
                                         const table = restaurant.tables.find(t => t.date === date);
                                         const hasTableForDate = table !== undefined;
 
-                                        const mealTime = hasTableForDate ? getMealTime(table, selectedMeal2) : 'Time Unavailable';
+                                        const mealTime = hasTableForDate ? getMealTime(table, selectedMeal3) : 'Time Unavailable';
                                         const isMealAvailable = mealTime !== 'Time Unavailable';
 
                                         return (
@@ -521,7 +665,7 @@ function FindTable() {
                                                 {isMealAvailable && (
                                                     <>
                                                         <p className="mb-3">{mealTime}</p>
-                                                        <span className="absolute w-16 -bottom-3 left-2 bg-orange-600 p-1 text-sm">
+                                                        <span className="absolute w-16 -bottom-3 left-[18px] bg-orange-600 p-1 text-sm">
                                                             50% off
                                                         </span>
                                                     </>
@@ -536,7 +680,7 @@ function FindTable() {
                 </div>
                 {/* Aside section */}
                 <div className="hidden md:hidden lg:block border-l pl-24">
-                    <button className="bg-red-400 text-3xl text-white rounded-lg px-4 py-2 mb-6 " onClick={() => {
+                    {/* <button className="bg-red-400 text-3xl text-white rounded-lg px-4 py-2 mb-6 " onClick={() => {
                         setSelectedCategory("");
                         setSelectedDate("All Dates");
                         setSelectedMeal("Meal");
@@ -544,7 +688,7 @@ function FindTable() {
                         setSelectedRegion("Select a Region");
                         setRestaurants(globalRestaurants)
                         console.log("Here")
-                    }}>Reset Filters</button>
+                    }}>Reset Filters</button> */}
                     <div className="">
                         <p className='text-center font-semibold'>Category</p>
                         <ul className="p-2 z-[1] w-48">
