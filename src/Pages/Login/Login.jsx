@@ -7,7 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 import '../SignUp/SignUp.css'
 import { Helmet } from "react-helmet-async";
 import { useLogin } from '../../hooks/useLogin';
-import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import { FacebookAuthProvider, GoogleAuthProvider, getAuth } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { app } from '../../auth/firebase';
 import { toast, ToastContainer } from 'react-toastify';
@@ -27,6 +27,20 @@ function Login() {
       const resultsFromGoogle = await signInWithPopup(auth, provider);
       console.log("APAPAPAPAPAPAPA", resultsFromGoogle.user)
       const response = await gLogin(resultsFromGoogle.user.email);
+      if (response) alert(response)
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleFacebookLogin = async () => {
+    const provider = new FacebookAuthProvider();
+    provider.setCustomParameters({ prompt: "select_account" });
+    try {
+      const resultsFromFacebook = await signInWithPopup(auth, provider);
+      console.log("APAPAPAPAPAPAPA", resultsFromFacebook.user);
+      const response = await gLogin(resultsFromFacebook.user.email);
       if (response) alert(response)
     }
     catch (error) {
@@ -111,7 +125,7 @@ function Login() {
                 </button>
               </p>
               <p className="mb-3">
-                <button className="btn signup-btn btn-facebook">
+                <button className="btn signup-btn btn-facebook" onClick={handleFacebookLogin}>
                   <FaFacebook className="text-xl mr-2" /> Continue with Facebook
                 </button>
               </p>
