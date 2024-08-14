@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import "./SignUp.css";
 import { Helmet } from "react-helmet-async";
-import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import { FacebookAuthProvider, GoogleAuthProvider, getAuth } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { app } from '../../auth/firebase';
 import { useSignup } from "../../hooks/useSignup";
@@ -37,6 +37,20 @@ function SignUp() {
       const resultsFromGoogle = await signInWithPopup(auth, provider);
       console.log("APAPAPAPAPAPAPA", resultsFromGoogle.user)
       const response = await gSignup(resultsFromGoogle.user.displayName.split(' ')[0], resultsFromGoogle.user.displayName.split(' ')[1], resultsFromGoogle.user.email, resultsFromGoogle.user.photoURL);
+      if (response) alert(response)
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleFacebookLogin = async () => {
+    const provider = new FacebookAuthProvider();
+    provider.setCustomParameters({ prompt: "select_account" });
+    try {
+      const resultsFromFacebook = await signInWithPopup(auth, provider);
+      console.log("APAPAPAPAPAPAPA", resultsFromFacebook.user);
+      const response = await gSignup(resultsFromFacebook.user.displayName.split(' ')[0], resultsFromFacebook.user.displayName.split(' ')[1], resultsFromFacebook.user.email, resultsFromFacebook.user.photoURL);
       if (response) alert(response)
     }
     catch (error) {
@@ -165,7 +179,9 @@ function SignUp() {
                 </button>
               </p>
               <p className="mb-2">
-                <button className="btn signup-btn btn-facebook">
+                <button className="btn signup-btn btn-facebook"
+                  onClick={handleFacebookLogin}
+                >
                   <FaFacebook className="text-xl mr-2" /> Continue with Facebook
                 </button>
               </p>
